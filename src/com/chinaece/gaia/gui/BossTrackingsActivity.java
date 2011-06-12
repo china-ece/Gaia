@@ -30,7 +30,7 @@ import com.chinaece.gaia.types.BossTrackingType;
 public class BossTrackingsActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState); 
 		setContentView(R.layout.pendinglist);
 		refreshData();
 	}
