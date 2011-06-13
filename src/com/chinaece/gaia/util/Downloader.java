@@ -70,5 +70,4 @@ public class Downloader implements Runnable{
             e.printStackTrace();   
        }
 	}
-
 }

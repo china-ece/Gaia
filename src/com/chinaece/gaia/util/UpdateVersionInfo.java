@@ -1,8 +1,10 @@
 package com.chinaece.gaia.util;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -25,6 +27,7 @@ public class UpdateVersionInfo {
 
 		XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
 		XmlPullParser parser = parserCreator.newPullParser();
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
 		parser.setInput(is, "utf-8");
 		int type = parser.getEventType();
 		VersionInfo verUpdateInfo = new VersionInfo();
@@ -74,6 +77,7 @@ public class UpdateVersionInfo {
 			public void run() {
 				try {
 					int versionCode = UpdateVersionInfo.getCurrentVersionCode(context);
+					System.err.println(versionCode);
 					File apk = new File("/sdcard/ece/ECEOA.apk");
 					if(apk.exists()){
 						PackageManager pm = context.getPackageManager();  
@@ -84,6 +88,7 @@ public class UpdateVersionInfo {
 			                	return;
 			            }  
 					}
+					
 					String latestverCode = UpdateVersionInfo.getServerVerCode(context);
 					int verCode = Integer.parseInt(latestverCode);
 					if (versionCode >= verCode) {

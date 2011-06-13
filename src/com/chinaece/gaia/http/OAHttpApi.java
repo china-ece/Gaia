@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import com.chinaece.gaia.constant.Gaia;
 import com.chinaece.gaia.parsers.AppParser;
 import com.chinaece.gaia.parsers.BossTrackParser;
+import com.chinaece.gaia.parsers.CalendarParsers;
 import com.chinaece.gaia.parsers.ContactParser;
 import com.chinaece.gaia.parsers.DocumentParser;
 import com.chinaece.gaia.parsers.PendingParser;
@@ -17,6 +18,7 @@ import com.chinaece.gaia.parsers.UserParser;
 import com.chinaece.gaia.parsers.WeatherParser;
 import com.chinaece.gaia.types.AppType;
 import com.chinaece.gaia.types.BossTrackingType;
+import com.chinaece.gaia.types.CalendarType;
 import com.chinaece.gaia.types.ContactType;
 import com.chinaece.gaia.types.DocumentType;
 import com.chinaece.gaia.types.GaiaType;
@@ -125,4 +127,16 @@ public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
 		}
 		return null;
 	}
+	
+	public Collection<CalendarType> getBossCalendar(String token , String start ,String end){
+		HttpGet get = createHttpGet(url+"/client/getBossCalendar.action",new BasicNameValuePair("token", token),new BasicNameValuePair("start", start),new BasicNameValuePair("end", end));
+		Collection<? extends GaiaType> rst = doRequest(get,new CalendarParsers());
+		if(rst != null){
+			return(Collection<CalendarType>)rst;
+		}
+		return null;
+	}
+	
+	
+
 }

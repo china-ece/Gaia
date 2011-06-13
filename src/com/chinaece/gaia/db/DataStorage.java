@@ -55,7 +55,7 @@ public class DataStorage {
 
 	public static boolean clear(Context context) {
 		FileOutputStream stream = null;
-		try {
+		try {		
 			stream = context.openFileOutput(Filename, Context.MODE_WORLD_WRITEABLE);
 			properties.clear();
 			properties.store(stream, "");
@@ -74,5 +74,27 @@ public class DataStorage {
 		}
 		return true;
 	}
+	
+	
+	public static boolean clearchild(Context context , String key){
+		FileOutputStream stream = null;
+		try {
+			stream = context.openFileOutput(Filename, Context.MODE_WORLD_WRITEABLE);
+			properties.remove(key);
+		} catch (FileNotFoundException e) {
+			return false;
+		}
+		finally {
+			try {
+				if (stream != null)
+					stream.close();
+			} catch (IOException e) {
+			}
+		}
+		return true;
+	}
+
+	
+	
 
 }

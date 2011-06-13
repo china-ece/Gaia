@@ -68,10 +68,11 @@ public class MainActivity extends Activity {
 				R.drawable.contact,
 				R.drawable.weatherforecast,
         		R.drawable.document,
+        		R.drawable.dateplane,
         		R.drawable.pendingzz
 		};
 		ArrayList<HashMap<String, Object>> meumList = new ArrayList<HashMap<String, Object>>();
-		String[] mainmenu = { "待办提醒",  "通讯录","天气预报","文件管理","待办追踪"};
+		String[] mainmenu = { "待办提醒",  "通讯录","天气预报","文件管理","日程","待办追踪"};
 		if((token.toString()).indexOf("11df-dcc6-64fcf96a-8a70-5b9af8e9e0ca") == -1){
 			for (int i = 0; i < mainmenu.length-1; i++) {
 				HashMap<String, Object> map = new HashMap<String, Object>();
@@ -119,6 +120,11 @@ public class MainActivity extends Activity {
 					startActivity(adjuctIntent);
 					break;
 				case 4:
+					Intent calIntent = new Intent(MainActivity.this,
+							CalendarActivity.class);
+					startActivity(calIntent);
+					break;
+				case 5:
 					Intent trackIntent = new Intent(MainActivity.this,BossTrackingsActivity.class);
 					startActivity(trackIntent);
 				default:

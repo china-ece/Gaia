@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,24 +20,30 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.chinaece.gaia.R;
 import com.chinaece.gaia.db.DataStorage;
+import com.chinaece.gaia.gui.FlowPathActivity.SubmitTask;
 import com.chinaece.gaia.http.OAHttpApi;
 import com.chinaece.gaia.types.DocumentType;
+import com.chinaece.gaia.types.documentitem.BranchType;
 import com.chinaece.gaia.types.documentitem.ItemType;
 
 public class DocumentActivity extends Activity {
 	private URL formatUrl;
-	private String docid, formid, appid, token;
+	private String docid, formid, appid, token, str="";
 	private LinearLayout linearLayout;
 	private DocumentType document;
 	private boolean isNormal = true, isOpinion = false;
@@ -50,35 +57,35 @@ public class DocumentActivity extends Activity {
 		menu.add(Menu_NORMAL, Menu.FIRST + 1, 1, "保存").setIcon(
 				android.R.drawable.ic_menu_save);
 		menu.add(Menu_NORMAL,Menu.FIRST+2,1,"提交").setIcon(android.R.drawable.ic_menu_send);
-		//
-		menu.add(Menu_OPINION, Menu.FIRST + 1, 1, "保存").setIcon(
-				android.R.drawable.ic_menu_save);
-		menu.add(Menu_OPINION,Menu.FIRST+2,1,"提交").setIcon(android.R.drawable.ic_menu_send);
-		menu.add(Menu_OPINION,Menu.FIRST+3,1,"填写意见").setIcon(android.R.drawable.ic_menu_edit);
-		//
-		menu.add(Menu_EXIT_OPINION,Menu.FIRST+4,1,"退出编辑").setIcon(android.R.drawable.ic_menu_save);
+//		//
+//		menu.add(Menu_OPINION, Menu.FIRST + 1, 1, "保存").setIcon(
+//				android.R.drawable.ic_menu_save);
+//		menu.add(Menu_OPINION,Menu.FIRST+2,1,"提交").setIcon(android.R.drawable.ic_menu_send);
+//		menu.add(Menu_OPINION,Menu.FIRST+3,1,"填写意见").setIcon(android.R.drawable.ic_menu_edit);
+//		//
+//		menu.add(Menu_EXIT_OPINION,Menu.FIRST+4,1,"退出编辑").setIcon(android.R.drawable.ic_menu_save);
 		return true;
 	}
 
-	@Override
-	public boolean onPrepareOptionsMenu(Menu menu) {
-		if(isNormal){
-			menu.setGroupVisible(Menu_NORMAL, true);
-			menu.setGroupVisible(Menu_EXIT_OPINION, false);
-			menu.setGroupVisible(Menu_OPINION, false);
-		}
-		else if(isOpinion){
-			menu.setGroupVisible(Menu_NORMAL, false);
-			menu.setGroupVisible(Menu_EXIT_OPINION, true);
-			menu.setGroupVisible(Menu_OPINION, false);
-		}
-		else{
-			menu.setGroupVisible(Menu_NORMAL, false);
-			menu.setGroupVisible(Menu_EXIT_OPINION, false);
-			menu.setGroupVisible(Menu_OPINION, true);
-		}
-		return super.onPrepareOptionsMenu(menu);
-	}
+//	@Override
+//	public boolean onPrepareOptionsMenu(Menu menu) {
+//		if(isNormal){
+//			menu.setGroupVisible(Menu_NORMAL, true);
+//			menu.setGroupVisible(Menu_EXIT_OPINION, false);
+//			menu.setGroupVisible(Menu_OPINION, false);
+//		}
+//		else if(isOpinion){
+//			menu.setGroupVisible(Menu_NORMAL, false);
+//			menu.setGroupVisible(Menu_EXIT_OPINION, true);
+//			menu.setGroupVisible(Menu_OPINION, false);
+//		}
+//		else{
+//			menu.setGroupVisible(Menu_NORMAL, false);
+//			menu.setGroupVisible(Menu_EXIT_OPINION, false);
+//			menu.setGroupVisible(Menu_OPINION, true);
+//		}
+//		return super.onPrepareOptionsMenu(menu);
+//	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -111,30 +118,31 @@ public class DocumentActivity extends Activity {
 			savetask.execute(formatUrl.toString(), token.toString(),
 					saveParams.toString());
 			break;
-		case Menu.FIRST+3:
-			isOpinion = true;
-			for(int i = 0;i<linearLayout.getChildCount();i++){
-				View v = linearLayout.getChildAt(i);
-				if(v instanceof EditText && ((EditText) v).getInputType()== (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE) ){
-					v.setBackgroundColor(Color.GRAY);
-					getDialog((EditText) v);
-					v.setOnClickListener(new OnClickListener() {
-						
-						@Override
-						public void onClick(final View v) {
-							getDialog((EditText) v).show();
-						}
-					});
-				}
-			}
-			break;
-		case Menu.FIRST+4:
-			isOpinion = false;
-			for(EditText edit :infoMap.keySet()){
-				edit.setBackgroundColor(Color.WHITE);
-				edit.setOnClickListener(null);
-			}
-			break;
+//		case Menu.FIRST+3:
+//			isOpinion = true;
+//			for(int i = 0;i<linearLayout.getChildCount();i++){
+//				View v = linearLayout.getChildAt(i);
+//				if(v instanceof EditText && ((EditText) v).getInputType()== (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE) ){
+//					v.setBackgroundColor(Color.GRAY);
+//					getDialog((EditText) v);
+//					v.setOnLongClickListener(new OnLongClickListener() {
+//						
+//						@Override
+//						public boolean onLongClick(View v) {
+//							getDialog((EditText) v).show();
+//							return false;
+//						}
+//					});
+//				}
+//			}
+//			break;
+//		case Menu.FIRST+4:
+//			isOpinion = false;
+//			for(EditText edit :infoMap.keySet()){
+//				edit.setBackgroundColor(Color.WHITE);
+//				edit.setOnClickListener(null);
+//			}
+//			break;
 		}
 		return false;
 	}
@@ -173,38 +181,78 @@ public class DocumentActivity extends Activity {
 	private AlertDialog getDialog(final EditText edit){
 		if(infoMap.containsKey(edit))
 			return infoMap.get(edit);
+		LinearLayout lin = new LinearLayout(getApplicationContext());
+		lin.setOrientation(LinearLayout.VERTICAL);
 		final EditText info = new EditText(getApplicationContext());
-		info.setMinLines(5);
+		info.setMinLines(3);
+		final RadioGroup rg = new RadioGroup(getApplicationContext());
+		final RadioButton rb1 = new RadioButton(getApplicationContext());
+		rb1.setText("已阅");
+		final RadioButton rb2 = new RadioButton(getApplicationContext());
+		rb2.setText("同意");
+		final RadioButton rb3 = new RadioButton(getApplicationContext());
+		rb3.setText("不同意");
+		rg.addView(rb1);
+		rg.addView(rb2);
+		rg.addView(rb3);
+		lin.addView(info);
+		lin.addView(rg);
+		rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				if(checkedId == rb1.getId()){
+					str = rb1.getText().toString();
+					info.setText(str);
+				}
+				if(checkedId == rb2.getId()){
+					str = rb2.getText().toString();
+					info.setText(str);
+				}
+				if(checkedId == rb3.getId()){
+					str = rb3.getText().toString();
+					info.setText(str);
+				}
+			}
+		});
 		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DocumentActivity.this);
 		alertBuilder.setTitle("请输入审批意见");
-		alertBuilder.setView(info);
+		alertBuilder.setView(lin);
 		alertBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				if(info.getTag() == null)
-					info.setTag(edit.getText());
-				if(info.getText().toString().trim().equals("")){
-					edit.setText(info.getTag().toString());
-					return;
-				}
-				StringBuffer sb = new StringBuffer();
-				SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				sb.append(info.getTag().toString());
-				sb.append("\n");
-				sb.append(info.getText().toString());
-				sb.append(" ");
-				sb.append(DataStorage.properties.getProperty("name"));
-				sb.append(" ");
-				sb.append(date.format(new Date()));
-				edit.setText(sb.toString());
+//				if(str.equals("")){
+//					Toast.makeText(getApplicationContext(), "请选择意见", Toast.LENGTH_SHORT).show();
+//				}
+//				else{
+					if(info.getTag() == null)
+						info.setTag(edit.getText());
+					if(info.getText().toString().trim().equals("")){
+						edit.setText(info.getTag().toString());
+						return;
+					}
+					StringBuffer sb = new StringBuffer();
+					System.err.println(str);
+					SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					sb.append(info.getTag().toString());
+					sb.append("\n");
+					sb.append(info.getText().toString());
+					sb.append(" ");
+					sb.append(DataStorage.properties.getProperty("name"));
+					sb.append(" ");
+					sb.append(date.format(new Date()));
+					edit.setText(sb.toString());
+					str = "";
+//				}
+				
 			}
 		});
 		alertBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
+				dialog.dismiss(); 
 			}
 		});
 		AlertDialog dialog = alertBuilder.create();
@@ -248,7 +296,22 @@ public class DocumentActivity extends Activity {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
+			for(int i = 0;i<linearLayout.getChildCount();i++){
+				View v = linearLayout.getChildAt(i);
+				if(v instanceof EditText && ((EditText) v).getInputType()== (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE) ){
+					getDialog((EditText) v);
+					v.setOnLongClickListener(new OnLongClickListener() {
+						
+						@Override
+						public boolean onLongClick(View v) {
+							getDialog((EditText) v).show();
+							return false;
+						}
+					});
+				}
+			}
 		}
+		
 	}
 	
 	class SaveTask extends AsyncTask<String, Integer, Boolean> {
@@ -282,16 +345,80 @@ public class DocumentActivity extends Activity {
 						Toast.makeText(getApplicationContext(), "没有提交路径，请联系管理员", Toast.LENGTH_SHORT).show();
 					}
 					else{
-						Bundle bundle = new Bundle();
-						bundle.putSerializable("branches", document.getFlowPath());
-						bundle.putString("currnodeid", document.getCurrNodeid());
-						bundle.putString("docid", docid);
-						bundle.putString("appid", appid);
-						bundle.putInt("version", document.getVersion());
-						Intent intent = new Intent(DocumentActivity.this, FlowPathActivity.class);
-						intent.putExtras(bundle);
-						startActivity(intent);
-						DocumentActivity.this.finish();
+						if(document.getFlowPath().size() == 1 && document.getFlowPath().get(0).getPossibleValue().size()== 0){
+							for(BranchType bundle:document.getFlowPath()){
+								if(bundle.getMode()==0){
+									JSONObject  submit = new JSONObject();
+									JSONArray submitTo = new JSONArray();
+									JSONObject sub = new JSONObject();
+									String currnodeid = document.getCurrNodeid();
+									int version = document.getVersion();
+									try {
+										sub.put("nodeid",bundle.getPathid().toString());
+										sub.put("isToPerson", "false");
+										sub.put("userids", "[]");
+										submitTo.put(sub);
+										submit.put("version", version);
+										submit.put("docid", docid);
+										submit.put("appid", appid);
+										submit.put("currnodeid", currnodeid);
+										JSONArray ja = new JSONArray();
+										ja.put(bundle.getPathid().toString());
+										submit.put("nextids",ja );
+										submit.put("flowtype", bundle.getFlowtype().toString());
+										submit.put("submitto", submitTo.toString());
+										String token = DataStorage.properties.getProperty("token");
+										URL formatUrl = new URL(DataStorage.properties.getProperty("url"));
+										SubmitTask submittask = new SubmitTask();
+										submittask.execute(formatUrl.toString(), token.toString(),
+									submit.toString());
+										System.err.println(submit.toString());
+									} catch (JSONException e) {
+										e.printStackTrace();
+									} catch (MalformedURLException e) {
+										e.printStackTrace();
+									}
+								}
+								else {
+									JSONObject  submit = new JSONObject();
+									String currnodeid = document.getCurrNodeid();
+									int version = document.getVersion();
+									try {
+										submit.put("version", version);
+										submit.put("docid", docid);
+										submit.put("appid", appid);
+										submit.put("currnodeid", currnodeid);
+										JSONArray ja = new JSONArray();
+										ja.put(bundle.getPathid().toString());
+										submit.put("nextids",ja );
+										submit.put("flowtype", bundle.getFlowtype().toString());
+										submit.put("submitto", "");
+										System.err.println(submit.toString());
+										String token = DataStorage.properties.getProperty("token");
+										URL formatUrl = new URL(DataStorage.properties.getProperty("url"));
+										SubmitTask submittask = new SubmitTask();
+										submittask.execute(formatUrl.toString(), token.toString(),
+									submit.toString());
+									} catch (JSONException e) {
+										e.printStackTrace();
+									} catch (MalformedURLException e) {
+										e.printStackTrace();
+									}
+								}
+							}
+						}
+						else{
+							Bundle bundle = new Bundle();
+							bundle.putSerializable("branches", document.getFlowPath());
+							bundle.putString("currnodeid", document.getCurrNodeid());
+							bundle.putString("docid", docid);
+							bundle.putString("appid", appid);
+							bundle.putInt("version", document.getVersion());
+							Intent intent = new Intent(DocumentActivity.this, FlowPathActivity.class);
+							intent.putExtras(bundle);
+							startActivity(intent);
+							DocumentActivity.this.finish();
+						}
 					}
 				}
 				else{
@@ -305,6 +432,37 @@ public class DocumentActivity extends Activity {
 		}
 	}
 	
+	class SubmitTask extends AsyncTask<String, Integer, Boolean> {
+		private ProgressDialog dialog;
+
+		@Override
+		protected void onPreExecute() {
+			dialog = ProgressDialog.show(DocumentActivity.this, "请稍等...",
+					"正在提交...");
+		}
+		
+		@Override
+		protected Boolean doInBackground(String... params) {
+			OAHttpApi OaApi = new OAHttpApi(params[0]);
+			Boolean flag = OaApi.submitDocumnet(params[1],
+					params[2]);
+			return flag;
+		}
+		
+		@Override
+		protected void onPostExecute(Boolean flag) {
+			dialog.dismiss();
+			if(flag){
+				Toast.makeText(getApplicationContext(), "提交成功", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(DocumentActivity.this,MainActivity.class);
+				startActivity(intent);
+				DocumentActivity.this.finish();
+			}
+			else{
+				Toast.makeText(getApplicationContext(), "提交失败", Toast.LENGTH_LONG).show();
+			}
+		}
+	}
 	@Override
 	protected void onDestroy() {
 		if(infoMap!=null)

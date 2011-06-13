@@ -147,7 +147,7 @@ abstract public class AbstractHttpAPI implements HttpAPI{
 				}catch (JSONException e) {
 					Log.e(Gaia.TAG_JSON, "json error");
 					return null;
-				}
+				}              
 			case 404:
 				Log.e(Gaia.TAG_HTTP, "wrong http request, wrong address?");
 				return null;
