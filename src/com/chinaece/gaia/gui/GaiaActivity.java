@@ -1,4 +1,7 @@
-package com.chinaece.gaia;
+package com.chinaece.gaia.gui;
+
+import com.chinaece.gaia.R;
+import com.chinaece.gaia.R.layout;
 
 import android.app.Activity;
 import android.os.Bundle;

@@ -11,7 +11,7 @@
         android:label="@string/app_name" >
         <activity
             android:label="@string/app_name"
-            android:name=".GaiaActivity" >
+            android:name=".gui.GaiaActivity" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
 
