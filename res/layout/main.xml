@@ -1,12 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+	android:orientation="vertical" 
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent" 
+	android:gravity="center">
+	<LinearLayout 
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="vertical" 
+		android:layout_width="fill_parent"
+		android:layout_height="300dip">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello" />
 
+		<!-- 标题 -->
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="vertical" 
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent" 
+			android:layout_weight="1"
+			android:gravity="center">
+			<TextView 
+			    android:layout_width="fill_parent"
+				android:layout_height="wrap_content" 
+				android:text="手机OA"
+				android:gravity="center"
+				android:textSize="28sp" />
+		</LinearLayout>
+		<!-- 设置 -->
+		<LinearLayout 
+		    xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="horizontal" 
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			 android:layout_weight="1"
+			android:padding="5dip">
+			<TextView 
+			    android:layout_width="fill_parent"
+				android:layout_height="wrap_content" 
+				android:text="OA网址"
+				android:gravity="center" 
+				android:layout_weight="4" />
+			<EditText 
+			    android:id="@+id/edtOAUrl"
+			    android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginRight="5dip" 
+				android:text="http://10.4.3.1:8080/obpm"
+				android:layout_weight="1" />
+		</LinearLayout>
+		<!-- 企业域 -->
+		<LinearLayout 
+		    xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="horizontal" 
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			 android:layout_weight="1"
+			android:padding="5dip">
+			<TextView 
+			    android:layout_width="fill_parent"
+				android:layout_height="wrap_content" 
+				android:text="企业域"
+				android:gravity="center" 
+				android:layout_weight="4" />
+			<EditText 
+			    android:id="@+id/edtDomain"
+			    android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginRight="5dip" 
+				android:text="ece" 
+				android:layout_weight="1" />
+		</LinearLayout>
+		<!-- 帐号 -->
+		<LinearLayout 
+		    xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="horizontal" 
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			 android:layout_weight="1"
+			android:padding="5dip">
+			<TextView 
+			    android:layout_width="fill_parent"
+				android:layout_height="wrap_content" 
+				android:text="帐号"
+				android:gravity="center" 
+				android:layout_weight="4" />
+			<EditText 
+			    android:id="@+id/edtUserId"
+			    android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginRight="5dip" 
+				android:text="zhanglb" 
+				android:layout_weight="1" />
+		</LinearLayout>
+
+		<!-- 密码 -->
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="horizontal" 
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent" 
+			android:layout_weight="1"
+			android:padding="5dip">
+			<TextView android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				 android:text="密 码"
+				android:gravity="center" 
+				android:layout_weight="4" />
+			<EditText 
+			    android:layout_width="fill_parent"
+				android:layout_height="wrap_content" 
+				android:layout_marginRight="6dip" 
+				android:text="111111"
+				android:layout_weight="1" 
+				android:inputType="textPassword"
+				android:id="@+id/edtPassWord" 
+				/>
+		</LinearLayout>
+
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="horizontal" 
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			 android:layout_weight="1"
+			android:gravity="center">
+			<Button 
+			    android:id="@+id/btnLogin"
+			    android:layout_width="wrap_content"
+				android:layout_height="wrap_content" 
+				android:text="登 录" 
+				 />
+			<Button 
+			    android:id="@+id/btnExit"
+			    android:layout_width="wrap_content"
+				android:layout_height="wrap_content" 
+				android:text="退 出" 
+				android:layout_marginLeft="10dip"
+				 
+				 />
+			
+		</LinearLayout>
+	</LinearLayout>
 </LinearLayout>

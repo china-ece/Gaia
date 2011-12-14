@@ -1,13 +1,12 @@
 package com.chinaece.gaia.http;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -27,19 +26,20 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
 
 import com.chinaece.gaia.constant.Gaia;
-import com.chinaece.gaia.parsers.Parser;
+import com.chinaece.gaia.parsers.GaiaParser;
 import com.chinaece.gaia.types.GaiaType;
 
 abstract public class AbstractHttpAPI implements HttpAPI{
 	
 	private static final int TIMEOUT = 5;
 	private final HttpClient client;
-	
 	public AbstractHttpAPI() {
 		client = initClient();
 	}
@@ -60,7 +60,7 @@ abstract public class AbstractHttpAPI implements HttpAPI{
 	}
 	
 	@Override
-	public GaiaType doRequest(HttpRequestBase req, Parser<? extends GaiaType> parser) {
+	public Collection<? extends GaiaType> doRequest(HttpRequestBase req, GaiaParser<? extends GaiaType> parser) {
 		try {
 			client.getConnectionManager().closeExpiredConnections();
 			HttpResponse response = client.execute(req);
@@ -68,7 +68,24 @@ abstract public class AbstractHttpAPI implements HttpAPI{
 			switch (statusCode) {
 			case 200:
 				String content = EntityUtils.toString(response.getEntity()).trim();
-				return null;//TODO
+				if(Gaia.DEBUG)
+					Log.d(Gaia.TAG_HTTP, content);
+				try{
+					JSONObject obj = new JSONObject(content);
+					if(obj.getBoolean("status")){
+						ArrayList<GaiaType> list = new ArrayList<GaiaType>();
+						list.add(parser.parser(obj));
+						return list;
+					}
+					return null;
+				}catch (JSONException e) {
+					try{
+						JSONArray arr = new JSONArray(content);
+						return parser.parser(arr);
+					}catch (JSONException e1) {
+						return null;
+					}
+				}
 			case 404:
 				Log.e(Gaia.TAG_HTTP, "wrong http request, wrong address?");
 				return null;

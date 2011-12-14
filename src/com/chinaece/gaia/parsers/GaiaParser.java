@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 import com.chinaece.gaia.types.GaiaType;
 
-public interface Parser<T extends GaiaType> {
+public interface GaiaParser<T extends GaiaType> {
 	abstract public T parser(JSONObject jsonObj);
 	
 	abstract public Collection<T> parser(JSONArray jsonArray);

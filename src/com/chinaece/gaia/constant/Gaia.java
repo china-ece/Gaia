@@ -1,7 +1,11 @@
 package com.chinaece.gaia.constant;
 
+import com.chinaece.gaia.types.UserType;
+
 public class Gaia {
 	public static final String TAG_HTTP = "http api";
 	
-	public static final boolean DEBUG = true;
+	public static boolean DEBUG = true;
+	
+	public static UserType USER;
 }
