@@ -53,7 +53,7 @@ public class GaiaActivity extends Activity {
 							.toString(), password.getText().toString(), domain
 							.getText().toString());
 				} catch (MalformedURLException e) {
-				  Toast.makeText(GaiaActivity.this, "ÇëÊäÈëÕıÈ·µÄÍøÖ·", Toast.LENGTH_LONG).show();
+				  Toast.makeText(GaiaActivity.this, "è¯·è¾“å…¥æ­£ç¡®çš„ç½‘å€", Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -63,9 +63,9 @@ public class GaiaActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Dialog dialog = new AlertDialog.Builder(GaiaActivity.this)
-						.setTitle("¾¯¸æ")
-						.setMessage("ÄãÈ·¶¨ÒªÍË³öÂğ")
-						.setPositiveButton("È·¶¨",
+						.setTitle("è­¦å‘Š")
+						.setMessage("ç¡®å®šè¦é€€å‡ºOAç³»ç»Ÿ")
+						.setPositiveButton("ç¡®å®š",
 								new DialogInterface.OnClickListener() {
 									@Override
 									public void onClick(DialogInterface dialog,
@@ -73,7 +73,7 @@ public class GaiaActivity extends Activity {
 										GaiaActivity.this.finish();
 									}
 								})
-						.setNegativeButton("È¡Ïû",
+						.setNegativeButton("å–æ¶ˆ",
 								new DialogInterface.OnClickListener() {
 
 									@Override
@@ -92,7 +92,7 @@ public class GaiaActivity extends Activity {
 		
 		@Override
         protected void onPreExecute() {
-			dialog = ProgressDialog.show(GaiaActivity.this, "ÇëÉÔºò...", "ÕıÔÚµÇÂ½...");
+			dialog = ProgressDialog.show(GaiaActivity.this, "è¯·ç¨ç­‰...", "æ­£åœ¨ç™»å½•...");
         }
 		
 		@Override
@@ -112,7 +112,7 @@ public class GaiaActivity extends Activity {
 				Intent intent = new Intent(GaiaActivity.this,MainActivity.class);
 				startActivity(intent);	
 			} else {
-				Toast.makeText(GaiaActivity.this, "ÇëÊäÈëºÏ·¨µÄÓÃ»§ÃûºÍÃÜÂë",
+				Toast.makeText(GaiaActivity.this, "è¯·è¾“å…¥åˆæ³•çš„ç”¨æˆ·åå’Œå¯†ç ",
 						Toast.LENGTH_LONG).show();
 			}
 		}

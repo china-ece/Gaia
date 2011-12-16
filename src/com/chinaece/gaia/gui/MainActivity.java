@@ -41,9 +41,9 @@ public class MainActivity extends Activity {
         setContentView(R.layout.mainlayout);         
         GridView gridview = (GridView) findViewById(R.id.gridview);		
         ArrayList<HashMap<String, Object>> meumList = new ArrayList<HashMap<String, Object>>(); 
-		String[] mainmenu={ "¸öÈËĞÅÏ¢","×ÊÁÏ¹İ", 
-							"ÌìÆøÔ¤±¨","»ª¶«ÓĞÉ«±¨", 
-							"¹«¸æ","´ı°ìÌáĞÑ", "½ô¼±¹«ÎÄ" };		
+		String[] mainmenu={ "ä¸ªäººä¿¡æ¯","èµ„æ–™é¦†", 
+							"å¤©æ°”é¢„æŠ¥","åä¸œæœ‰è‰²æŠ¥", 
+							"å…¬å‘Š", "å¾…åŠæé†’", "ç´§æ€¥å…¬æ–‡" };		
 	    for(int i = 0;i < mainmenu.length;i++) { 
 		HashMap<String, Object> map = new HashMap<String, Object>(); 		
 		map.put("ItemImage", R.drawable.ic_launcher); 
@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
 		
 		@Override
         protected void onPreExecute() {
-			dialog = ProgressDialog.show(MainActivity.this, "ÇëÉÔºò...", "ÕıÔÚ³õÊ¼»¯...");
+			dialog = ProgressDialog.show(MainActivity.this, "è¯·ç¨ç­‰...", "æ­£åœ¨åˆå§‹åŒ–...");
         }
 		
 		@Override
