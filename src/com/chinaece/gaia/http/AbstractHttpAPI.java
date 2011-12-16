@@ -72,9 +72,14 @@ abstract public class AbstractHttpAPI implements HttpAPI{
 				try{
 					JSONObject obj = new JSONObject(content);
 					if(obj.getBoolean("status")){
-						ArrayList<GaiaType> list = new ArrayList<GaiaType>();
-						list.add(parser.parser(obj));
-						return list;
+						Object rst = parser.parser(obj.get("data"));
+						if(rst instanceof Collection)
+							return (Collection<? extends GaiaType>) rst;
+						else{
+							ArrayList<GaiaType> list = new ArrayList<GaiaType>();
+							list.add((GaiaType)rst);
+							return list;
+						}
 					}
 					return null;
 				}catch (JSONException e) {
