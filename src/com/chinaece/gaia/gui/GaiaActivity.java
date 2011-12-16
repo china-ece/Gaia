@@ -31,10 +31,10 @@ public class GaiaActivity extends Activity {
 		super.onCreate(savedInstanceState);
 //		DataStorage.load(this);
 //		if(DataStorage.properties.containsKey("token") && DataStorage.properties.containsKey("url")){
-//			Intent intent = new Intent(GaiaActivity.this,mainActivity.class);
+//			Intent intent = new Intent(GaiaActivity.this,MainActivity.class);
 //			startActivity(intent);	
 //			this.finish();
-//		return;
+//			return;
 //		}
 		setContentView(R.layout.main);
 		Button loginButton = (Button) findViewById(R.id.btnLogin);
@@ -53,7 +53,7 @@ public class GaiaActivity extends Activity {
 							.toString(), password.getText().toString(), domain
 							.getText().toString());
 				} catch (MalformedURLException e) {
-					Toast.makeText(GaiaActivity.this, "请输入正确得网址", Toast.LENGTH_LONG).show();
+				  Toast.makeText(GaiaActivity.this, "请输入正确的网址", Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -109,6 +109,8 @@ public class GaiaActivity extends Activity {
 				DataStorage.properties.put("token", Gaia.USER.getToken());
 				DataStorage.properties.put("url", formatUrl.toString());
 				DataStorage.save(GaiaActivity.this);
+				Intent intent = new Intent(GaiaActivity.this,MainActivity.class);
+				startActivity(intent);	
 			} else {
 				Toast.makeText(GaiaActivity.this, "请输入合法的用户名和密码",
 						Toast.LENGTH_LONG).show();
