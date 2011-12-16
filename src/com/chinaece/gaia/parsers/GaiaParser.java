@@ -5,9 +5,9 @@ import java.util.Collection;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.chinaece.gaia.types.GaiaType;
-
-public interface GaiaParser<T extends GaiaType> {
+public interface GaiaParser<T> {
+	abstract public Object parser(Object obj);
+	
 	abstract public T parser(JSONObject jsonObj);
 	
 	abstract public Collection<T> parser(JSONArray jsonArray);

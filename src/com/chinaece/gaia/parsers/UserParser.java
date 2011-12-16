@@ -8,18 +8,15 @@ import org.json.JSONObject;
 
 import com.chinaece.gaia.types.UserType;
 
-public class UserParser implements GaiaParser<UserType>{
+public class UserParser extends AbstractJSONParser<UserType>{
 
 	@Override
 	public UserType parser(JSONObject jsonObj) {
 		try {
-			if(jsonObj.getBoolean("status") == true){
 				UserType user = new UserType();
 				user.setName(jsonObj.getString("name"));
 				user.setToken(jsonObj.getString("token"));
 				return user;
-			}else
-				return null;
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
