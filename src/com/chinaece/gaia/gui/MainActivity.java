@@ -4,7 +4,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -14,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
-
 import com.chinaece.gaia.R;
 import com.chinaece.gaia.constant.Gaia;
 import com.chinaece.gaia.db.DataStorage;
@@ -39,14 +37,19 @@ public class MainActivity extends Activity {
         }catch(MalformedURLException e){
         }
         setContentView(R.layout.mainlayout);         
-        GridView gridview = (GridView) findViewById(R.id.gridview);		
+        GridView gridview = (GridView) findViewById(R.id.gridview);	
+        Integer[] images = { R.drawable.userinfo,
+        		R.drawable.datalibrary,R.drawable.weatherforecast,
+        		R.drawable.ecenewspaper,R.drawable.announcement,
+        		R.drawable.pendings,R.drawable.urgentwarning
+        		};
         ArrayList<HashMap<String, Object>> meumList = new ArrayList<HashMap<String, Object>>(); 
 		String[] mainmenu={ "个人信息","资料馆", 
 							"天气预报","华东有色报", 
 							"公告", "待办提醒", "紧急公文" };		
 	    for(int i = 0;i < mainmenu.length;i++) { 
 		HashMap<String, Object> map = new HashMap<String, Object>(); 		
-		map.put("ItemImage", R.drawable.ic_launcher); 
+		map.put("ItemImage", images[i]); 
 		map.put("ItemText",mainmenu[i]); 
 		meumList.add(map);} 		
 		SimpleAdapter saMenuItem = new SimpleAdapter(this, 
