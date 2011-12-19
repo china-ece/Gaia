@@ -36,8 +36,8 @@ public class AppParser extends AbstractJSONParser<AppType> {
 			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject app = (JSONObject) jsonArray.get(i);
 				list.add(parser(app));
-				return list;
 			}
+			return list;
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

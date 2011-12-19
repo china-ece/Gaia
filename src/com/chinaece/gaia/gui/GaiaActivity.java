@@ -50,8 +50,8 @@ public class GaiaActivity extends Activity {
 					formatUrl = new URL(url.getText().toString());
 					ApiTask task = new ApiTask();
 					task.execute(formatUrl.toString(), user.getText()
-							.toString(), password.getText().toString(), domain
-							.getText().toString());
+							.toString().trim(), password.getText().toString().trim(), domain
+							.getText().toString().trim());
 				} catch (MalformedURLException e) {
 				  Toast.makeText(GaiaActivity.this, "请输入正确的网址", Toast.LENGTH_LONG).show();
 				}
@@ -110,7 +110,12 @@ public class GaiaActivity extends Activity {
 				DataStorage.properties.put("url", formatUrl.toString());
 				DataStorage.save(GaiaActivity.this);
 				Intent intent = new Intent(GaiaActivity.this,MainActivity.class);
-				startActivity(intent);	
+				startActivityForResult(intent,11);
+				int version = Integer.valueOf(android.os.Build.VERSION.SDK);     
+				if(version  >= 5) { 
+					overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+				}
+				
 			} else {
 				Toast.makeText(GaiaActivity.this, "请输入合法的用户名和密码",
 						Toast.LENGTH_LONG).show();

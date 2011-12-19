@@ -4,12 +4,17 @@ import java.util.Collection;
 
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
+import org.w3c.dom.Document;
 
 import com.chinaece.gaia.constant.Gaia;
 import com.chinaece.gaia.parsers.AppParser;
+import com.chinaece.gaia.parsers.DocumentParser;
+import com.chinaece.gaia.parsers.PendingParser;
 import com.chinaece.gaia.parsers.UserParser;
 import com.chinaece.gaia.types.AppType;
+import com.chinaece.gaia.types.DocumentType;
 import com.chinaece.gaia.types.GaiaType;
+import com.chinaece.gaia.types.PendingType;
 import com.chinaece.gaia.types.UserType;
 
 public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
@@ -44,5 +49,22 @@ public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
 		}
 		return false;
 	}
-
+	
+	public Collection<PendingType> getPending(String token,String appids){
+		HttpPost post = createHttpPost(url+"/client/getPendings.action",new BasicNameValuePair("token", token),new BasicNameValuePair("params", appids));
+		Collection<? extends GaiaType> rst = doRequest(post, new PendingParser());
+		if(rst!=null){
+			return (Collection<PendingType>)rst;
+		}
+		return null;
+	}
+	public Collection<DocumentType> getDocument(String docid ,String formid,String appid){
+		HttpPost post = createHttpPost(url+"/client/getdocument.action",new BasicNameValuePair("docid",docid),new BasicNameValuePair("formid",formid),new BasicNameValuePair("appid",appid));
+		Collection<?extends GaiaType> rst = doRequest(post, new DocumentParser());
+		if(rst!=null){
+			return (Collection<DocumentType>)rst;
+			
+		}
+		return null;
+	}
 }

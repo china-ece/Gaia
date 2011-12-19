@@ -20,6 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".gui.MainActivity"></activity>
+        <activity android:name=".gui.PendingsActivity"></activity>
+        <activity android:name=".gui.DocumentActivity"></activity>
     </application>
 
 </manifest>

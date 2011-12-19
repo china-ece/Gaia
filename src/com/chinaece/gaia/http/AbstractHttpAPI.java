@@ -117,7 +117,7 @@ abstract public class AbstractHttpAPI implements HttpAPI{
 			e.printStackTrace();
 		}
 		if(Gaia.DEBUG)
-			Log.d(Gaia.TAG_HTTP, "create http post " + post);
+			Log.d(Gaia.TAG_HTTP, "create http post " + post.getURI());
 		return post;
 	}
 	

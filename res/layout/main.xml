@@ -3,7 +3,8 @@
 	android:orientation="vertical" 
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent" 
-	android:gravity="center">
+	android:gravity="center"
+	android:background="@drawable/login">
 	<LinearLayout 
 	    xmlns:android="http://schemas.android.com/apk/res/android"
 		android:orientation="vertical" 
@@ -21,7 +22,8 @@
 			<TextView 
 			    android:layout_width="fill_parent"
 				android:layout_height="wrap_content" 
-				android:text="手机OA"
+				android:text="Office Anywhere"
+				android:textColor="?android:attr/textColorSecondaryInverse"
 				android:gravity="center"
 				android:textSize="28sp" />
 		</LinearLayout>
@@ -37,6 +39,7 @@
 			    android:layout_width="fill_parent"
 				android:layout_height="wrap_content" 
 				android:text="OA网址"
+				android:textColor="?android:attr/textColorSecondaryInverse"
 				android:gravity="center" 
 				android:layout_weight="4" />
 			<EditText 
@@ -59,6 +62,7 @@
 			    android:layout_width="fill_parent"
 				android:layout_height="wrap_content" 
 				android:text="企业域"
+				android:textColor="?android:attr/textColorSecondaryInverse"
 				android:gravity="center" 
 				android:layout_weight="4" />
 			<EditText 
@@ -81,6 +85,7 @@
 			    android:layout_width="fill_parent"
 				android:layout_height="wrap_content" 
 				android:text="帐号"
+				android:textColor="?android:attr/textColorSecondaryInverse"
 				android:gravity="center" 
 				android:layout_weight="4" />
 			<EditText 
@@ -102,6 +107,7 @@
 			<TextView android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				 android:text="密 码"
+				 android:textColor="?android:attr/textColorSecondaryInverse"
 				android:gravity="center" 
 				android:layout_weight="4" />
 			<EditText 
