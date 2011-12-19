@@ -111,11 +111,6 @@ public class GaiaActivity extends Activity {
 				DataStorage.save(GaiaActivity.this);
 				Intent intent = new Intent(GaiaActivity.this,MainActivity.class);
 				startActivityForResult(intent,11);
-				int version = Integer.valueOf(android.os.Build.VERSION.SDK);     
-				if(version  >= 5) { 
-					overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
-				}
-				
 			} else {
 				Toast.makeText(GaiaActivity.this, "请输入合法的用户名和密码",
 						Toast.LENGTH_LONG).show();
