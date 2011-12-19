@@ -4,7 +4,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -15,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
-
 import com.chinaece.gaia.R;
 import com.chinaece.gaia.db.DataStorage;
 import com.chinaece.gaia.http.OAHttpApi;
@@ -25,7 +23,7 @@ public class MainActivity extends Activity {
 	private URL formatUrl;
 
 	/** Called when the activity is first created. */
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,12 +37,17 @@ public class MainActivity extends Activity {
 		}
 		setContentView(R.layout.mainlayout);
 		GridView gridview = (GridView) findViewById(R.id.gridview);
+		Integer[] images = { R.drawable.userinfo,
+        		R.drawable.datalibrary,R.drawable.weatherforecast,
+        		R.drawable.ecenewspaper,R.drawable.announcement,
+        		R.drawable.pendings,R.drawable.urgentwarning
+        		};
 		ArrayList<HashMap<String, Object>> meumList = new ArrayList<HashMap<String, Object>>();
 		String[] mainmenu = { "个人信息", "资料馆", "天气预报", "华东有色报", "公告", "待办提醒",
 				"紧急公文" };
 		for (int i = 0; i < mainmenu.length; i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("ItemImage", R.drawable.ic_launcher);
+			map.put("ItemImage", images[i]);
 			map.put("ItemText", mainmenu[i]);
 			meumList.add(map);
 		}
@@ -68,7 +71,7 @@ public class MainActivity extends Activity {
 
 	}
 
-	class ApiTask extends AsyncTask<String, Integer, Boolean> {
+    class ApiTask extends AsyncTask<String, Integer, Boolean> {
 		private ProgressDialog dialog;
 
 		@Override
@@ -86,9 +89,7 @@ public class MainActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(Boolean flag) {
-			if (flag) {
-				dialog.dismiss();
-			}
+			dialog.dismiss();
 		}
 
 	}

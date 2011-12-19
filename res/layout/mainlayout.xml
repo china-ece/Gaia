@@ -1,15 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridView 
-    xmlns:android="http://schemas.android.com/apk/res/android"
-  android:id="@+id/gridview"  
-  android:layout_width="fill_parent" 
-  android:layout_height="fill_parent"   
-  android:numColumns="auto_fit" 
-  android:horizontalSpacing="10dp" 
-  android:verticalSpacing="10dp" 
-  android:columnWidth="90dp" 
-  android:stretchMode="columnWidth" 
-  android:gravity="center" >
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:background="@drawable/mainbg"    
+   >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dip"
+        android:text="One world,One system"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dip"
+        android:layout_marginBottom="20dip"
+        android:text="Office Anywhere 2011"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <GridView 
+	  xmlns:android="http://schemas.android.com/apk/res/android"
+	  android:id="@+id/gridview"  
+	  android:layout_width="fill_parent" 
+	  android:layout_height="fill_parent"   
+	  android:numColumns="auto_fit" 
+	  android:horizontalSpacing="10dp" 
+	  android:verticalSpacing="10dp" 
+	  android:columnWidth="90dp" 
+	  android:stretchMode="columnWidth" 
+	  android:gravity="center"
+	  android:background="@drawable/mainbg" >
     
 
 </GridView>
+        
+</LinearLayout>
