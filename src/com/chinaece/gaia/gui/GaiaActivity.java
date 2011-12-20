@@ -63,7 +63,7 @@ public class GaiaActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Dialog dialog = new AlertDialog.Builder(GaiaActivity.this)
-						.setTitle("警告")
+						.setTitle("提示")
 						.setMessage("确定要退出OA系统")
 						.setPositiveButton("确定",
 								new DialogInterface.OnClickListener() {
