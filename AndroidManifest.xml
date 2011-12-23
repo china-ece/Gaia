@@ -23,6 +23,9 @@
         <activity android:name=".gui.MainActivity"></activity>
         <activity android:name=".gui.PendingsActivity"></activity>
         <activity android:name=".gui.DocumentActivity"></activity>
+        <activity android:name=".gui.WeatherActivity"></activity>
+        <activity android:name=".gui.ContactsActivity"></activity>
+        <activity android:name=".gui.CommunicationActivity"></activity>
     </application>
 
 </manifest>
