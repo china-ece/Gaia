@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.chinaece.gaia.R;
 import com.chinaece.gaia.constant.Gaia;
@@ -51,6 +52,7 @@ public class PendingsActivity extends ListActivity {
 			task.execute(formatUrl.toString(), token.toString(),
 					appids.toString());
 		} catch (MalformedURLException e) {
+			//
 		}
 	}
 
@@ -73,37 +75,43 @@ public class PendingsActivity extends ListActivity {
 
 		@Override
 		protected void onPostExecute(Collection<PendingType> pendinglist) {
-			PendingsActivity.this.pendinglist = pendinglist;
-			final List<Map<String, String>> list = new ArrayList<Map<String, String>>();
-			for (PendingType pet : pendinglist) {
-				Map<String, String> map = new HashMap<String, String>();
-				map.put("title", pet.getSummary());
-				map.put("info", pet.getDate());
-				list.add(map);
-			}
-			SimpleAdapter adapter = new SimpleAdapter(PendingsActivity.this,
-					list, R.layout.pendings, new String[] { "title", "info", },
-					new int[] { R.id.title, R.id.info });
-			ListView listview = (ListView) findViewById(android.R.id.list);
-			listview.setAdapter(adapter);
-			listview.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
-					PendingType aPending = ((ArrayList<PendingType>) PendingsActivity.this.pendinglist)
-							.get(arg2);
-					Bundle bundle = new Bundle();
-					bundle.putString("docid", aPending.getDocid());
-					bundle.putString("formid", aPending.getFormid());
-					bundle.putString("appid", aPending.getAppid());
-					Intent intent = new Intent(PendingsActivity.this,
-							DocumentActivity.class);
-					intent.putExtras(bundle);
-					startActivity(intent);
+			if(pendinglist!=null) {
+				PendingsActivity.this.pendinglist = pendinglist;
+				final List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+				for (PendingType pet : pendinglist) {
+					Map<String, String> map = new HashMap<String, String>();
+					map.put("title", pet.getSummary());
+					map.put("info", pet.getDate());
+					list.add(map);
 				}
-			});
-			dialog.dismiss();
+				SimpleAdapter adapter = new SimpleAdapter(PendingsActivity.this,
+						list, R.layout.pendings, new String[] { "title", "info", },
+						new int[] { R.id.title, R.id.info });
+				ListView listview = (ListView) findViewById(android.R.id.list);
+				listview.setAdapter(adapter);
+				dialog.dismiss();
+				listview.setOnItemClickListener(new OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> arg0, View arg1,
+							int arg2, long arg3) {
+						PendingType aPending = ((ArrayList<PendingType>) PendingsActivity.this.pendinglist)
+								.get(arg2);
+						Bundle bundle = new Bundle();
+						bundle.putString("docid", aPending.getDocid());
+						bundle.putString("formid", aPending.getFormid());
+						bundle.putString("appid", aPending.getAppid());
+						Intent intent = new Intent(PendingsActivity.this,
+								DocumentActivity.class);
+						intent.putExtras(bundle);
+						startActivity(intent);
+					}
+				});
+			}
+			else
+			{
+				dialog.dismiss();
+				Toast.makeText(PendingsActivity.this, "数据错误请稍候再试...", Toast.LENGTH_LONG).show();
+			}
 		}
 	}
 

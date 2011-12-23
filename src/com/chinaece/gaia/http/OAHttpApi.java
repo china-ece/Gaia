@@ -4,14 +4,15 @@ import java.util.Collection;
 
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
-import org.w3c.dom.Document;
 
 import com.chinaece.gaia.constant.Gaia;
 import com.chinaece.gaia.parsers.AppParser;
+import com.chinaece.gaia.parsers.ContactParser;
 import com.chinaece.gaia.parsers.DocumentParser;
 import com.chinaece.gaia.parsers.PendingParser;
 import com.chinaece.gaia.parsers.UserParser;
 import com.chinaece.gaia.types.AppType;
+import com.chinaece.gaia.types.ContactType;
 import com.chinaece.gaia.types.DocumentType;
 import com.chinaece.gaia.types.GaiaType;
 import com.chinaece.gaia.types.PendingType;
@@ -53,18 +54,25 @@ public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
 	public Collection<PendingType> getPending(String token,String appids){
 		HttpPost post = createHttpPost(url+"/client/getPendings.action",new BasicNameValuePair("token", token),new BasicNameValuePair("params", appids));
 		Collection<? extends GaiaType> rst = doRequest(post, new PendingParser());
-		if(rst!=null){
+		if(rst!=null)
 			return (Collection<PendingType>)rst;
-		}
 		return null;
 	}
-	public Collection<DocumentType> getDocument(String docid ,String formid,String appid){
-		HttpPost post = createHttpPost(url+"/client/getdocument.action",new BasicNameValuePair("docid",docid),new BasicNameValuePair("formid",formid),new BasicNameValuePair("appid",appid));
+	
+	public Collection<DocumentType> getDocument(String token,String document){
+		HttpPost post = createHttpPost(url+"/client/getDocument.action",new BasicNameValuePair("token",token),new BasicNameValuePair("params",document));
 		Collection<?extends GaiaType> rst = doRequest(post, new DocumentParser());
-		if(rst!=null){
+		if(rst!=null)
 			return (Collection<DocumentType>)rst;
-			
-		}
+		return null;
+	}
+	
+	public Collection<ContactType> getContact(String token,String search){
+		HttpPost post = createHttpPost(url+"/client/getContacts.action",new BasicNameValuePair("token",token),new BasicNameValuePair("params",search));
+		System.err.println(search);
+		Collection<?extends GaiaType> rst = doRequest(post, new ContactParser());
+		if(rst!=null)
+			return (Collection<ContactType>)rst;
 		return null;
 	}
 }

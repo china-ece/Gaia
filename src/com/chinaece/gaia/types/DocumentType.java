@@ -5,6 +5,7 @@ public class DocumentType implements GaiaType{
 	private String desc;
 	private String value;
 	private String display;
+	private String direction;
 	public String getName() {
 		return name;
 	}
@@ -28,6 +29,12 @@ public class DocumentType implements GaiaType{
 	}
 	public void setDisplay(String display) {
 		this.display = display;
+	}
+	public String getDirection(){
+		return direction;
+	}
+	public void setDirection(String direction){
+		this.direction = direction;
 	}
 	
 	}

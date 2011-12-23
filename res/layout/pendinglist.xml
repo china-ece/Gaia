@@ -5,7 +5,4 @@
     android:layout_height="match_parent"
     android:listSelector="@drawable/blue"
     android:background="@drawable/login">
-
-    
-
 </ListView>
