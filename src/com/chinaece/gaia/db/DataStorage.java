@@ -47,5 +47,19 @@ public class DataStorage {
 		}
 		return true;
 	}
+	
+	public static boolean clear(Activity act)
+	{
+		try {
+			FileOutputStream stream = act.openFileOutput(Filename,Context.MODE_WORLD_WRITEABLE );
+			properties.clear();
+			properties.store(stream, "");
+		} catch (FileNotFoundException e) {
+			return false;
+		} catch (IOException e) {
+			return false;
+		}
+		return true;
+	}
 
 }

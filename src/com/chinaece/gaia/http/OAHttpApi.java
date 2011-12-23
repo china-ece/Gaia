@@ -11,12 +11,14 @@ import com.chinaece.gaia.parsers.ContactParser;
 import com.chinaece.gaia.parsers.DocumentParser;
 import com.chinaece.gaia.parsers.PendingParser;
 import com.chinaece.gaia.parsers.UserParser;
+import com.chinaece.gaia.parsers.WeatherParser;
 import com.chinaece.gaia.types.AppType;
 import com.chinaece.gaia.types.ContactType;
 import com.chinaece.gaia.types.DocumentType;
 import com.chinaece.gaia.types.GaiaType;
 import com.chinaece.gaia.types.PendingType;
 import com.chinaece.gaia.types.UserType;
+import com.chinaece.gaia.types.WeatherType;
 
 public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
 	
@@ -75,4 +77,14 @@ public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
 			return (Collection<ContactType>)rst;
 		return null;
 	}
+	
+	public Collection<WeatherType> getWeather(){
+		HttpPost post = createHttpPost(url+"/client/getWeather.action");
+		Collection<? extends GaiaType> rst = doRequest(post, new WeatherParser());
+		if(rst != null){
+		return(Collection<WeatherType>)rst;
+		}
+		return null;
+	}
+	
 }

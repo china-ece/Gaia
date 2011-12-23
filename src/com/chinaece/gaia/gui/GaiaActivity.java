@@ -29,13 +29,13 @@ public class GaiaActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		DataStorage.load(this);
-//		if(DataStorage.properties.containsKey("token") && DataStorage.properties.containsKey("url")){
-//			Intent intent = new Intent(GaiaActivity.this,MainActivity.class);
-//			startActivity(intent);	
-//			this.finish();
-//			return;
-//		}
+		DataStorage.load(this);
+		if(DataStorage.properties.containsKey("token") && DataStorage.properties.containsKey("url")){
+			Intent intent = new Intent(GaiaActivity.this,MainActivity.class);
+			startActivity(intent);	
+			this.finish();
+			return;
+		}
 		setContentView(R.layout.main);
 		Button loginButton = (Button) findViewById(R.id.btnLogin);
 		final EditText url = (EditText) findViewById(R.id.edtOAUrl);
