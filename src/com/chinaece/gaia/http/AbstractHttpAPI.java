@@ -99,6 +99,40 @@ abstract public class AbstractHttpAPI implements HttpAPI{
 		}
 		return null;
 	}
+	
+	public String doRequest(HttpRequestBase req) {
+		try {
+			client.getConnectionManager().closeExpiredConnections();
+			HttpResponse response = client.execute(req);
+			int statusCode = response.getStatusLine().getStatusCode();
+			switch (statusCode) {
+			case 200:
+				String content = EntityUtils.toString(response.getEntity()).trim();
+				if(Gaia.DEBUG)
+					Log.d(Gaia.TAG_HTTP, content);
+				try{
+					JSONObject obj = new JSONObject(content);
+					if(obj.getBoolean("status")){
+						return obj.getString("data");
+					}
+					return null;
+				}catch (JSONException e) {
+					Log.e(Gaia.TAG_JSON, "json error");
+					return null;
+				}
+			case 404:
+				Log.e(Gaia.TAG_HTTP, "wrong http request, wrong address?");
+				return null;
+			default:
+				Log.wtf(Gaia.TAG_HTTP, "unhandled http status code");
+				return null;
+			}
+		} catch (Exception e) {
+			req.abort();
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	@Override
 	public HttpGet createHttpGet(String url, NameValuePair... nameValuePairs) {
