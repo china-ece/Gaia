@@ -3,12 +3,11 @@ package com.chinaece.gaia.gui;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,22 +16,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.chinaece.gaia.R;
 import com.chinaece.gaia.db.DataStorage;
 import com.chinaece.gaia.http.OAHttpApi;
-import com.chinaece.gaia.types.PendingType;
-import com.chinaece.gaia.types.UserType;
 
 public class MainActivity extends Activity {
-	String token,name;
-	private URL formatUrl;	
+	String token, name;
+	private URL formatUrl;
 
 	/** Called when the activity is first created. */
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -92,13 +88,14 @@ public class MainActivity extends Activity {
 			}
 		});
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(Menu.NONE, Menu.FIRST + 1, 1, "注销").setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+		menu.add(Menu.NONE, Menu.FIRST + 1, 1, "注销").setIcon(
+				android.R.drawable.ic_menu_close_clear_cancel);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -112,7 +109,7 @@ public class MainActivity extends Activity {
 		return false;
 	}
 
-    class ApiTask extends AsyncTask<String, Integer, Boolean> {
+	class ApiTask extends AsyncTask<String, Integer, Boolean> {
 		private ProgressDialog dialog;
 
 		@Override

@@ -36,7 +36,7 @@ public class GaiaActivity extends Activity {
 			this.finish();
 			return;
 		}
-		setContentView(R.layout.main);
+		setContentView(R.layout.login);
 		Button loginButton = (Button) findViewById(R.id.btnLogin);
 		final EditText url = (EditText) findViewById(R.id.edtOAUrl);
 		final EditText user = (EditText) findViewById(R.id.edtUserId);

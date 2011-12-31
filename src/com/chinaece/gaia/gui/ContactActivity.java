@@ -1,6 +1,5 @@
 package com.chinaece.gaia.gui;
 
-import com.chinaece.gaia.R;
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -17,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.chinaece.gaia.R;
 
 public class ContactActivity extends Activity{
 	protected static final Uri Uri = null;
