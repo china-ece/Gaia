@@ -15,14 +15,25 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chinaece.gaia.R;
@@ -34,7 +45,8 @@ public class ContactsActivity extends Activity {
 	private URL formatUrl;
 	private String token;
 	private Collection<ContactType> contactlist;
-
+	private List<Map<String, String>> list;
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		DataStorage.load(ContactsActivity.this);
@@ -87,19 +99,35 @@ public class ContactsActivity extends Activity {
 				for (ContactType con : contactlist) {
 					Map<String, String> map = new HashMap<String, String>();
 					map.put("name", con.getName());
+					map.put("telephone", con.getTelephone());
 					list.add(map);
 				}
-				SimpleAdapter adapter = new SimpleAdapter(ContactsActivity.this,
-						list, R.layout.contactitem, new String[] { "name" },
-						new int[] { R.id.name });
+				ContactsActivity.this.list = list;
 				ListView listview = (ListView) findViewById(R.id.listView1);
+				ContactsAdapter adapter = new ContactsAdapter(getApplicationContext(), list); 
 				listview.setAdapter(adapter);
 				dialog.dismiss();
-			}
+				listview.setOnItemClickListener(new OnItemClickListener(){
+
+					@Override
+					public void onItemClick(AdapterView<?> arg0, View arg1,
+							int arg2, long arg3) {
+						ContactType aContact = ((ArrayList<ContactType>) ContactsActivity.this.contactlist).get(arg2);
+						Bundle bundle = new Bundle();
+						bundle.putString("name", aContact.getName());
+						bundle.putString("telephone", aContact.getTelephone());
+						bundle.putString("email", aContact.getEmail());
+						Intent intent = new Intent(ContactsActivity.this,
+								ContactActivity.class);
+						intent.putExtras(bundle);
+						startActivity(intent);
+					}
+				});						
+			}	            
 			else{
 				dialog.dismiss();
 				Toast.makeText(ContactsActivity.this, "数据错误请稍候再试...", Toast.LENGTH_LONG).show();  
 			}
-		}
-    }
+		    }
+	}		
 }

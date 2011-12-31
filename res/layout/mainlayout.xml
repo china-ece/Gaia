@@ -10,18 +10,19 @@
         android:id="@+id/textView1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
         android:layout_marginLeft="40dip"
+        android:layout_marginBottom="20dip"
         android:text="One world,One system"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dip"
         android:layout_marginBottom="20dip"
-        android:text="Office Anywhere 2011"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:text="   "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <GridView 
 	  xmlns:android="http://schemas.android.com/apk/res/android"

@@ -3,10 +3,12 @@ package com.chinaece.gaia.gui;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,14 +17,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
+
 import com.chinaece.gaia.R;
 import com.chinaece.gaia.db.DataStorage;
 import com.chinaece.gaia.http.OAHttpApi;
+import com.chinaece.gaia.types.PendingType;
+import com.chinaece.gaia.types.UserType;
 
 public class MainActivity extends Activity {
-	String token;
-	private URL formatUrl;
+	String token,name;
+	private URL formatUrl;	
 
 	/** Called when the activity is first created. */
 	
@@ -31,12 +38,14 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		DataStorage.load(MainActivity.this);
 		token = DataStorage.properties.get("token").toString();
+		name = DataStorage.properties.get("name").toString();
+		System.err.println(name);
 		try {
 			formatUrl = new URL(DataStorage.properties.get("url").toString());
 			ApiTask task = new ApiTask();
 			task.execute(formatUrl.toString(), token.toString());
 		} catch (MalformedURLException e) {
-		}
+		}		
 		setContentView(R.layout.mainlayout);
 		GridView gridview = (GridView) findViewById(R.id.gridview);
 		Integer[] images = { R.drawable.userinfo,
@@ -121,6 +130,8 @@ public class MainActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(Boolean flag) {
+			TextView txtview = (TextView) findViewById(R.id.textView2);
+			txtview.setText("欢迎" + name + "进入华东有色地勘局OA系统");
 			dialog.dismiss();
 		}
 

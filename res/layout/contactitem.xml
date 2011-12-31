@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="#a0000000">
+    android:background="#a0000000"
+    android:descendantFocusability="blocksDescendants">
              <TableRow
                  android:id="@+id/tableRow1"
                  android:layout_width="match_parent"
@@ -17,6 +18,7 @@
 	             android:textColor="#E0E0E0"
 	             android:layout_weight="1"
 	              />
+	             
 	             <ImageButton
 	                 android:id="@+id/imageButton1"
 	                 android:layout_width="40dip"
@@ -25,6 +27,7 @@
 	                 android:adjustViewBounds="true"
 	                 android:padding="0dip"
 	                 android:background="@null"
-	                 android:layout_gravity="right" />
+	                 android:layout_gravity="right"
+	                 android:focusable="false" />
              </TableRow>
 </LinearLayout>
