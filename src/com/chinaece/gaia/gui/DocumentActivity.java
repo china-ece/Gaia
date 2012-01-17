@@ -3,7 +3,6 @@ package com.chinaece.gaia.gui;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.HashMap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,12 +26,10 @@ import com.chinaece.gaia.types.documentitem.ItemType;
 
 public class DocumentActivity extends Activity {
 	private URL formatUrl;
-	private String docid, formid, appid, token,summary;
+	private String docid, formid, appid, token;
 	private ScrollView scrollView;
 	private LinearLayout linearLayout;
-	private FlowLayout layout;
 	private DocumentType document;
-	private HashMap<String, String> editables = new HashMap<String, String>();
 	JSONObject forntlist = new JSONObject();
 
 	@Override
@@ -89,8 +86,8 @@ public class DocumentActivity extends Activity {
 		setContentView(scrollView);
 		DataStorage.load(DocumentActivity.this);
 		try {
-			token = DataStorage.properties.get("token").toString();
-			formatUrl = new URL(DataStorage.properties.get("url").toString());
+			token = DataStorage.properties.getProperty("token");
+			formatUrl = new URL(DataStorage.properties.getProperty("url"));
 			JSONObject document = new JSONObject();
 			ApiTask task = new ApiTask();
 			docid = getIntent().getExtras().getString("docid");

@@ -34,15 +34,14 @@ public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
 		this.url = url;
 	}
 	
-	public boolean getToken(String user, String password, String domain){
+	public UserType getToken(String user, String password, String domain){
 		HttpPost post = createHttpPost(url+"/client/getToken.action", new BasicNameValuePair("user", user), new BasicNameValuePair("pwd", password), new BasicNameValuePair("domain", domain));
 		Collection<? extends GaiaType> rst = doRequest(post, new UserParser());
 		if(rst != null){
 			Collection<UserType> users = (Collection<UserType>)rst;
-			Gaia.USER = users.iterator().next();
-			return true;
+			return users.iterator().next();
 		}
-		return false;
+		return null;
 	}
 	
 	public boolean getApps(String token){

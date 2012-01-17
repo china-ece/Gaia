@@ -41,9 +41,9 @@ public class PendingsActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pendinglist);
 		DataStorage.load(PendingsActivity.this);
-		token = DataStorage.properties.get("token").toString();
+		token = DataStorage.properties.getProperty("token");
 		try {
-			formatUrl = new URL(DataStorage.properties.get("url").toString());
+			formatUrl = new URL(DataStorage.properties.getProperty("url"));
 			ApiTask task = new ApiTask();
 			JSONArray appids = new JSONArray();
 			for (AppType app : Gaia.APPLIST) {

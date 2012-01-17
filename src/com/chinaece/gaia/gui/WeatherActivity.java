@@ -28,7 +28,7 @@ public class WeatherActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		DataStorage.load(WeatherActivity.this);
 		try {
-			formatUrl = new URL(DataStorage.properties.get("url").toString());
+			formatUrl = new URL(DataStorage.properties.getProperty("url"));
 			ApiTask task = new ApiTask();
 			task.execute(formatUrl.toString());
 		} catch (MalformedURLException e) {

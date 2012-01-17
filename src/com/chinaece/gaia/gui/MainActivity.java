@@ -36,8 +36,8 @@ public class MainActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		DataStorage.load(MainActivity.this);
-		token = DataStorage.properties.get("token").toString();
-		name = DataStorage.properties.get("name").toString();
+		token = DataStorage.properties.getProperty("token");
+		name = DataStorage.properties.getProperty("name");
 		if(token.indexOf("null") != -1){
 			AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
 			builder.setTitle("提示");

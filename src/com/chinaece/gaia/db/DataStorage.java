@@ -12,52 +12,66 @@ import android.content.Context;
 public class DataStorage {
 	private static final String Filename = "Gaia.cfg";
 	public static final Properties properties = new Properties();
-	
-	public static boolean save(Activity act){
-		try
-		{   
-			FileOutputStream stream = act.openFileOutput(Filename,Context.MODE_WORLD_WRITEABLE );
-			properties.store(stream, "");
-		}
-		catch(FileNotFoundException e)
-		{
-			return false;
-		}
-		catch(IOException e)
-		{
-			return false;
-		}
-		return true;
-	}
-	
-	public static boolean load(Activity act)
-	{
-		try
-		{
-			FileInputStream stream = act.openFileInput(Filename);
-			properties.load(stream);
-		}
-		catch(FileNotFoundException e)
-		{
-			return false;
-		}
-		catch(IOException e)
-		{
-			return false;
-		}
-		return true;
-	}
-	
-	public static boolean clear(Activity act)
-	{
+
+	public static boolean save(Activity act) {
+		FileOutputStream stream = null;
 		try {
-			FileOutputStream stream = act.openFileOutput(Filename,Context.MODE_WORLD_WRITEABLE );
+			stream = act.openFileOutput(Filename,
+					Context.MODE_WORLD_WRITEABLE);
+			properties.store(stream, "");
+		} catch (FileNotFoundException e) {
+			return false;
+		} catch (IOException e) {
+			return false;
+		}finally{
+			try {
+				if(stream != null){
+					stream.flush();
+					stream.close();
+				}
+			} catch (IOException e) {
+			}
+		}
+		return true;
+	}
+
+	public static boolean load(Activity act) {
+		FileInputStream stream = null;
+		try {
+			stream = act.openFileInput(Filename);
+			properties.load(stream);
+		} catch (FileNotFoundException e) {
+			return false;
+		} catch (IOException e) {
+			return false;
+		} finally {
+			try {
+				if (stream != null)
+					stream.close();
+			} catch (IOException e) {
+			}
+		}
+		return true;
+	}
+
+	public static boolean clear(Activity act) {
+		FileOutputStream stream = null;
+		try {
+			stream = act.openFileOutput(Filename, Context.MODE_WORLD_WRITEABLE);
 			properties.clear();
 			properties.store(stream, "");
 		} catch (FileNotFoundException e) {
 			return false;
 		} catch (IOException e) {
 			return false;
+		} finally {
+			try {
+				if (stream != null) {
+					stream.flush();
+					stream.close();
+				}
+			} catch (IOException e) {
+			}
 		}
 		return true;
 	}

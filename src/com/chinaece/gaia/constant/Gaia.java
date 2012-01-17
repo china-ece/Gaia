@@ -3,7 +3,6 @@ package com.chinaece.gaia.constant;
 import java.util.Collection;
 
 import com.chinaece.gaia.types.AppType;
-import com.chinaece.gaia.types.UserType;
 
 public class Gaia {
 	public static final String TAG_HTTP = "http api";
@@ -11,6 +10,5 @@ public class Gaia {
 	
 	public static boolean DEBUG = true;
 	
-	public static UserType USER;
 	public static Collection<AppType> APPLIST;
 }

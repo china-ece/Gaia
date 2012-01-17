@@ -18,9 +18,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.chinaece.gaia.R;
-import com.chinaece.gaia.constant.Gaia;
 import com.chinaece.gaia.db.DataStorage;
 import com.chinaece.gaia.http.OAHttpApi;
+import com.chinaece.gaia.types.UserType;
 
 public class GaiaActivity extends Activity {
 	private URL formatUrl;
@@ -87,7 +87,7 @@ public class GaiaActivity extends Activity {
 		});
 	}
 	
-	class ApiTask extends AsyncTask<String, Integer, Boolean> {
+	class ApiTask extends AsyncTask<String, Integer, UserType> {
 		private ProgressDialog dialog;
 		
 		@Override
@@ -96,20 +96,20 @@ public class GaiaActivity extends Activity {
         }
 		
 		@Override
-		protected Boolean doInBackground(String... params) {
+		protected UserType doInBackground(String... params) {
 			OAHttpApi OaApi = new OAHttpApi(params[0]);
-			boolean flag = OaApi.getToken(params[1], params[2], params[3]);
-			return flag;
+			UserType user = OaApi.getToken(params[1], params[2], params[3]);
+			return user;
 		}
 		
 		@Override
-		protected void onPostExecute(Boolean flag) {
+		protected void onPostExecute(UserType user) {
 			dialog.dismiss();
-			if (flag) {
-				if(Gaia.USER.getToken().indexOf("null") == -1){
-					DataStorage.properties.put("token", Gaia.USER.getToken());
+			if (user != null) {
+				if(user.getToken().indexOf("null") == -1){
+					DataStorage.properties.put("token", user.getToken());
 					DataStorage.properties.put("url", formatUrl.toString());
-					DataStorage.properties.put("name", Gaia.USER.getName());
+					DataStorage.properties.put("name", user.getName());
 					DataStorage.save(GaiaActivity.this);
 					Intent intent = new Intent(GaiaActivity.this,MainActivity.class);
 					startActivityForResult(intent,11);
@@ -117,7 +117,6 @@ public class GaiaActivity extends Activity {
 				else{
 					Toast.makeText(GaiaActivity.this, "请登陆OA系统生成鉴证码", Toast.LENGTH_LONG).show();
 				}
-				
 			} else {
 				Toast.makeText(GaiaActivity.this, "请输入合法的用户名和密码",
 						Toast.LENGTH_LONG).show();

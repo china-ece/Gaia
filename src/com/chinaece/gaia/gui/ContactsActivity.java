@@ -49,8 +49,8 @@ public class ContactsActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				try {
-					token = DataStorage.properties.get("token").toString();
-					formatUrl = new URL(DataStorage.properties.get("url").toString());
+					token = DataStorage.properties.getProperty("token");
+					formatUrl = new URL(DataStorage.properties.getProperty("url"));
 					JSONObject search = new JSONObject();
 					try {
 						search.put("search", URLEncoder.encode(edittext.getText().toString(),"UTF-8"));

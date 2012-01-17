@@ -110,8 +110,8 @@ public class FlowPathActivity extends Activity {
 						submit.put("nextids", checks);
 						submit.put("flowtype", checkFlowtype);
 						submit.put("submitto", submitTo.toString());
-						token = DataStorage.properties.get("token").toString();
-						formatUrl = new URL(DataStorage.properties.get("url").toString());
+						token = DataStorage.properties.getProperty("token");
+						formatUrl = new URL(DataStorage.properties.getProperty("url"));
 						SubmitTask submittask = new SubmitTask();
 						submittask.execute(formatUrl.toString(), token.toString(),
 					submit.toString());
