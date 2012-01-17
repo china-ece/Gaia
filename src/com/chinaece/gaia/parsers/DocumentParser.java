@@ -7,54 +7,38 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.chinaece.gaia.types.documentitem.DateField;
-import com.chinaece.gaia.types.documentitem.DepartmentField;
-import com.chinaece.gaia.types.documentitem.InputField;
+import com.chinaece.gaia.types.DocumentType;
+import com.chinaece.gaia.types.documentitem.BranchType;
 import com.chinaece.gaia.types.documentitem.ItemType;
-import com.chinaece.gaia.types.documentitem.SelectField;
-import com.chinaece.gaia.types.documentitem.StringField;
-import com.chinaece.gaia.types.documentitem.UserField;
 
-public class DocumentParser extends AbstractJSONParser<ItemType> {
+public class DocumentParser extends AbstractJSONParser<DocumentType> {
 
 	@Override
-	public ItemType parser(JSONObject jsonObj) {
-		throw new UnsupportedOperationException("do not call");
-	}
-
-	@Override
-	public Collection<ItemType> parser(JSONArray jsonArray) {
-		ArrayList<ItemType> itemlist = new ArrayList<ItemType>();
+	public DocumentType parser(JSONObject jsonObj) {
+		DocumentType document = new DocumentType();
+		FlowPathParser flowpathparser = new FlowPathParser();
+		ArrayList<BranchType> flowpath = new ArrayList<BranchType>();
 		try {
-			for (int i = 0; i < jsonArray.length(); i++) {
-				JSONObject jsonItem = jsonArray.getJSONObject(i);
-				if(jsonItem.length() == 0){
-					itemlist.add(null);
-				}
-				else if(jsonItem.getString("type").equals("SelectField")){
-					itemlist.add(new SelectField(jsonItem));
-				}
-				else if(jsonItem.getString("type").equals("String")){
-					itemlist.add(new StringField(jsonItem));
-				}
-				else if(jsonItem.getString("type").equals("DepartmentField")){
-					itemlist.add(new DepartmentField(jsonItem));
-				}
-				else if(jsonItem.getString("type").equals("UserField")){
-					itemlist.add(new UserField(jsonItem));
-				}
-				else if(jsonItem.getString("type").equals("DateField")){
-					itemlist.add(new DateField(jsonItem));
-				}
-				else if(jsonItem.getString("type").equals("InputField")){
-					itemlist.add(new InputField(jsonItem));
-				}
+			document.setEditable(jsonObj.getBoolean("editable"));
+			ItemParser itemparser = new ItemParser();
+			document.setItems(itemparser.parser(jsonObj.getJSONArray("items")));
+			document.setSubmitable(jsonObj.getBoolean("submitable"));
+			document.setCurrNodeid(jsonObj.getString("currNodeid"));
+			document.setChoiceflag(jsonObj.getJSONArray("flowPath").getBoolean(0));
+			for(int i = 1;i<jsonObj.getJSONArray("flowPath").length();i++){
+				flowpath.add(flowpathparser.parser(jsonObj.getJSONArray("flowPath").getJSONObject(i)));
 			}
-			return itemlist;
+			document.setFlowPath(flowpath);
+			return document;
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public Collection<DocumentType> parser(JSONArray jsonArray) {
+		 throw new UnsupportedOperationException("do not call");
 	}
 
 }

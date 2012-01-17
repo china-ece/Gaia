@@ -21,7 +21,7 @@ abstract public class ItemType implements GaiaType{
 	protected int display;
 	
 	protected JSONArray list_value;
-
+	
 	public String getType() {
 		return type;
 	}
@@ -85,5 +85,4 @@ abstract public class ItemType implements GaiaType{
 		dataValue = obj.optString("dataValue", null);
 		list_value = obj.optJSONArray("list-value");
 	}
-	
 }

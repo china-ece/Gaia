@@ -20,11 +20,11 @@ public class SelectField extends ItemType{
 	
 	public SelectField(JSONObject obj) throws JSONException{
 		super(obj);
-		if(obj.getString("type").equals("SelectField"))
-			type = "SelectField";
-		else
-			throw new IllegalStateException("bad init SelectField");
-	}
+			if(obj.getString("type").equals("SelectField"))
+				type = "SelectField";
+			else
+				throw new IllegalStateException("bad init SelectField");
+		}
 	
 	@Override
 	public View getMappingInstance(Context context) throws JSONException {
@@ -59,9 +59,7 @@ public class SelectField extends ItemType{
 	public String getInstanceValue() {
 		try {
 			return ((JSONObject)spinner.getSelectedItem()).getString("dataValue");
-		} catch (JSONException e) {	
-		}
-		finally{
+		} catch (JSONException e) {
 			return dataValue;
 		}
 	}

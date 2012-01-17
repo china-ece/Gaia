@@ -3,22 +3,20 @@ package com.chinaece.gaia.types.documentitem;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.chinaece.gaia.types.documentitem.DepartmentField.KVAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.AutoCompleteTextView.Validator;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.AutoCompleteTextView.Validator;
 
 public class UserField extends ItemType{
 	private AutoCompleteTextView autocompletetextview = null;
@@ -57,6 +55,7 @@ public class UserField extends ItemType{
 				android.R.layout.simple_dropdown_item_1line, data);
 		autocompletetextview.setText(displayValue);
 		autocompletetextview.setAdapter(adapter);
+		autocompletetextview.setDropDownWidth(150);
 		autocompletetextview.setValidator(new Validator() {
 
 			@Override
@@ -78,10 +77,8 @@ public class UserField extends ItemType{
 			return users.get(autocompletetextview.getText()).getString(
 					"dataValue");
 		} catch (JSONException e) {
-		}
-		finally{
 			return dataValue;
-			}
+		}
 	}
 
 	class KVAdapter<T> extends BaseAdapter implements Filterable {

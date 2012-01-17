@@ -106,11 +106,18 @@ public class GaiaActivity extends Activity {
 		protected void onPostExecute(Boolean flag) {
 			dialog.dismiss();
 			if (flag) {
-				DataStorage.properties.put("token", Gaia.USER.getToken());
-				DataStorage.properties.put("url", formatUrl.toString());
-				DataStorage.save(GaiaActivity.this);
-				Intent intent = new Intent(GaiaActivity.this,MainActivity.class);
-				startActivityForResult(intent,11);
+				if(Gaia.USER.getToken().indexOf("null") == -1){
+					DataStorage.properties.put("token", Gaia.USER.getToken());
+					DataStorage.properties.put("url", formatUrl.toString());
+					DataStorage.properties.put("name", Gaia.USER.getName());
+					DataStorage.save(GaiaActivity.this);
+					Intent intent = new Intent(GaiaActivity.this,MainActivity.class);
+					startActivityForResult(intent,11);
+				}
+				else{
+					Toast.makeText(GaiaActivity.this, "请登陆OA系统生成鉴证码", Toast.LENGTH_LONG).show();
+				}
+				
 			} else {
 				Toast.makeText(GaiaActivity.this, "请输入合法的用户名和密码",
 						Toast.LENGTH_LONG).show();

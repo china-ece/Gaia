@@ -52,8 +52,7 @@ public class PendingsActivity extends ListActivity {
 			task.execute(formatUrl.toString(), token.toString(),
 					appids.toString());
 		} catch (MalformedURLException e) {
-			//
-		}
+			}
 	}
 
 	class ApiTask extends AsyncTask<String, Integer, Collection<PendingType>> {
@@ -100,13 +99,14 @@ public class PendingsActivity extends ListActivity {
 						bundle.putString("docid", aPending.getDocid());
 						bundle.putString("formid", aPending.getFormid());
 						bundle.putString("appid", aPending.getAppid());
+						bundle.putString("summary", aPending.getSummary());
 						Intent intent = new Intent(PendingsActivity.this,
 								DocumentActivity.class);
 						intent.putExtras(bundle);
 						startActivity(intent);
 					}
 				});
-			}
+			}                                                                                               
 			else
 			{
 				dialog.dismiss();

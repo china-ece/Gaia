@@ -15,15 +15,22 @@ public class FlowLayout extends ViewGroup {
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		int width = MeasureSpec.getSize(widthMeasureSpec);
+		int height = MeasureSpec.getSize(heightMeasureSpec);
+		System.err.println(width);
+		System.err.println(height);
 		for (int index = 0; index < getChildCount(); index++) {
 			final View child = getChildAt(index);
-			child.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
+			measureChild(child, 
+					MeasureSpec.makeMeasureSpec(width, MeasureSpec.AT_MOST),
+					MeasureSpec.makeMeasureSpec(height, MeasureSpec.AT_MOST));
 		}
 	}
 
 	@Override
 	protected void onLayout(boolean arg0, int L, int T, int R, int B) {
 		final int count = getChildCount();
+		System.err.println(getChildCount());
 		if(count % 2 !=0)
 			throw new IllegalStateException("wrong fields size");
 		int row = 0;
@@ -57,15 +64,11 @@ public class FlowLayout extends ViewGroup {
 						}
 					}
 				}
-//				int T1 = prevB + VIEW_MARGIN + maxH - H1;
 				int R1 = L1 + child1.getMeasuredWidth();
-//				int B1 = T1 + child1.getMeasuredHeight();
-				System.err.println(W1 + "," + H1 + "," + L1 + "," + lT + "," + R1 + "," + lB);
+//				System.err.println(W1 + "," + H1 + "," + L1 + "," + lT + "," + R1 + "," + lB);
 				child1.layout(L1, lT, R1, lB);
 				int L2 = R1 + VIEW_MARGIN;
-//				int T2 = prevB + VIEW_MARGIN + maxH - H2;
 				int R2 = L2 + child2.getMeasuredWidth();
-//				int B2 = B1;
 				int rT = 0,rB = 0;
 				for(int T2 = 0;T2<=maxH;T2++)
 				{
@@ -84,13 +87,11 @@ public class FlowLayout extends ViewGroup {
 						}
 					}
 				}
-				System.err.println(W2 + "," + H2 + "," + L2 + "," + rT + "," + R2 + "," + rB);
+//				System.err.println(W2 + "," + H2 + "," + L2 + "," + rT + "," + R2 + "," + rB);
 				child2.layout(L2,rT, R2, rB);
 				row++;
 				prevB +=maxH;
 			}
 		}
-
 	}
-
 }

@@ -48,6 +48,7 @@
 				android:layout_height="wrap_content"
 				android:layout_marginRight="5dip" 
 				android:text="http://10.4.3.1:8080/obpm"
+				android:singleLine="true"
 				android:layout_weight="1" />
 		</LinearLayout>
 		<!-- 企业域 -->
@@ -71,6 +72,7 @@
 				android:layout_height="wrap_content"
 				android:layout_marginRight="5dip" 
 				android:text="ece" 
+				android:singleLine="true"
 				android:layout_weight="1" />
 		</LinearLayout>
 		<!-- 帐号 -->
@@ -94,6 +96,7 @@
 				android:layout_height="wrap_content"
 				android:layout_marginRight="5dip" 
 				android:text="zhanglb" 
+				android:singleLine="true"
 				android:layout_weight="1" />
 		</LinearLayout>
 
@@ -116,6 +119,7 @@
 				android:layout_marginRight="6dip" 
 				android:text="111111"
 				android:layout_weight="1" 
+				android:singleLine="true"
 				android:inputType="textPassword"
 				android:id="@+id/edtPassWord" />
 		</LinearLayout>

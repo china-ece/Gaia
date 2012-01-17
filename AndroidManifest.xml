@@ -29,6 +29,7 @@
         <activity android:name=".gui.WeatherActivity"></activity>
         <activity android:name=".gui.ContactsActivity"></activity>
         <activity android:name=".gui.ContactActivity"></activity>
+        <activity android:name=".gui.FlowPathActivity"></activity>
     </application>
 
 </manifest>

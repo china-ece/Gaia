@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chinaece.gaia.R;
 import com.chinaece.gaia.db.DataStorage;
@@ -35,7 +38,22 @@ public class MainActivity extends Activity {
 		DataStorage.load(MainActivity.this);
 		token = DataStorage.properties.get("token").toString();
 		name = DataStorage.properties.get("name").toString();
-		System.err.println(name);
+		if(token.indexOf("null") != -1){
+			AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+			builder.setTitle("提示");
+			builder.setMessage("请登陆OA系统生成鉴证码");
+			builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Intent intent = new Intent(MainActivity.this,GaiaActivity.class);
+					startActivity(intent);
+					MainActivity.this.finish();
+				}
+			});
+			builder.show();
+			return;
+		}
 		try {
 			formatUrl = new URL(DataStorage.properties.get("url").toString());
 			ApiTask task = new ApiTask();
@@ -123,13 +141,18 @@ public class MainActivity extends Activity {
 			OAHttpApi OaApi = new OAHttpApi(params[0]);
 			boolean flag = OaApi.getApps(params[1]);
 			return flag;
-		}
+		}	
 
 		@Override
 		protected void onPostExecute(Boolean flag) {
-			TextView txtview = (TextView) findViewById(R.id.textView2);
-			txtview.setText("欢迎" + name + "进入华东有色地勘局OA系统");
 			dialog.dismiss();
+			if(flag){
+				TextView txtview = (TextView) findViewById(R.id.textView2);
+				txtview.setText("欢迎" + name + "进入华东有色地勘局OA系统");
+			}
+			else{
+				Toast.makeText(MainActivity.this, "请先登陆网页生成验证码", Toast.LENGTH_LONG).show();
+			}
 		}
 
 	}

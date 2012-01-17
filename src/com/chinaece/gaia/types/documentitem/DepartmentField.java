@@ -24,10 +24,10 @@ public class DepartmentField extends ItemType {
 
 	public DepartmentField(JSONObject obj) throws JSONException {
 		super(obj);
-		if (obj.getString("type").equals("DepartmentField")) {
-			type = "DepartmentField";
-		} else
-			throw new IllegalStateException("bad init DepartmentField");
+			if (obj.getString("type").equals("DepartmentField")) {
+				type = "DepartmentField";
+			} else
+				throw new IllegalStateException("bad init DepartmentField");
 	}
 
 	@Override
@@ -56,6 +56,7 @@ public class DepartmentField extends ItemType {
 				android.R.layout.simple_dropdown_item_1line, data);
 		autocompletetextview.setText(displayValue);
 		autocompletetextview.setAdapter(adapter);
+		autocompletetextview.setDropDownWidth(300);
 		autocompletetextview.setValidator(new Validator() {
 
 			@Override
@@ -74,12 +75,10 @@ public class DepartmentField extends ItemType {
 	@Override
 	public String getInstanceValue() {
 		try {
-			return departments.get(autocompletetextview.getText()).getString(
+			return departments.get(autocompletetextview.getText().toString()).getString(
 					"dataValue");
 		} catch (JSONException e) {
-		}
-		finally{
-		return dataValue;
+			return dataValue;
 		}
 	}
 
@@ -122,7 +121,7 @@ public class DepartmentField extends ItemType {
 		}
 
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(int position, View convertView, ViewGroup parent){
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			View v = inflater.inflate(
@@ -149,7 +148,7 @@ public class DepartmentField extends ItemType {
 						notifyDataSetChanged();
 					} else
 						notifyDataSetInvalidated();
-				}
+				}	
 
 				@Override
 				protected FilterResults performFiltering(CharSequence constraint) {

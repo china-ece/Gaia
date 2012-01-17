@@ -17,11 +17,11 @@ import com.chinaece.gaia.parsers.UserParser;
 import com.chinaece.gaia.parsers.WeatherParser;
 import com.chinaece.gaia.types.AppType;
 import com.chinaece.gaia.types.ContactType;
+import com.chinaece.gaia.types.DocumentType;
 import com.chinaece.gaia.types.GaiaType;
 import com.chinaece.gaia.types.PendingType;
 import com.chinaece.gaia.types.UserType;
 import com.chinaece.gaia.types.WeatherType;
-import com.chinaece.gaia.types.documentitem.ItemType;
 
 public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
 	
@@ -64,11 +64,11 @@ public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
 		return null;
 	}
 	
-	public Collection<ItemType> getDocument(String token,String document){
+	public DocumentType getDocument(String token,String document){
 		HttpGet post = createHttpGet(url+"/client/getDocument.action",new BasicNameValuePair("token",token),new BasicNameValuePair("params",document));
 		Collection<?extends GaiaType> rst = doRequest(post, new DocumentParser());
 		if(rst!=null)
-			return (Collection<ItemType>)rst;
+			return (DocumentType)rst.iterator().next();
 		return null;
 	}
 	
@@ -92,6 +92,18 @@ public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
 	
 	public boolean saveDocumnet(String token,String save ){
 		HttpPost post = createHttpPost(url+"/client/saveDocument.action",new BasicNameValuePair("token", token),new BasicNameValuePair("params",save ));
+		String rst = doRequest(post);
+		try {
+			JSONObject flag = new JSONObject(rst);
+			return flag.getBoolean("result");
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	public boolean submitDocumnet(String token,String submit ){
+		HttpPost post = createHttpPost(url+"/client/submitDocument.action",new BasicNameValuePair("token", token),new BasicNameValuePair("params",submit));
 		String rst = doRequest(post);
 		try {
 			JSONObject flag = new JSONObject(rst);
