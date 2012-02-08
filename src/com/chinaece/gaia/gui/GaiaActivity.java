@@ -113,6 +113,7 @@ public class GaiaActivity extends Activity {
 					DataStorage.save(GaiaActivity.this);
 					Intent intent = new Intent(GaiaActivity.this,MainActivity.class);
 					startActivityForResult(intent,11);
+					finish();
 				}
 				else{
 					Toast.makeText(GaiaActivity.this, "请登陆OA系统生成鉴证码", Toast.LENGTH_LONG).show();

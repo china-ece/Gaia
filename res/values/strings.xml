@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello">Hello World, GaiaActivity!</string>
-    <string name="app_name">Gaia</string>
+    <string name="app_name">华东有色OA</string>
 
 </resources>

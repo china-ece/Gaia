@@ -62,15 +62,12 @@ public class MainActivity extends Activity {
 		}		
 		setContentView(R.layout.mainlayout);
 		GridView gridview = (GridView) findViewById(R.id.gridview);
-		Integer[] images = { R.drawable.userinfo,
-        		R.drawable.datalibrary,R.drawable.weatherforecast,
-        		R.drawable.ecenewspaper,R.drawable.announcement,
-        		R.drawable.pendings,R.drawable.urgentwarning,
+		Integer[] images = { R.drawable.weatherforecast,
+        		R.drawable.pendings,
         		R.drawable.contact
-        		};
+		};
 		ArrayList<HashMap<String, Object>> meumList = new ArrayList<HashMap<String, Object>>();
-		String[] mainmenu = { "个人信息", "资料馆", "天气预报", "华东有色报", "公告", "待办提醒",
-				"紧急公文" , "通信录"};
+		String[] mainmenu = {"天气预报", "待办提醒" , "通信录"};
 		for (int i = 0; i < mainmenu.length; i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("ItemImage", images[i]);
@@ -85,20 +82,20 @@ public class MainActivity extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				switch (arg2) {
-				case 2:
-					Intent intent2 = new Intent(MainActivity.this,
+				case 0:
+					Intent weatherIntent = new Intent(MainActivity.this,
 							WeatherActivity.class);
-					startActivity(intent2);
+					startActivity(weatherIntent);
 					break;
-				case 5:
-					Intent intent = new Intent(MainActivity.this,
+				case 1:
+					Intent pendingIntent = new Intent(MainActivity.this,
 							PendingsActivity.class);
-					startActivity(intent);
+					startActivity(pendingIntent);
 					break;
-				case 7:
-					Intent intent7 = new Intent(MainActivity.this,
+				case 2:
+					Intent contactsIntent = new Intent(MainActivity.this,
 							ContactsActivity.class);
-					startActivity(intent7);
+					startActivity(contactsIntent);
 					break;
 				default:
 					break;

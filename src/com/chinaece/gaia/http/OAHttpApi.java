@@ -46,7 +46,7 @@ public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
 	
 	public boolean getApps(String token){
 		HttpPost post = createHttpPost(url+"/client/getApps.action",new BasicNameValuePair("token",token));
-		Collection<? extends GaiaType> rst = doRequest(post, new AppParser());
+		Collection<? extends GaiaType> rst = doRequest(post, new AppParser(),true);
 		if(rst != null){
 			Collection<AppType> apps = (Collection<AppType>)rst;
 			Gaia.APPLIST = apps;
@@ -82,7 +82,7 @@ public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
 	
 	public Collection<WeatherType> getWeather(){
 		HttpPost post = createHttpPost(url+"/client/getWeather.action");
-		Collection<? extends GaiaType> rst = doRequest(post, new WeatherParser());
+		Collection<? extends GaiaType> rst = doRequest(post, new WeatherParser(),true);
 		if(rst != null){
 		return(Collection<WeatherType>)rst;
 		}

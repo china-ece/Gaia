@@ -1,18 +1,18 @@
 package com.chinaece.gaia.http;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.client.params.HttpClientParams;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.PlainSocketFactory;
@@ -37,25 +37,27 @@ import com.chinaece.gaia.types.GaiaType;
 
 abstract public class AbstractHttpAPI implements HttpAPI{
 	
-	private static final int TIMEOUT = 5;
-	private final HttpClient client;
-	public AbstractHttpAPI() {
+	private static final int TIMEOUT = 10;
+	private static final DefaultHttpClient client;
+	private static ConcurrentHashMap<URI,Object> cache = new ConcurrentHashMap<URI, Object>();
+	
+	static {
 		client = initClient();
 	}
 	
-	public DefaultHttpClient initClient(){
-        final SchemeRegistry supportedSchemes = new SchemeRegistry();
-        final SocketFactory sf = PlainSocketFactory.getSocketFactory();
-        supportedSchemes.register(new Scheme("http", sf, 80));
-        final HttpParams params = new BasicHttpParams();
-        HttpConnectionParams.setStaleCheckingEnabled(params, false);
-        HttpConnectionParams.setConnectionTimeout(params, TIMEOUT * 1000);
-        HttpConnectionParams.setSoTimeout(params, TIMEOUT * 1000);
-        HttpConnectionParams.setSocketBufferSize(params, 8192);
-        HttpClientParams.setRedirecting(params, false);
-        final ClientConnectionManager ccm = new ThreadSafeClientConnManager(params,
-                supportedSchemes);
-         return new DefaultHttpClient(ccm, params);
+	public synchronized static DefaultHttpClient initClient(){
+		if(client == null){
+	        final SchemeRegistry supportedSchemes = new SchemeRegistry();
+	        final SocketFactory sf = PlainSocketFactory.getSocketFactory();
+	        supportedSchemes.register(new Scheme("http", sf, 80));
+	        final HttpParams params = new BasicHttpParams();
+	        HttpConnectionParams.setConnectionTimeout(params, TIMEOUT * 1000);
+	        HttpConnectionParams.setSoTimeout(params, TIMEOUT * 1000);
+	        final ClientConnectionManager ccm = new ThreadSafeClientConnManager(params,
+	                supportedSchemes);
+	         return new DefaultHttpClient(ccm, params);
+		}
+		return client;
 	}
 	
 	@Override
@@ -100,6 +102,20 @@ abstract public class AbstractHttpAPI implements HttpAPI{
 		return null;
 	}
 	
+	public Collection<? extends GaiaType> doRequest(HttpRequestBase req, GaiaParser<? extends GaiaType> parser, boolean useCache) {
+		if(useCache){
+			if(cache.containsKey(req.getURI()))
+				return (Collection<? extends GaiaType>) cache.get(req.getURI());
+			else{
+				Collection<? extends GaiaType> rst = doRequest(req, parser);
+				cache.put(req.getURI(), rst);
+				return rst;
+			}
+		}
+		else
+			return doRequest(req, parser);
+	}
+	
 	public String doRequest(HttpRequestBase req) {
 		try {
 			client.getConnectionManager().closeExpiredConnections();
@@ -132,6 +148,19 @@ abstract public class AbstractHttpAPI implements HttpAPI{
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public String doRequest(HttpRequestBase req, boolean useCache) {
+		if(useCache)
+			if(cache.containsKey(req.getURI()))
+				return (String) cache.get(req.getURI());
+			else{
+				String rst = doRequest(req);
+				cache.put(req.getURI(), rst);
+				return rst;
+			}
+		else
+			return doRequest(req);
 	}
 
 	@Override
