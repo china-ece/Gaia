@@ -137,12 +137,23 @@ public class MainActivity extends Activity {
 		protected Boolean doInBackground(String... params) {
 			OAHttpApi OaApi = new OAHttpApi(params[0]);
 			boolean flag = OaApi.getApps(params[1]);
-			return flag;
+			if(OAHttpApi.ONLINE)
+				return flag;
+			else
+				return null;
 		}	
 
 		@Override
 		protected void onPostExecute(Boolean flag) {
 			dialog.dismiss();
+			if(flag == null){
+				Toast.makeText(MainActivity.this, "请检查网络", Toast.LENGTH_LONG).show();
+				Intent intent = new Intent(MainActivity.this, GaiaActivity.class);
+				intent.putExtra("network", false);
+				startActivity(intent);
+				MainActivity.this.finish();
+				return;
+			}
 			if(flag){
 				TextView txtview = (TextView) findViewById(R.id.textView2);
 				txtview.setText("欢迎" + name + "进入华东有色地勘局OA系统");

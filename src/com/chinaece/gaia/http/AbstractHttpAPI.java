@@ -40,6 +40,7 @@ abstract public class AbstractHttpAPI implements HttpAPI{
 	private static final int TIMEOUT = 10;
 	private static final DefaultHttpClient client;
 	private static ConcurrentHashMap<URI,Object> cache = new ConcurrentHashMap<URI, Object>();
+	public static boolean ONLINE = true;
 	
 	static {
 		client = initClient();
@@ -63,6 +64,7 @@ abstract public class AbstractHttpAPI implements HttpAPI{
 	@Override
 	public Collection<? extends GaiaType> doRequest(HttpRequestBase req, GaiaParser<? extends GaiaType> parser) {
 		try {
+			ONLINE = true;
 			client.getConnectionManager().closeExpiredConnections();
 			HttpResponse response = client.execute(req);
 			int statusCode = response.getStatusLine().getStatusCode();
@@ -97,7 +99,7 @@ abstract public class AbstractHttpAPI implements HttpAPI{
 			}
 		} catch (Exception e) {
 			req.abort();
-			e.printStackTrace();
+			ONLINE = false;
 		}
 		return null;
 	}
@@ -119,6 +121,7 @@ abstract public class AbstractHttpAPI implements HttpAPI{
 	
 	public String doRequest(HttpRequestBase req) {
 		try {
+			ONLINE =true;
 			client.getConnectionManager().closeExpiredConnections();
 			HttpResponse response = client.execute(req);
 			int statusCode = response.getStatusLine().getStatusCode();
@@ -146,7 +149,7 @@ abstract public class AbstractHttpAPI implements HttpAPI{
 			}
 		} catch (Exception e) {
 			req.abort();
-			e.printStackTrace();
+			ONLINE = false;
 		}
 		return null;
 	}

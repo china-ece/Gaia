@@ -25,12 +25,12 @@ import com.chinaece.gaia.types.UserType;
 public class GaiaActivity extends Activity {
 	private URL formatUrl;
 	
-	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		DataStorage.load(this);
-		if(DataStorage.properties.containsKey("token") && DataStorage.properties.containsKey("url")){
+		boolean network = getIntent().getBooleanExtra("network", true);
+		if(network && DataStorage.properties.containsKey("token") && DataStorage.properties.containsKey("url")){
 			Intent intent = new Intent(GaiaActivity.this,MainActivity.class);
 			startActivity(intent);	
 			this.finish();

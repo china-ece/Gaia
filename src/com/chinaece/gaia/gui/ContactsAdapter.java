@@ -59,26 +59,21 @@ public class ContactsAdapter extends BaseAdapter{
 			holder = (ViewHolder) convertView.getTag();
 		}
 		holder.name.setText((String) list.get(position).get("name"));
-		holder.imgbtnCall.setOnClickListener(new View.OnClickListener() {
+		String phone_number = list.get(position).get("telephone");
+		if (phone_number != null && !phone_number.equals("")){
+			holder.imgbtnCall.setVisibility(View.VISIBLE);
+			holder.imgbtnCall.setOnClickListener(new View.OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				System.err.println(list.get(position).get("telephone"));
-				String phone_number = list.get(position).get("telephone");
-				if (phone_number != null && !phone_number.equals(""))
-				{
-					Uri uri = Uri.parse("tel:" + phone_number);
-					Intent intent = new Intent(Intent.ACTION_CALL, uri);
-					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					v.getContext().startActivity(intent);					
+				@Override
+				public void onClick(View v) {
+						Uri uri = Uri.parse("tel:" + list.get(position).get("telephone"));
+						Intent intent = new Intent(Intent.ACTION_CALL, uri);
+						intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						v.getContext().startActivity(intent);					
 				}
-				else
-				{
-					Toast.makeText(v.getContext(), "该用户没有相应的电话号码",
-							Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
+			});
+		}else
+			holder.imgbtnCall.setVisibility(View.INVISIBLE);
 		return convertView;
 	}
 }
