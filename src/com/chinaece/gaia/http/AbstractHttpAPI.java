@@ -108,7 +108,8 @@ abstract public class AbstractHttpAPI implements HttpAPI{
 				return (Collection<? extends GaiaType>) cache.get(req.getURI());
 			else{
 				Collection<? extends GaiaType> rst = doRequest(req, parser);
-				cache.put(req.getURI(), rst);
+				if(rst != null)
+					cache.put(req.getURI(), rst);
 				return rst;
 			}
 		}
@@ -156,7 +157,8 @@ abstract public class AbstractHttpAPI implements HttpAPI{
 				return (String) cache.get(req.getURI());
 			else{
 				String rst = doRequest(req);
-				cache.put(req.getURI(), rst);
+				if(rst != null)
+					cache.put(req.getURI(), rst);
 				return rst;
 			}
 		else
