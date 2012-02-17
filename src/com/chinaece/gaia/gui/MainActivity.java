@@ -7,11 +7,14 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -64,10 +67,11 @@ public class MainActivity extends Activity {
 		GridView gridview = (GridView) findViewById(R.id.gridview);
 		Integer[] images = { R.drawable.weatherforecast,
         		R.drawable.pendings,
-        		R.drawable.contact
+        		R.drawable.contact,
+        		R.drawable.document
 		};
 		ArrayList<HashMap<String, Object>> meumList = new ArrayList<HashMap<String, Object>>();
-		String[] mainmenu = {"天气预报", "待办提醒" , "通信录"};
+		String[] mainmenu = {"天气预报", "待办提醒" , "通信录","文件管理"};
 		for (int i = 0; i < mainmenu.length; i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("ItemImage", images[i]);
@@ -97,12 +101,48 @@ public class MainActivity extends Activity {
 							ContactsActivity.class);
 					startActivity(contactsIntent);
 					break;
+				case 3:
+					Intent adjuctIntent = new Intent(MainActivity.this,
+							FilesActivity.class);
+					startActivity(adjuctIntent);
 				default:
 					break;
 				}
 			}
 		});
 	}
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			ExitDialog(MainActivity.this).show();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+		}
+
+	private Dialog ExitDialog(Context context) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		builder.setTitle("系统信息");
+		builder.setMessage("确定要退出程序吗?");
+		builder.setPositiveButton("确定",
+		new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) { 
+				Intent startMain = new Intent(Intent.ACTION_MAIN);
+				startMain.addCategory(Intent.CATEGORY_HOME);
+				startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(startMain);
+				System.exit(0);
+				}
+			});
+		builder.setNegativeButton("取消",
+		new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				}
+			});
+		return builder.create();
+		}
+
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
