@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +23,6 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chinaece.gaia.db.DataStorage;
@@ -33,6 +33,7 @@ import com.chinaece.gaia.types.documentitem.BranchType.User;
 public class FlowPathActivity extends Activity {
 	private JSONArray checkboxsdataValue;
 	private String checkName = "",checkFlowtype = "";
+	private int mode = 0;
 	private ArrayList<String> checkIds = new ArrayList<String>();
 	private URL formatUrl;
 	private String token;
@@ -52,7 +53,7 @@ public class FlowPathActivity extends Activity {
 			radioButton.setChecked(false);
 			if(branch.getPossibleValue().size()!=0){
 				ChoiceDialog dialog = new ChoiceDialog(FlowPathActivity.this);
-				dialog.init(FlowPathActivity.this, branch.getPossibleValue(), radioButton);
+				dialog.init(FlowPathActivity.this, branch.getPossibleValue());
 				radioButton.setTag(dialog);
 				radioButton.setOnClickListener(new OnClickListener() {
 					
@@ -60,6 +61,7 @@ public class FlowPathActivity extends Activity {
 					public void onClick(View v) {
 						checkIds.clear();
 						checkIds.add(branch.getPathid());
+						mode = branch.getMode();
 						checkFlowtype = branch.getFlowtype();
 						checkName = branch.getName();
 						((Dialog)radioButton.getTag()).show();
@@ -72,6 +74,7 @@ public class FlowPathActivity extends Activity {
 					@Override
 					public void onClick(View v) {
 						checkIds.clear();
+						mode = branch.getMode();
 						checkIds.add(branch.getPathid());
 						checkFlowtype = branch.getFlowtype();
 						checkName = branch.getName();
@@ -88,42 +91,77 @@ public class FlowPathActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				System.err.println(checkIds+checkName);
-				if(checkName.length() > 0){
-					JSONObject  submit = new JSONObject();
-					JSONArray submitTo = new JSONArray();
-					JSONObject sub = new JSONObject();
-					String currnodeid = bundle.getString("currnodeid");
-					String docId = bundle.getString("docid");
-					String appId = bundle.getString("appid");
-					try {
-						sub.put("nodeid",checkIds.get(0));
-						sub.put("isToPerson", checkboxsdataValue!=null?"true":"false");
-						sub.put("userids",  checkboxsdataValue!=null?checkboxsdataValue.toString():"");
-						submitTo.put(sub);
-						submit.put("docid", docId);
-						submit.put("appid", appId);
-						submit.put("currnodeid", currnodeid);
-						JSONArray checks = new JSONArray();
-						for(int i = 0;i<checkIds.size();i++){
-							checks.put(checkIds.get(i));
+				if(mode == 0){
+					if(checkName.length() > 0){
+						JSONObject  submit = new JSONObject();
+						JSONArray submitTo = new JSONArray();
+						JSONObject sub = new JSONObject();
+						String currnodeid = bundle.getString("currnodeid");
+						String docId = bundle.getString("docid");
+						String appId = bundle.getString("appid");
+						try {
+							sub.put("nodeid",checkIds.get(0));
+							sub.put("isToPerson", checkboxsdataValue!=null?"true":"false");
+							sub.put("userids",  checkboxsdataValue!=null?checkboxsdataValue.toString():"");
+							submitTo.put(sub);
+							submit.put("docid", docId);
+							submit.put("appid", appId);
+							submit.put("currnodeid", currnodeid);
+							JSONArray checks = new JSONArray();
+							for(int i = 0;i<checkIds.size();i++){
+								checks.put(checkIds.get(i));
+							}
+							submit.put("nextids", checks);
+							submit.put("flowtype", checkFlowtype);
+							submit.put("submitto", submitTo.toString());
+							token = DataStorage.properties.getProperty("token");
+							formatUrl = new URL(DataStorage.properties.getProperty("url"));
+							SubmitTask submittask = new SubmitTask();
+							submittask.execute(formatUrl.toString(), token.toString(),
+						submit.toString());
+							System.err.println(submit.toString());
+						} catch (Exception e) {
+							e.printStackTrace();
 						}
-						submit.put("nextids", checks);
-						submit.put("flowtype", checkFlowtype);
-						submit.put("submitto", submitTo.toString());
-						token = DataStorage.properties.getProperty("token");
-						formatUrl = new URL(DataStorage.properties.getProperty("url"));
-						SubmitTask submittask = new SubmitTask();
-						submittask.execute(formatUrl.toString(), token.toString(),
-					submit.toString());
-					} catch (Exception e) {
-						e.printStackTrace();
+					}
+					else{
+						Toast.makeText(FlowPathActivity.this, "请选择提交路径", Toast.LENGTH_SHORT).show();
 					}
 				}
-				else{
-					Toast.makeText(FlowPathActivity.this, "请选择提交路径", Toast.LENGTH_SHORT).show();
+				else {
+					if(checkName.length() > 0){
+						JSONObject  submit = new JSONObject();
+						String currnodeid = bundle.getString("currnodeid");
+						String docId = bundle.getString("docid");
+						String appId = bundle.getString("appid");
+						try {
+							submit.put("docid", docId);
+							submit.put("appid", appId);
+							submit.put("currnodeid", currnodeid);
+							JSONArray checks = new JSONArray();
+							for(int i = 0;i<checkIds.size();i++){
+								checks.put(checkIds.get(i));
+							}
+							submit.put("nextids", checks);
+							submit.put("flowtype", checkFlowtype);
+							submit.put("submitto", "");
+							token = DataStorage.properties.getProperty("token");
+							formatUrl = new URL(DataStorage.properties.getProperty("url"));
+							SubmitTask submittask = new SubmitTask();
+							submittask.execute(formatUrl.toString(), token.toString(),
+						submit.toString());
+							System.err.println(submit.toString());
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+					else{
+						Toast.makeText(FlowPathActivity.this, "请选择提交路径", Toast.LENGTH_SHORT).show();
+					}
 				}
 			}
 		});
+		
 		linearlayout.addView(button);
 		scrollview.addView(linearlayout);
 		setContentView(scrollview);
@@ -132,17 +170,15 @@ public class FlowPathActivity extends Activity {
 	
 	class ChoiceDialog extends Dialog implements android.view.View.OnClickListener{
 		private ArrayList<CheckBox> checkboxs = new ArrayList<CheckBox>();
-		private TextView selectedUser;
 		public ChoiceDialog(Context context) {
 			super(context);
 			setTitle("请选择审批人");
 		}
 		
-		public void init(Context context,ArrayList<User> listValue, TextView selectedUser){
+		public void init(Context context,ArrayList<User> listValue){
 			if(checkboxs.size()!=0){
 				return;
 			}
-			this.selectedUser = selectedUser;
 			Button button  = new Button(context);
 			ScrollView scrollView = new ScrollView(context);
 			TableLayout dialogLayout = new TableLayout(context);
@@ -210,7 +246,10 @@ public class FlowPathActivity extends Activity {
 		@Override
 		protected void onPostExecute(Boolean flag) {
 			if(flag){
-				Toast.makeText(FlowPathActivity.this, "提交成功", Toast.LENGTH_LONG).show();
+				Toast.makeText(FlowPathActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(FlowPathActivity.this,MainActivity.class);
+				startActivity(intent);
+				FlowPathActivity.this.finish();
 			}
 			else{
 				Toast.makeText(FlowPathActivity.this, "提交失败", Toast.LENGTH_LONG).show();

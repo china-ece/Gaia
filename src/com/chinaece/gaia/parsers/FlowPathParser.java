@@ -1,6 +1,5 @@
 package com.chinaece.gaia.parsers;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.json.JSONArray;
@@ -18,6 +17,12 @@ public class FlowPathParser extends AbstractJSONParser<BranchType> {
 			branch.setPathid(jsonObj.getString("pathid"));
 			branch.setName(jsonObj.getString("name"));
 			branch.setFlowtype(jsonObj.getString("flowtype"));
+			if(jsonObj.has("mode")){
+				branch.setMode(jsonObj.getInt("mode"));
+			}
+			else{
+				branch.setMode(0);
+			}
 			if(jsonObj.has("list-value")){
 				for(int i = 0;i<jsonObj.getJSONArray("list-value").length();i++){
 					JSONObject user = jsonObj.getJSONArray("list-value").getJSONObject(i);

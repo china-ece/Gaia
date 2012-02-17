@@ -53,7 +53,8 @@ public class WeatherActivity extends Activity{
 
 		@Override
 		protected void onPostExecute(Collection<WeatherType> weather) {
-			dialog.dismiss();	
+			dialog.dismiss();
+			if(weather!=null){
 			    TextView tv1=new TextView(WeatherActivity.this);
 			    tv1.setText(weather.iterator().next().getCity());
 			    tv1.setTextSize(25);	
@@ -91,6 +92,13 @@ public class WeatherActivity extends Activity{
 		        weatherlayout.addView(et2,param1);
 		        weatherlayout.addView(et3,param2);
 		        setContentView(weatherlayout);				
+			}
+			else{
+				LinearLayout weatherlayout = new LinearLayout(WeatherActivity.this);
+				weatherlayout.setBackgroundResource(R.drawable.login);
+				setContentView(weatherlayout);
+			}
+				
 		}
 	}
     

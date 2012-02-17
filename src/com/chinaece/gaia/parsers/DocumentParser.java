@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 import com.chinaece.gaia.types.DocumentType;
 import com.chinaece.gaia.types.documentitem.BranchType;
-import com.chinaece.gaia.types.documentitem.ItemType;
 
 public class DocumentParser extends AbstractJSONParser<DocumentType> {
 

@@ -74,7 +74,7 @@ public class UserField extends ItemType{
 	@Override
 	public String getInstanceValue() {
 		try {
-			return users.get(autocompletetextview.getText()).getString(
+			return users.get(autocompletetextview.getText().toString()).getString(
 					"dataValue");
 		} catch (JSONException e) {
 			return dataValue;

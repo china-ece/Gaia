@@ -37,7 +37,6 @@ public class CheckboxField extends ItemType{
 	public View getMappingInstance(final Context context) throws JSONException {
 		if(linearlayout != null)
 			return linearlayout;
-		LinearLayout.LayoutParams pa = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 		linearlayout = new LinearLayout(context);
 		linearlayout.setOrientation(LinearLayout.VERTICAL);
 		textview = new TextView(context);

@@ -13,9 +13,19 @@ public class BranchType implements GaiaType,Serializable{
 	
 	private String name;
 	
+	private int mode;
+	
 	private ArrayList<User> listValue = new ArrayList<BranchType.User>();
 	
 	private String flowtype;
+	
+	public int getMode() {
+		return mode;
+	}
+
+	public void setMode(int mode) {
+		this.mode = mode;
+	}
 	
 	public String getFlowtype() {
 		return flowtype;

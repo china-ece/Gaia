@@ -36,7 +36,7 @@ public class ContactsActivity extends Activity {
 	private URL formatUrl;
 	private String token;
 	private Collection<ContactType> contactlist;
-	private List<Map<String, String>> list;
+	protected List<Map<String, String>> list;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -17,11 +17,11 @@ public class NotificationCenter {
 	public static void sendNotification(Intent intent, Context context, String tip, String title, String content){
 		if(mNotificationManager == null)
 			mNotificationManager =  (NotificationManager)context.getSystemService(Activity.NOTIFICATION_SERVICE);
-		Notification mNotification = new Notification(R.drawable.ic_launcher, tip, System.currentTimeMillis());
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);      
+		Notification mNotification = new Notification(R.drawable.appicon, tip, System.currentTimeMillis());
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  
+		mNotification.flags |= Notification.FLAG_AUTO_CANCEL;
         PendingIntent mContentIntent =PendingIntent.getActivity(context,0, intent, 0);  
         mNotification.setLatestEventInfo(context, title, content, mContentIntent);  
         mNotificationManager.notify(NOTIFICATION_ID++, mNotification); 
 	}
-
 }

@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.chinaece.gaia.types.documentitem.AttachmentUploadField;
 import com.chinaece.gaia.types.documentitem.CheckboxField;
 import com.chinaece.gaia.types.documentitem.DateField;
 import com.chinaece.gaia.types.documentitem.DepartmentField;
@@ -60,6 +61,9 @@ public class ItemParser extends AbstractJSONParser<ItemType> {
 					}
 				else if(jsonitem.getString("type").equals("CheckboxField")){
 					itemlist.add(new CheckboxField(jsonitem));
+					}
+				else if(jsonitem.getString("type").equals("AttachmentUploadField")){
+					itemlist.add(new AttachmentUploadField(jsonitem));
 					}
 				}
 			return itemlist;
