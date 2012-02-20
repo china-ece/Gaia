@@ -177,6 +177,7 @@ public class DocumentActivity extends Activity {
 						Intent intent = new Intent(DocumentActivity.this, FlowPathActivity.class);
 						intent.putExtras(bundle);
 						startActivity(intent);
+						DocumentActivity.this.finish();
 					}
 				}
 				else{

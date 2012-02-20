@@ -38,16 +38,15 @@
 			<TextView 
 			    android:layout_width="fill_parent"
 				android:layout_height="wrap_content" 
-				android:text="OA网址"
+				android:text="系统选择"
 				android:textColor="?android:attr/textColorSecondaryInverse"
 				android:gravity="center" 
 				android:layout_weight="4" />
-			<EditText 
+			<Spinner 
 			    android:id="@+id/edtOAUrl"
 			    android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginRight="5dip" 
-				android:text="http://10.4.3.1:8080/obpm"
 				android:singleLine="true"
 				android:layout_weight="1" />
 		</LinearLayout>

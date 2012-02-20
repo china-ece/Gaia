@@ -2,6 +2,7 @@ package com.chinaece.gaia.gui;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,16 +14,21 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.chinaece.gaia.R;
+import com.chinaece.gaia.constant.Gaia;
 import com.chinaece.gaia.db.DataStorage;
 import com.chinaece.gaia.http.OAHttpApi;
 import com.chinaece.gaia.types.UserType;
 
 public class GaiaActivity extends Activity {
+	private final HashMap<String, String> map  = new HashMap<String, String>();
 	private URL formatUrl;
 	
 	@Override
@@ -37,8 +43,18 @@ public class GaiaActivity extends Activity {
 			return;
 		}
 		setContentView(R.layout.login);
+		final Spinner url = (Spinner) findViewById(R.id.edtOAUrl);
+		map.put("华东有色电子政务平台", "http://oa.china-ece.com:18081");
+		if(Gaia.DEBUG){
+			map.put("开发测试", "http://10.4.3.1:8080/obpm/");
+			map.put("82测试", "http://10.0.0.82:18081");
+		}
+		String[] keys = {};
+		keys = map.keySet().toArray(keys);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item,keys);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		url.setAdapter(adapter);
 		Button loginButton = (Button) findViewById(R.id.btnLogin);
-		final EditText url = (EditText) findViewById(R.id.edtOAUrl);
 		final EditText user = (EditText) findViewById(R.id.edtUserId);
 		final EditText password = (EditText) findViewById(R.id.edtPassWord);
 		final EditText domain = (EditText) findViewById(R.id.edtDomain);
@@ -47,7 +63,7 @@ public class GaiaActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				try {
-					formatUrl = new URL(url.getText().toString());
+					formatUrl = new URL(map.get(url.getSelectedItem()));
 					ApiTask task = new ApiTask();
 					task.execute(formatUrl.toString(), user.getText()
 							.toString().trim(), password.getText().toString().trim(), domain
