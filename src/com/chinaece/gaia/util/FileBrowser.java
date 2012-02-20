@@ -1,6 +1,9 @@
 package com.chinaece.gaia.util;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.chinaece.gaia.R;
+import com.chinaece.gaia.constant.Gaia;
 
 public class FileBrowser extends ListView implements
 		android.widget.AdapterView.OnItemClickListener,android.widget.AdapterView.OnItemLongClickListener
@@ -33,11 +37,18 @@ public class FileBrowser extends ListView implements
 	private Map<String, Integer> fileImageResIdMap = new HashMap<String, Integer>();
 	private boolean onlyFolder = false;
 
-	public FileBrowser(Context context, AttributeSet attrs)
+	public FileBrowser(Context context, AttributeSet attrs) throws IOException
 	{
+		
 		super(context, attrs);
 		sdcardDirectory = android.os.Environment.getExternalStorageDirectory()
 				.toString()+"/ece";
+		File file = new File(sdcardDirectory);
+		if(file.exists()){
+			return;
+		}
+		System.err.println(file.mkdirs());
+		file.createNewFile(); 
 		setOnItemClickListener(this);
 		setOnItemLongClickListener(this);
 		setBackgroundColor(android.graphics.Color.BLACK);
