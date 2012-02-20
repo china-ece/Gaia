@@ -44,11 +44,10 @@ public class FileBrowser extends ListView implements
 		sdcardDirectory = android.os.Environment.getExternalStorageDirectory()
 				.toString()+"/ece";
 		File file = new File(sdcardDirectory);
-		if(file.exists()){
-			return;
+		if(!file.exists()){
+			System.err.println(file.mkdirs());
+			file.createNewFile();
 		}
-		System.err.println(file.mkdirs());
-		file.createNewFile(); 
 		setOnItemClickListener(this);
 		setOnItemLongClickListener(this);
 		setBackgroundColor(android.graphics.Color.BLACK);
