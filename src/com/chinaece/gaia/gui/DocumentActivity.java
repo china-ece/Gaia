@@ -126,6 +126,10 @@ public class DocumentActivity extends Activity {
 		@Override
 		protected void onPostExecute(DocumentType document) {
 			dialog.dismiss();
+			if(document == null){
+				Toast.makeText(getApplicationContext(), "加载失败，请重试。", Toast.LENGTH_SHORT).show();
+				return;
+			}
 			DocumentActivity.this.document = document;
 			try {
 				for (ItemType item : document.getItems()) {
