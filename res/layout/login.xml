@@ -70,7 +70,7 @@
 			    android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginRight="5dip" 
-				android:text="ece" 
+				android:text="" 
 				android:singleLine="true"
 				android:layout_weight="1" />
 		</LinearLayout>
@@ -94,7 +94,7 @@
 			    android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginRight="5dip" 
-				android:text="zhanglb" 
+				android:text="" 
 				android:singleLine="true"
 				android:layout_weight="1" />
 		</LinearLayout>
@@ -116,7 +116,7 @@
 			    android:layout_width="fill_parent"
 				android:layout_height="wrap_content" 
 				android:layout_marginRight="6dip" 
-				android:text="111111"
+				android:text=""
 				android:layout_weight="1" 
 				android:singleLine="true"
 				android:inputType="textPassword"

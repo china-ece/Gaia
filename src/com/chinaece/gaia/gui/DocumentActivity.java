@@ -63,7 +63,6 @@ public class DocumentActivity extends Activity {
 				saveParams.put("docid", docid);
 				saveParams.put("appid", appid);
 				saveParams.put("fields", fields);
-				System.err.println(saveParams);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

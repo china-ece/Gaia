@@ -42,7 +42,6 @@ public class Downloader implements Runnable{
             HttpURLConnection conn=(HttpURLConnection)url.openConnection();   
             String SDCard=Environment.getExternalStorageDirectory().getPath();   
             String pathName=SDCard+"/"+path+"/"+fileName;   
-            System.err.println(pathName);
             File file=new File(pathName);   
             InputStream input=conn.getInputStream();   
            if(file.exists()){   
@@ -52,13 +51,13 @@ public class Downloader implements Runnable{
            }else{   
                File dir = new File(SDCard+"/"+path);
                if(!dir.exists())
-            	   System.err.println(dir.mkdirs());  
+            	   dir.mkdirs();  
                file.createNewFile(); 
                output=new FileOutputStream(file);  
                byte[] buffer=new byte[1024];
                int length;
                while((length = input.read(buffer))!=-1){
-                   output.write(buffer, 0 ,length);   
+                   output.write(buffer, 0 ,length); 
                 }
                 output.flush(); 
                Intent mintent = new Intent(context,FilesActivity.class);

@@ -41,13 +41,11 @@ public class ContactActivity extends Activity{
 				if (edtphone.getText()!= null && !edtphone.getText().toString().equals(""))
 				{
 					savecontacts();			
-					System.err.println("保存成功");
 					Toast.makeText(ContactActivity.this, "该用户电话号码保存成功", 
 							Toast.LENGTH_SHORT).show();
 				}
 				else 
 				{	
-					System.err.println("该用户没有相应的电话号码");
 					Toast.makeText(ContactActivity.this, "该用户没有相应的电话号码", 
 							Toast.LENGTH_SHORT).show();
 				}

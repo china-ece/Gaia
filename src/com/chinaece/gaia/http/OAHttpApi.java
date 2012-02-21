@@ -35,8 +35,8 @@ public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
 	}
 	
 	public UserType getToken(String user, String password, String domain){
-		HttpPost post = createHttpPost(url+"/client/getToken.action", new BasicNameValuePair("user", user), new BasicNameValuePair("pwd", password), new BasicNameValuePair("domain", domain));
-		Collection<? extends GaiaType> rst = doRequest(post, new UserParser());
+		HttpGet get = createHttpGet(url+"/client/getToken.action", new BasicNameValuePair("user", user), new BasicNameValuePair("pwd", password), new BasicNameValuePair("domain", domain));
+		Collection<? extends GaiaType> rst = doRequest(get, new UserParser());
 		if(rst != null){
 			Collection<UserType> users = (Collection<UserType>)rst;
 			return users.iterator().next();
@@ -45,8 +45,8 @@ public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
 	}
 	
 	public boolean getApps(String token){
-		HttpPost post = createHttpPost(url+"/client/getApps.action",new BasicNameValuePair("token",token));
-		Collection<? extends GaiaType> rst = doRequest(post, new AppParser(),true);
+		HttpGet get = createHttpGet(url+"/client/getApps.action",new BasicNameValuePair("token",token));
+		Collection<? extends GaiaType> rst = doRequest(get, new AppParser(),true);
 		if(rst != null){
 			Collection<AppType> apps = (Collection<AppType>)rst;
 			Gaia.APPLIST = apps;
@@ -56,24 +56,23 @@ public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
 	}
 	
 	public Collection<PendingType> getPending(String token,String appids){
-		HttpPost post = createHttpPost(url+"/client/getPendings.action",new BasicNameValuePair("token", token),new BasicNameValuePair("params", appids));
-		Collection<? extends GaiaType> rst = doRequest(post, new PendingParser());
+		HttpGet get = createHttpGet(url+"/client/getPendings.action",new BasicNameValuePair("token", token),new BasicNameValuePair("params", appids));
+		Collection<? extends GaiaType> rst = doRequest(get, new PendingParser());
 		if(rst!=null)
 			return (Collection<PendingType>)rst;
 		return null;
 	}
 	
 	public DocumentType getDocument(String token,String document){
-		HttpGet post = createHttpGet(url+"/client/getDocument.action",new BasicNameValuePair("token",token),new BasicNameValuePair("params",document));
-		Collection<?extends GaiaType> rst = doRequest(post, new DocumentParser());
+		HttpGet get = createHttpGet(url+"/client/getDocument.action",new BasicNameValuePair("token",token),new BasicNameValuePair("params",document));
+		Collection<?extends GaiaType> rst = doRequest(get, new DocumentParser());
 		if(rst!=null)
 			return (DocumentType)rst.iterator().next();
 		return null;
 	}
 	
 	public Collection<ContactType> getContact(String token,String search){
-		HttpPost post = createHttpPost(url+"/client/getContacts.action",new BasicNameValuePair("token",token),new BasicNameValuePair("params",search));
-		System.err.println(search);
+		HttpGet post = createHttpGet(url+"/client/getContacts.action",new BasicNameValuePair("token",token),new BasicNameValuePair("params",search));
 		Collection<?extends GaiaType> rst = doRequest(post, new ContactParser());
 		if(rst!=null)
 			return (Collection<ContactType>)rst;
@@ -81,7 +80,7 @@ public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
 	}
 	
 	public Collection<WeatherType> getWeather(){
-		HttpPost post = createHttpPost(url+"/client/getWeather.action");
+		HttpGet post = createHttpGet(url+"/client/getWeather.action");
 		Collection<? extends GaiaType> rst = doRequest(post, new WeatherParser(),true);
 		if(rst != null){
 		return(Collection<WeatherType>)rst;

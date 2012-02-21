@@ -62,17 +62,8 @@ public class AttachmentUploadField extends ItemType{
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							System.err.println(formatUrl);
 							Downloader down = new Downloader(context, (formatUrl+textview.getTag().toString()).toString(), textview.getText().toString());
 							new Thread(down).start();
-	//			            Bundle bundle = new Bundle();
-	//			            bundle.putString("urlStr", urlStr);
-	//			            bundle.putString("path", path);
-	//			            bundle.putString("fileName", fileName);
-	//			            Intent intent = new Intent(context,
-	//								DownActivity.class);
-	//						intent.putExtras(bundle);
-	//						context.startActivity(intent);
 						}
 					});
 					builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
