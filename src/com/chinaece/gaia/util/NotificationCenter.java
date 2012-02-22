@@ -13,8 +13,9 @@ public class NotificationCenter {
 	
 	private static NotificationManager mNotificationManager ;
 	private static int NOTIFICATION_ID = 1;
+	private static int PENDING_NOTIFICATION_ID = 65536;
 	
-	public static void sendNotification(Intent intent, Context context, String tip, String title, String content){
+	private static void sendNotification(Intent intent, Context context, String tip, String title, String content, int ID){
 		if(mNotificationManager == null)
 			mNotificationManager =  (NotificationManager)context.getSystemService(Activity.NOTIFICATION_SERVICE);
 		Notification mNotification = new Notification(R.drawable.appicon, tip, System.currentTimeMillis());
@@ -22,6 +23,14 @@ public class NotificationCenter {
 		mNotification.flags |= Notification.FLAG_AUTO_CANCEL;
         PendingIntent mContentIntent =PendingIntent.getActivity(context,0, intent, 0);  
         mNotification.setLatestEventInfo(context, title, content, mContentIntent);  
-        mNotificationManager.notify(NOTIFICATION_ID++, mNotification); 
+        mNotificationManager.notify(ID, mNotification); 
+	}                                                               
+	
+	public static void sendNormalNotification(Intent intent, Context context, String tip, String title, String content){
+		sendNotification(intent, context, tip, title, content, NOTIFICATION_ID++);
+	}
+	
+	public static void sendPendingsNotification(Intent intent, Context context, String tip, String title, String content){
+		sendNotification(intent, context, tip, title, content, PENDING_NOTIFICATION_ID);
 	}
 }

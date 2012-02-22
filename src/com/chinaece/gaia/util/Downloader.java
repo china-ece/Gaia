@@ -47,7 +47,7 @@ public class Downloader implements Runnable{
             InputStream input=conn.getInputStream();   
            if(file.exists()){   
                 Intent mintent = new Intent(context,FilesActivity.class);
-      		   	NotificationCenter.sendNotification(mintent, context, fileName+ "已存在请点击查看","附件下载",fileName+ "已存在请点击查看");
+      		   	NotificationCenter.sendNormalNotification(mintent, context, fileName+ "已存在请点击查看","附件下载",fileName+ "已存在请点击查看");
                 return;
            }else{   
                File dir = new File(SDCard+"/"+path);
@@ -62,13 +62,13 @@ public class Downloader implements Runnable{
                 }
                 output.flush(); 
                Intent mintent = new Intent(context,FilesActivity.class);
-     		   NotificationCenter.sendNotification(mintent, context, fileName+ "下载完成点击附件管理查看详细内容","附件下载",fileName+ "下载完成点击附件管理查看详细内容");
+     		   NotificationCenter.sendNormalNotification(mintent, context, fileName+ "下载完成点击附件管理查看详细内容","附件下载",fileName+ "下载完成点击附件管理查看详细内容");
             }   
        } catch (MalformedURLException e) {   
            e.printStackTrace();   
         } catch (IOException e) { 
         	Intent mintent = new Intent(context,FilesActivity.class);
- 		   NotificationCenter.sendNotification(mintent, context, fileName+"下载失败","附件下载", fileName+"下载失败");
+ 		   NotificationCenter.sendNormalNotification(mintent, context, fileName+"下载失败","附件下载", fileName+"下载失败");
             e.printStackTrace();   
        }
 	}
