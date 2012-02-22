@@ -28,7 +28,6 @@ public class TextareaField extends ItemType {
 		{
 			edittext.setText(displayValue);
 			edittext.setTag(dataValue);
-			System.err.println(dataValue);
 			edittext.setTextColor(Color.BLACK);
 			edittext.setClickable(false);
 			edittext.setFocusable(false);
