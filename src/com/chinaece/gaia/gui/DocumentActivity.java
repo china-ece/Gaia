@@ -83,7 +83,6 @@ public class DocumentActivity extends Activity {
 		linearLayout.setBackgroundResource(R.drawable.login);
 		scrollView.addView(linearLayout);
 		setContentView(scrollView);
-		DataStorage.load(DocumentActivity.this);
 		try {
 			token = DataStorage.properties.getProperty("token");
 			formatUrl = new URL(DataStorage.properties.getProperty("url"));

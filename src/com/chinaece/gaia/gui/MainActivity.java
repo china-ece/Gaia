@@ -8,6 +8,9 @@ import java.util.HashMap;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,17 +31,19 @@ import android.widget.Toast;
 import com.chinaece.gaia.R;
 import com.chinaece.gaia.db.DataStorage;
 import com.chinaece.gaia.http.OAHttpApi;
+import com.chinaece.gaia.service.PendingService;
 
 public class MainActivity extends Activity {
 	String token, name;
 	private URL formatUrl;
+	private static NotificationManager mNotificationManager;
+	private static final int ONGOING_NOTIFICATION_ID = 0;
 
 	/** Called when the activity is first created. */
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		DataStorage.load(MainActivity.this);
 		token = DataStorage.properties.getProperty("token");
 		name = DataStorage.properties.getProperty("name");
 		if(token.indexOf("null") != -1){
@@ -118,7 +123,7 @@ public class MainActivity extends Activity {
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
-		}
+	}
 
 	private Dialog ExitDialog(Context context) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -131,7 +136,7 @@ public class MainActivity extends Activity {
 				startMain.addCategory(Intent.CATEGORY_HOME);
 				startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(startMain);
-				System.exit(0);
+				mNotificationManager.cancel(ONGOING_NOTIFICATION_ID);
 				}
 			});
 		builder.setNegativeButton("取消",
@@ -140,9 +145,7 @@ public class MainActivity extends Activity {
 				}
 			});
 		return builder.create();
-		}
-
-
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -158,6 +161,7 @@ public class MainActivity extends Activity {
 			DataStorage.clear(MainActivity.this);
 			Intent intent = new Intent(MainActivity.this, GaiaActivity.class);
 			startActivity(intent);
+			mNotificationManager.cancel(ONGOING_NOTIFICATION_ID);
 			this.finish();
 			break;
 		}
@@ -197,11 +201,28 @@ public class MainActivity extends Activity {
 			if(flag){
 				TextView txtview = (TextView) findViewById(R.id.textView2);
 				txtview.setText("欢迎" + name + "进入华东有色地勘局OA系统");
+				showNotification();
+				getApplicationContext().startService(new Intent(MainActivity.this, PendingService.class));
 			}
 			else{
 				Toast.makeText(MainActivity.this, "请先登陆网页生成验证码", Toast.LENGTH_LONG).show();
 			}
 		}
-
 	}
+
+	private void showNotification() {
+   	mNotificationManager = (NotificationManager) 
+           getSystemService(Context.NOTIFICATION_SERVICE);
+       Notification notification = new Notification(R.drawable.appicon,
+               "正在运行中...", System.currentTimeMillis());
+       notification.flags |= Notification.FLAG_ONGOING_EVENT; 
+       notification.flags |= Notification.FLAG_NO_CLEAR; 
+       CharSequence contentTitle = "华东有色电子政务平台"; 
+       CharSequence contentText = "正在运行中..."; 
+       Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class); 
+       PendingIntent contentItent = PendingIntent.getActivity(getApplicationContext(), 0,notificationIntent, 0);
+       notification.setLatestEventInfo(getApplicationContext(), contentTitle, contentText,
+               contentItent);
+       mNotificationManager.notify(ONGOING_NOTIFICATION_ID, notification);
+   }
 }

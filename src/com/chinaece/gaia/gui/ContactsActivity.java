@@ -40,7 +40,6 @@ public class ContactsActivity extends Activity {
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		DataStorage.load(ContactsActivity.this);
 		setContentView(R.layout.contacts);
 		final EditText edittext = (EditText)findViewById(R.id.editText1);
 		Button button = (Button)findViewById(R.id.button1);

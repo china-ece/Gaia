@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:icon="@drawable/appicon"
@@ -24,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".gui.MainActivity"></activity>
-        <activity android:name=".gui.PendingsActivity"></activity>
+        <activity android:name=".gui.PendingsActivity" android:launchMode="singleTop"></activity>
         <activity android:name=".gui.DocumentActivity"></activity>
         <activity android:name=".gui.WeatherActivity"></activity>
         <activity android:name=".gui.ContactsActivity"></activity>
@@ -33,6 +34,19 @@
         <activity android:name=".gui.FilesActivity"
             android:label="文件管理" android:debuggable="true"></activity>
         <activity android:name=".gui.DownActivity"></activity>
+       <service 
+            android:name=".service.PendingService">
+            <intent-filter>
+                <action android:name="com.chinaece.gaia.service.PendingService" />
+                <category android:name="android.intent.category.default" />
+            </intent-filter>
+            
+        </service>
+        <receiver android:name=".util.ServiceBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

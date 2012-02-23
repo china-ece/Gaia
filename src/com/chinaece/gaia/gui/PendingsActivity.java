@@ -15,6 +15,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -40,7 +42,15 @@ public class PendingsActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pendinglist);
-		DataStorage.load(PendingsActivity.this);
+		refreshData();
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		refreshData();
+	}
+	
+	private void refreshData(){
 		token = DataStorage.properties.getProperty("token");
 		try {
 			formatUrl = new URL(DataStorage.properties.getProperty("url"));
@@ -52,9 +62,9 @@ public class PendingsActivity extends ListActivity {
 			task.execute(formatUrl.toString(), token.toString(),
 					appids.toString());
 		} catch (MalformedURLException e) {
-			}
+		}
 	}
-
+	
 	class ApiTask extends AsyncTask<String, Integer, Collection<PendingType>> {
 		private ProgressDialog dialog;
 
@@ -115,4 +125,19 @@ public class PendingsActivity extends ListActivity {
 		}
 	}
 
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add(Menu.NONE, Menu.FIRST + 1, 1, "刷新").setIcon(
+				android.R.drawable.ic_menu_rotate);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case Menu.FIRST + 1:
+			refreshData();
+			break;
+		}
+		return false;
+	}
 }

@@ -26,7 +26,6 @@ public class WeatherActivity extends Activity{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		DataStorage.load(WeatherActivity.this);
 		try {
 			formatUrl = new URL(DataStorage.properties.getProperty("url"));
 			ApiTask task = new ApiTask();
