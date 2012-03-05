@@ -3,17 +3,27 @@ package com.chinaece.gaia.gui;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -30,16 +40,47 @@ public class DocumentActivity extends Activity {
 	private ScrollView scrollView;
 	private LinearLayout linearLayout;
 	private DocumentType document;
-	JSONObject forntlist = new JSONObject();
+	private boolean isNormal = true, isOpinion = false;
+	private HashMap<EditText, AlertDialog> infoMap = new HashMap<EditText, AlertDialog>();
+	private static final int Menu_NORMAL = 1;
+	private static final int Menu_EXIT_OPINION = 2;
+	private static final int Menu_OPINION = 3;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(Menu.NONE, Menu.FIRST + 1, 1, "保存").setIcon(
+		menu.add(Menu_NORMAL, Menu.FIRST + 1, 1, "保存").setIcon(
 				android.R.drawable.ic_menu_save);
-		menu.add(Menu.NONE,Menu.FIRST+2,1,"提交").setIcon(android.R.drawable.ic_menu_edit);
+		menu.add(Menu_NORMAL,Menu.FIRST+2,1,"提交").setIcon(android.R.drawable.ic_menu_send);
+		//
+		menu.add(Menu_OPINION, Menu.FIRST + 1, 1, "保存").setIcon(
+				android.R.drawable.ic_menu_save);
+		menu.add(Menu_OPINION,Menu.FIRST+2,1,"提交").setIcon(android.R.drawable.ic_menu_send);
+		menu.add(Menu_OPINION,Menu.FIRST+3,1,"填写意见").setIcon(android.R.drawable.ic_menu_edit);
+		//
+		menu.add(Menu_EXIT_OPINION,Menu.FIRST+4,1,"退出编辑").setIcon(android.R.drawable.ic_menu_save);
 		return true;
 	}
 
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		if(isNormal){
+			menu.setGroupVisible(Menu_NORMAL, true);
+			menu.setGroupVisible(Menu_EXIT_OPINION, false);
+			menu.setGroupVisible(Menu_OPINION, false);
+		}
+		else if(isOpinion){
+			menu.setGroupVisible(Menu_NORMAL, false);
+			menu.setGroupVisible(Menu_EXIT_OPINION, true);
+			menu.setGroupVisible(Menu_OPINION, false);
+		}
+		else{
+			menu.setGroupVisible(Menu_NORMAL, false);
+			menu.setGroupVisible(Menu_EXIT_OPINION, false);
+			menu.setGroupVisible(Menu_OPINION, true);
+		}
+		return super.onPrepareOptionsMenu(menu);
+	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -60,6 +101,7 @@ public class DocumentActivity extends Activity {
 			}
 			
 			try {
+				saveParams.put("version", document.getVersion());
 				saveParams.put("docid", docid);
 				saveParams.put("appid", appid);
 				saveParams.put("fields", fields);
@@ -70,10 +112,34 @@ public class DocumentActivity extends Activity {
 			savetask.execute(formatUrl.toString(), token.toString(),
 					saveParams.toString());
 			break;
+		case Menu.FIRST+3:
+			isOpinion = true;
+			for(int i = 0;i<linearLayout.getChildCount();i++){
+				View v = linearLayout.getChildAt(i);
+				if(v instanceof EditText && ((EditText) v).getInputType()== (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE) ){
+					v.setBackgroundColor(Color.GRAY);
+					getDialog((EditText) v);
+					v.setOnClickListener(new OnClickListener() {
+						
+						@Override
+						public void onClick(final View v) {
+							getDialog((EditText) v).show();
+						}
+					});
+				}
+			}
+			break;
+		case Menu.FIRST+4:
+			isOpinion = false;
+			for(EditText edit :infoMap.keySet()){
+				edit.setBackgroundColor(Color.WHITE);
+				edit.setOnClickListener(null);
+			}
+			break;
 		}
 		return false;
 	}
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -104,6 +170,48 @@ public class DocumentActivity extends Activity {
 			e.printStackTrace();
 		}
 	}
+	
+	private AlertDialog getDialog(final EditText edit){
+		if(infoMap.containsKey(edit))
+			return infoMap.get(edit);
+		final EditText info = new EditText(getApplicationContext());
+		info.setMinLines(5);
+		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DocumentActivity.this);
+		alertBuilder.setTitle("请输入审批意见");
+		alertBuilder.setView(info);
+		alertBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if(info.getTag() == null)
+					info.setTag(edit.getText());
+				if(info.getText().toString().trim().equals("")){
+					edit.setText(info.getTag().toString());
+					return;
+				}
+				StringBuffer sb = new StringBuffer();
+				SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				sb.append(info.getTag().toString());
+				sb.append("\n");
+				sb.append(info.getText().toString());
+				sb.append(" ");
+				sb.append(DataStorage.properties.getProperty("name"));
+				sb.append(" ");
+				sb.append(date.format(new Date()));
+				edit.setText(sb.toString());
+			}
+		});
+		alertBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		AlertDialog dialog = alertBuilder.create();
+		infoMap.put(edit, dialog);
+		return dialog;
+	}
 
 	class ApiTask extends AsyncTask<String, Integer, DocumentType> {
 		private ProgressDialog dialog;
@@ -132,8 +240,11 @@ public class DocumentActivity extends Activity {
 			DocumentActivity.this.document = document;
 			try {
 				for (ItemType item : document.getItems()) {
-					if (item!=null)
+					if (item!=null){
 						linearLayout.addView(item.getMappingInstance(DocumentActivity.this));
+						if(item.getName() != null && item.getName().toLowerCase().trim().equals("processview"))
+							isNormal = false;
+					}
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -166,6 +277,7 @@ public class DocumentActivity extends Activity {
 		@Override
 		protected void onPostExecute(Boolean flag) {
 			if(flag){
+				document.setVersion(document.getVersion()+1);
 				if(isJump){
 					if(document.getFlowPath() == null){ 
 						Toast.makeText(DocumentActivity.this, "没有提交路径，请联系管理员", Toast.LENGTH_SHORT).show();
@@ -176,6 +288,7 @@ public class DocumentActivity extends Activity {
 						bundle.putString("currnodeid", document.getCurrNodeid());
 						bundle.putString("docid", docid);
 						bundle.putString("appid", appid);
+						bundle.putInt("version", document.getVersion());
 						Intent intent = new Intent(DocumentActivity.this, FlowPathActivity.class);
 						intent.putExtras(bundle);
 						startActivity(intent);

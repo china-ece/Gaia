@@ -1,4 +1,4 @@
-package com.chinaece.gaia.types.documentitem;
+	package com.chinaece.gaia.types.documentitem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -75,7 +75,7 @@ abstract public class ItemType implements GaiaType{
 	abstract public String getInstanceValue();
 	
 	final public boolean isChanged(){
-		return !type.equals("String") && display == 2 && !getInstanceValue().equals(dataValue);
+		return !type.equals("String") && !getInstanceValue().equals(dataValue);
 	}
 	
 	public ItemType(JSONObject obj) throws JSONException {
