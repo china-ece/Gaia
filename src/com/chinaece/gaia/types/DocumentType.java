@@ -8,6 +8,9 @@ import com.chinaece.gaia.types.documentitem.BranchType;
 import com.chinaece.gaia.types.documentitem.ItemType;
 
  public class DocumentType implements GaiaType{
+	 
+	protected int version;
+	 
 	protected ArrayList<ItemType> items;
 	
 	protected boolean editable;
@@ -19,6 +22,15 @@ import com.chinaece.gaia.types.documentitem.ItemType;
 	protected boolean choiceflag;
 	
 	protected String currNodeid;
+	
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
 	
 	public String getCurrNodeid() {
 		return currNodeid;

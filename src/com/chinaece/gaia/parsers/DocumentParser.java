@@ -18,6 +18,7 @@ public class DocumentParser extends AbstractJSONParser<DocumentType> {
 		FlowPathParser flowpathparser = new FlowPathParser();
 		ArrayList<BranchType> flowpath = new ArrayList<BranchType>();
 		try {
+			document.setVersion(jsonObj.getInt("version"));
 			document.setEditable(jsonObj.getBoolean("editable"));
 			ItemParser itemparser = new ItemParser();
 			document.setItems(itemparser.parser(jsonObj.getJSONArray("items")));

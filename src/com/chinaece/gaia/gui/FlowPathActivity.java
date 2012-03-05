@@ -99,11 +99,13 @@ public class FlowPathActivity extends Activity {
 						String currnodeid = bundle.getString("currnodeid");
 						String docId = bundle.getString("docid");
 						String appId = bundle.getString("appid");
+						int version = bundle.getInt("version");
 						try {
 							sub.put("nodeid",checkIds.get(0));
 							sub.put("isToPerson", checkboxsdataValue!=null?"true":"false");
 							sub.put("userids",  checkboxsdataValue!=null?checkboxsdataValue.toString():"");
 							submitTo.put(sub);
+							submit.put("version", version);
 							submit.put("docid", docId);
 							submit.put("appid", appId);
 							submit.put("currnodeid", currnodeid);
@@ -134,7 +136,9 @@ public class FlowPathActivity extends Activity {
 						String currnodeid = bundle.getString("currnodeid");
 						String docId = bundle.getString("docid");
 						String appId = bundle.getString("appid");
+						int version = bundle.getInt("version");
 						try {
+							submit.put("version", version);
 							submit.put("docid", docId);
 							submit.put("appid", appId);
 							submit.put("currnodeid", currnodeid);
