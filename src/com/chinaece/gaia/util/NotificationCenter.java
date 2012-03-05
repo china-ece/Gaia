@@ -12,8 +12,9 @@ import android.content.Intent;
 public class NotificationCenter {
 	
 	private static NotificationManager mNotificationManager ;
-	private static int NOTIFICATION_ID = 1;
-	private static int PENDING_NOTIFICATION_ID = 65536;
+	public static int NOTIFICATION_ID = 1;
+	public static int PENDING_NOTIFICATION_ID = 65536;
+	public static int ONGOING_NOTIFICATION_ID = 65535;
 	
 	private static void sendNotification(Intent intent, Context context, String tip, String title, String content, int ID){
 		if(mNotificationManager == null)
@@ -33,4 +34,17 @@ public class NotificationCenter {
 	public static void sendPendingsNotification(Intent intent, Context context, String tip, String title, String content){
 		sendNotification(intent, context, tip, title, content, PENDING_NOTIFICATION_ID);
 	}
+	
+	public static void sendOngoingNotification(Intent intent, Context context, String tip, String title, String content)
+	{
+		sendNotification(intent, context, tip, title, content,ONGOING_NOTIFICATION_ID);
+		Notification mNotification = new Notification(R.drawable.appicon, tip, System.currentTimeMillis());
+		mNotification.flags |= Notification.FLAG_ONGOING_EVENT;
+		mNotification.flags |= Notification.FLAG_NO_CLEAR;
+	}
+	
+	public static void clearNotification(int id){
+		mNotificationManager.cancel(id);
+	}
+	
 }

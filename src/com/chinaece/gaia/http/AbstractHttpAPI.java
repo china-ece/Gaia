@@ -37,7 +37,7 @@ import com.chinaece.gaia.types.GaiaType;
 
 abstract public class AbstractHttpAPI implements HttpAPI{
 	
-	private static final int TIMEOUT = 10;
+	private static final int TIMEOUT = 30;
 	private static final DefaultHttpClient client;
 	private static ConcurrentHashMap<URI,Object> cache = new ConcurrentHashMap<URI, Object>();
 	public static boolean ONLINE = true;

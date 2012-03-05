@@ -8,9 +8,6 @@ import java.util.HashMap;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -32,14 +29,12 @@ import com.chinaece.gaia.R;
 import com.chinaece.gaia.db.DataStorage;
 import com.chinaece.gaia.http.OAHttpApi;
 import com.chinaece.gaia.service.PendingService;
+import com.chinaece.gaia.util.NotificationCenter;
 
 public class MainActivity extends Activity {
 	String token, name;
 	private URL formatUrl;
-	private static NotificationManager mNotificationManager;
-	private static final int ONGOING_NOTIFICATION_ID = 0;
-
-	/** Called when the activity is first created. */
+	private Boolean reflag;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -136,9 +131,9 @@ public class MainActivity extends Activity {
 				startMain.addCategory(Intent.CATEGORY_HOME);
 				startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(startMain);
-				mNotificationManager.cancel(ONGOING_NOTIFICATION_ID);
-				}
-			});
+				NotificationCenter.clearNotification(NotificationCenter.ONGOING_NOTIFICATION_ID);
+			}
+		});
 		builder.setNegativeButton("取消",
 		new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
@@ -161,7 +156,7 @@ public class MainActivity extends Activity {
 			DataStorage.clear(MainActivity.this);
 			Intent intent = new Intent(MainActivity.this, GaiaActivity.class);
 			startActivity(intent);
-			mNotificationManager.cancel(ONGOING_NOTIFICATION_ID);
+			NotificationCenter.clearNotification(NotificationCenter.ONGOING_NOTIFICATION_ID);
 			this.finish();
 			break;
 		}
@@ -175,7 +170,7 @@ public class MainActivity extends Activity {
 		protected void onPreExecute() {
 			dialog = ProgressDialog.show(MainActivity.this, "请稍等...",
 					"正在初始化...");
-		}
+		}		
 
 		@Override
 		protected Boolean doInBackground(String... params) {
@@ -199,9 +194,11 @@ public class MainActivity extends Activity {
 				return;
 			}
 			if(flag){
+				reflag = flag;
 				TextView txtview = (TextView) findViewById(R.id.textView2);
 				txtview.setText("欢迎" + name + "进入华东有色地勘局OA系统");
-				showNotification();
+				Intent mintent = new Intent(getApplicationContext(),MainActivity.class);
+				NotificationCenter.sendOngoingNotification(mintent, getApplicationContext(),"正在运行中...", "华东有色电子政务平台", "正在运行中...");
 				getApplicationContext().startService(new Intent(MainActivity.this, PendingService.class));
 			}
 			else{
@@ -209,20 +206,21 @@ public class MainActivity extends Activity {
 			}
 		}
 	}
+	
+	@Override
+	protected void onResume() {
+		if(reflag != null && reflag == true){
+			Intent intent = new Intent(MainActivity.this, GaiaActivity.class);
+			startActivity(intent);
+			NotificationCenter.clearNotification(NotificationCenter.ONGOING_NOTIFICATION_ID);
+			try {
+				formatUrl = new URL(DataStorage.properties.get("url").toString());
+				ApiTask task = new ApiTask();
+				task.execute(formatUrl.toString(), token.toString());
+			} catch (MalformedURLException e) {
+			}
+		}
+		super.onResume();
+	}
 
-	private void showNotification() {
-   	mNotificationManager = (NotificationManager) 
-           getSystemService(Context.NOTIFICATION_SERVICE);
-       Notification notification = new Notification(R.drawable.appicon,
-               "正在运行中...", System.currentTimeMillis());
-       notification.flags |= Notification.FLAG_ONGOING_EVENT; 
-       notification.flags |= Notification.FLAG_NO_CLEAR; 
-       CharSequence contentTitle = "华东有色电子政务平台"; 
-       CharSequence contentText = "正在运行中..."; 
-       Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class); 
-       PendingIntent contentItent = PendingIntent.getActivity(getApplicationContext(), 0,notificationIntent, 0);
-       notification.setLatestEventInfo(getApplicationContext(), contentTitle, contentText,
-               contentItent);
-       mNotificationManager.notify(ONGOING_NOTIFICATION_ID, notification);
-   }
 }
