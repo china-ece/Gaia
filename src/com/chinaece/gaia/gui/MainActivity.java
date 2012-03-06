@@ -131,7 +131,6 @@ public class MainActivity extends Activity {
 				startMain.addCategory(Intent.CATEGORY_HOME);
 				startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(startMain);
-				NotificationCenter.clearNotification(NotificationCenter.ONGOING_NOTIFICATION_ID);
 			}
 		});
 		builder.setNegativeButton("取消",
@@ -146,6 +145,8 @@ public class MainActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add(Menu.NONE, Menu.FIRST + 1, 1, "注销").setIcon(
 				android.R.drawable.ic_menu_close_clear_cancel);
+		menu.add(Menu.NONE, Menu.FIRST + 2, 1, "关于").setIcon(
+				android.R.drawable.ic_menu_help);
 		return true;
 	}
 
@@ -153,12 +154,18 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case Menu.FIRST + 1:
-			DataStorage.clear(MainActivity.this);
+			DataStorage.properties.remove("token");
+			DataStorage.properties.remove("url");
+			DataStorage.properties.remove("name");
+			DataStorage.save(getApplicationContext());
 			Intent intent = new Intent(MainActivity.this, GaiaActivity.class);
 			startActivity(intent);
 			NotificationCenter.clearNotification(NotificationCenter.ONGOING_NOTIFICATION_ID);
 			this.finish();
 			break;
+		case Menu.FIRST +2:
+			Intent aintent = new Intent(MainActivity.this,AboutActivity.class);
+			startActivity(aintent);
 		}
 		return false;
 	}
@@ -197,8 +204,6 @@ public class MainActivity extends Activity {
 				reflag = flag;
 				TextView txtview = (TextView) findViewById(R.id.textView2);
 				txtview.setText("欢迎" + name + "进入华东有色地勘局OA系统");
-				Intent mintent = new Intent(getApplicationContext(),MainActivity.class);
-				NotificationCenter.sendOngoingNotification(mintent, getApplicationContext(),"正在运行中...", "华东有色电子政务平台", "正在运行中...");
 				getApplicationContext().startService(new Intent(MainActivity.this, PendingService.class));
 			}
 			else{
@@ -207,20 +212,4 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-	@Override
-	protected void onResume() {
-		if(reflag != null && reflag == true){
-			Intent intent = new Intent(MainActivity.this, GaiaActivity.class);
-			startActivity(intent);
-			NotificationCenter.clearNotification(NotificationCenter.ONGOING_NOTIFICATION_ID);
-			try {
-				formatUrl = new URL(DataStorage.properties.get("url").toString());
-				ApiTask task = new ApiTask();
-				task.execute(formatUrl.toString(), token.toString());
-			} catch (MalformedURLException e) {
-			}
-		}
-		super.onResume();
-	}
-
 }

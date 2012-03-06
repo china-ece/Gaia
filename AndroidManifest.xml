@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.chinaece.gaia"
+<manifest package="com.chinaece.gaia"
     android:versionCode="1"
     android:versionName="1.0" 
-    android:launchMode="singleInstance">
+    android:launchMode="singleInstance" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-sdk android:minSdkVersion="8" />
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -50,6 +49,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
+        <activity android:name=".gui.AboutActivity"></activity>
     </application>
 
 </manifest>

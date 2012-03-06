@@ -35,7 +35,8 @@ public class GaiaActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		DataStorage.load(this);
 		boolean network = getIntent().getBooleanExtra("network", true);
-		if(network && DataStorage.properties.containsKey("token") && DataStorage.properties.containsKey("url")){
+		if(network && DataStorage.properties.get("token") != null && DataStorage.properties.get("url") != null){
+			System.err.println(DataStorage.properties.get("token"));
 			Intent intent = new Intent(GaiaActivity.this,MainActivity.class);
 			startActivity(intent);	
 			this.finish();
