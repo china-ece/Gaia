@@ -30,6 +30,7 @@ import com.chinaece.gaia.db.DataStorage;
 import com.chinaece.gaia.http.OAHttpApi;
 import com.chinaece.gaia.service.PendingService;
 import com.chinaece.gaia.util.NotificationCenter;
+import com.chinaece.gaia.util.UpdateVersionInfo;
 
 public class MainActivity extends Activity {
 	String token, name;
@@ -110,6 +111,7 @@ public class MainActivity extends Activity {
 				}
 			}
 		});
+		UpdateVersionInfo.CheckVersionTask(MainActivity.this);
 	}
 	
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
