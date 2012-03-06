@@ -1,149 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" 
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent" 
-	android:gravity="center"
-	android:background="@drawable/login">
-	<LinearLayout 
-	    xmlns:android="http://schemas.android.com/apk/res/android"
-		android:orientation="vertical" 
-		android:layout_width="fill_parent"
-		android:layout_height="300dip">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/login"
+    android:gravity="center"
+    android:orientation="vertical" >
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/banner"
+        android:textColor="?android:attr/textColorSecondaryInverse"
+        android:textSize="28sp" />
 
-		<!-- 标题 -->
-		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			android:orientation="vertical" 
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent" 
-			android:layout_weight="1"
-			android:gravity="center">
-			<TextView 
-			    android:layout_width="fill_parent"
-				android:layout_height="wrap_content" 
-				android:text="Office Anywhere"
-				android:textColor="?android:attr/textColorSecondaryInverse"
-				android:gravity="center"
-				android:textSize="28sp" />
-		</LinearLayout>
-		<!-- 设置 -->
-		<LinearLayout 
-		    xmlns:android="http://schemas.android.com/apk/res/android"
-			android:orientation="horizontal" 
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			 android:layout_weight="1"
-			android:padding="5dip">
-			<TextView 
-			    android:layout_width="fill_parent"
-				android:layout_height="wrap_content" 
-				android:text="系统选择"
-				android:textColor="?android:attr/textColorSecondaryInverse"
-				android:gravity="center" 
-				android:layout_weight="4" />
-			<Spinner 
-			    android:id="@+id/edtOAUrl"
-			    android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginRight="5dip" 
-				android:singleLine="true"
-				android:layout_weight="1" />
-		</LinearLayout>
-		<!-- 企业域 -->
-		<LinearLayout 
-		    xmlns:android="http://schemas.android.com/apk/res/android"
-			android:orientation="horizontal" 
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			 android:layout_weight="1"
-			android:padding="5dip">
-			<TextView 
-			    android:layout_width="fill_parent"
-				android:layout_height="wrap_content" 
-				android:text="企业域"
-				android:textColor="?android:attr/textColorSecondaryInverse"
-				android:gravity="center" 
-				android:layout_weight="4" />
-			<EditText 
-			    android:id="@+id/edtDomain"
-			    android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginRight="5dip" 
-				android:text="" 
-				android:singleLine="true"
-				android:layout_weight="1" />
-		</LinearLayout>
-		<!-- 帐号 -->
-		<LinearLayout 
-		    xmlns:android="http://schemas.android.com/apk/res/android"
-			android:orientation="horizontal" 
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			 android:layout_weight="1"
-			android:padding="5dip">
-			<TextView 
-			    android:layout_width="fill_parent"
-				android:layout_height="wrap_content" 
-				android:text="帐号"
-				android:textColor="?android:attr/textColorSecondaryInverse"
-				android:gravity="center" 
-				android:layout_weight="4" />
-			<EditText 
-			    android:id="@+id/edtUserId"
-			    android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginRight="5dip" 
-				android:text="" 
-				android:singleLine="true"
-				android:layout_weight="1" />
-		</LinearLayout>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="300dip"
+        android:baselineAligned="false"
+        android:orientation="vertical" >
 
-		<!-- 密码 -->
-		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			android:orientation="horizontal" 
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent" 
-			android:layout_weight="1"
-			android:padding="5dip">
-			<TextView android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				 android:text="密 码"
-				 android:textColor="?android:attr/textColorSecondaryInverse"
-				android:gravity="center" 
-				android:layout_weight="4" />
-			<EditText 
-			    android:layout_width="fill_parent"
-				android:layout_height="wrap_content" 
-				android:layout_marginRight="6dip" 
-				android:text=""
-				android:layout_weight="1" 
-				android:singleLine="true"
-				android:inputType="textPassword"
-				android:id="@+id/edtPassWord" />
-		</LinearLayout>
+        <!-- 设置 -->
 
-		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			android:orientation="horizontal" 
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			 android:layout_weight="1"
-			android:gravity="center">
-			<Button 
-			    android:id="@+id/btnLogin"
-			    android:layout_width="100dip"
-				android:layout_height="wrap_content" 
-				android:text="登 录" 
-				 />
-			<Button 
-			    android:id="@+id/btnExit"
-			    android:layout_width="100dip"
-				android:layout_height="wrap_content" 
-				android:text="退 出" 
-				android:layout_marginLeft="30dip"
-				 
-				 />
-			
-		</LinearLayout>
-	</LinearLayout>
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:padding="5dip" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="@string/system"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+            <Spinner
+                android:id="@+id/edtOAUrl"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dip"
+                android:layout_weight="1"
+                android:singleLine="true" />
+        </LinearLayout>
+        <!-- 企业域 -->
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:padding="5dip" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="@string/business_domain"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+            <EditText
+                android:id="@+id/edtDomain"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dip"
+                android:layout_weight="1"
+                android:hint="@string/hint_domain"
+                android:singleLine="true"
+                android:text="" />
+        </LinearLayout>
+        <!-- 帐号 -->
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:padding="5dip" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="@string/account"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+            <EditText
+                android:id="@+id/edtUserId"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dip"
+                android:layout_weight="1"
+                android:hint="@string/hint_account"
+                android:singleLine="true"
+                android:text="" />
+        </LinearLayout>
+        <!-- 密码 -->
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:padding="5dip" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="@string/password"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+            <EditText
+                android:id="@+id/edtPassWord"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="6dip"
+                android:layout_weight="1"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:text="@string/login" />
+
+            <Button
+                android:id="@+id/btnExit"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dip"
+                android:text="@string/exit" />
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>

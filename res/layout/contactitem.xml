@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tableRow1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:background="#a0000000"
-    android:descendantFocusability="blocksDescendants">
-             <TableRow
-                 android:id="@+id/tableRow1"
-                 android:layout_width="match_parent"
-                 android:layout_height="60dip" >
-	             <TextView android:id="@+id/name"   
-	             android:layout_width="wrap_content"   
-	             android:layout_height="wrap_content"
-	             android:textSize="20dip"
-	             android:gravity="center_vertical"
-	             android:layout_marginLeft="28dip"
-	             android:textColor="#E0E0E0"
-	             android:layout_weight="1"
-	              />
-	             
-	             <ImageButton
-	                 android:id="@+id/imageButton1"
-	                 android:layout_width="40dip"
-	                 android:layout_height="40dip"
-	                 android:src="@android:drawable/stat_sys_phone_call"
-	                 android:adjustViewBounds="true"
-	                 android:paddingTop="10dip"
-	                 android:paddingBottom="10dip"
-	                 android:background="@null"
-	                 android:layout_gravity="right"
-	                 android:focusable="false" />
-             </TableRow>
-</LinearLayout>
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:descendantFocusability="blocksDescendants" >
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="14dip"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:textColor="#E0E0E0"
+        android:textSize="20dip" />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:layout_gravity="right"
+        android:layout_marginRight="14dip"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:contentDescription="@string/call"
+        android:focusable="false"
+        android:paddingBottom="10dip"
+        android:paddingTop="10dip"
+        android:src="@android:drawable/stat_sys_phone_call" />
+
+</TableRow>

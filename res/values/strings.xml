@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">华东有色OA</string>
+    <string name="dummy" /><string name="app_name">华东有色OA</string>
+    <string name="hint_search">请输入关键字</string>
+    <string name="search">搜索</string>
+    <string name="business_domain">企业域</string>
+    <string name="account">帐户</string><string name="password">密码</string>
+    <string name="login">登 录</string>
+    <string name="exit">退 出</string>
+    
+    <string name="hint_domain">请输入企业域</string>
+    <string name="hint_account">请输入帐户</string>
+    <string name="hint_password">请输入密码</string>
+    <string name="system">系统</string>
+    <string name="contact_username">姓名</string>
+    <string name="contact_phone">电话号码</string>
+    <string name="contact_mail">E-Mail</string>
+    <string name="contact_save">保存联系人</string>
+    <string name="banner">办公新方式</string>
+    <string name="call">拨打电话</string>
+    
 
 </resources>

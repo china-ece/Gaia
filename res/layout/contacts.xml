@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/login" >
+    android:background="@drawable/login"
+    android:orientation="vertical" >
 
     <TableRow
         android:id="@+id/tableRow1"
@@ -13,25 +13,27 @@
         <EditText
             android:id="@+id/editText1"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="wrap_content" 
+            android:hint="@string/hint_search"
             android:singleLine="true" >
+
             <requestFocus />
         </EditText>
+
         <Button
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="查询" />
-
+            android:text="@string/search" />
     </TableRow>
 
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#a0000000" 
-        android:listSelector = "@drawable/blue">
+        android:background="#a0000000"
+        android:listSelector="@drawable/blue" >
     </ListView>
 
 </LinearLayout>

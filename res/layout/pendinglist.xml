@@ -3,6 +3,7 @@
     android:id="@id/android:list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:listSelector="@drawable/blue"
-    android:background="#FFFFF0">
+    android:background="#FFFFF0"
+    android:listSelector="@drawable/blue" >
+
 </ListView>

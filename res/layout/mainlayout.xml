@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" 
-    android:background="@drawable/mainbg"    
-   >
+    android:background="@drawable/mainbg"
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/textView2"
@@ -15,21 +14,18 @@
         android:gravity="center"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-    <GridView 
-	  xmlns:android="http://schemas.android.com/apk/res/android"
-	  android:id="@+id/gridview"  
-	  android:layout_width="fill_parent" 
-	  android:layout_height="fill_parent"   
-	  android:numColumns="auto_fit" 
-	  android:horizontalSpacing="10dp" 
-	  android:verticalSpacing="10dp" 
-	  android:columnWidth="90dp" 
-	  android:stretchMode="columnWidth" 
-	  android:gravity="center"
-	  >
-    
 
-</GridView>
-        
+    <GridView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/gridview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:columnWidth="90dp"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp" >
+    </GridView>
+
 </LinearLayout>
