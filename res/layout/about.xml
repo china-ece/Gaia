@@ -12,6 +12,7 @@
         android:background="@drawable/black" >
 
         <ImageView
+            android:contentDescription="@string/app_name"
             android:id="@+id/img1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +29,8 @@
             android:textColor="#FFFFF0"
             android:textSize="20dp" 
             android:layout_gravity="center"/>
-        
+        
+
         <TextView
             android:id="@+id/tex2"
             android:layout_width="wrap_content"
