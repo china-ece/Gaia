@@ -23,6 +23,7 @@ public class StringField extends ItemType{
 		TextView text = new TextView(context);
 		text.setText(displayValue);
 		text.setTextColor(Color.BLACK);
+		text.setTextSize(18);
 		return text;
 	}
 

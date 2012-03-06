@@ -51,6 +51,7 @@ public class AttachmentUploadField extends ItemType{
 			textview.setText(list_value.getJSONObject(i).getString("displayValue"));
 			textview.setTag(list_value.getJSONObject(i).getString("dataValue"));
 			textview.setTextColor(Color.RED);
+			textview.setTextSize(20);
 			textview.setOnClickListener(new OnClickListener() {
 				
 				@Override

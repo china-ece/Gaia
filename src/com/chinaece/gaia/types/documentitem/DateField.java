@@ -32,6 +32,7 @@ public class DateField extends ItemType{
 		final Calendar c = Calendar.getInstance();
 		text = new TextView(context);
 		text.setText(displayValue);
+		text.setTextSize(18);
 		text.setTextColor(Color.RED);
 		linearLayout.addView(text);
 		if(display == 1 || display == 3 || display == 4){

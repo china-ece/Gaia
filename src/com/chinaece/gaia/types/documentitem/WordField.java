@@ -39,20 +39,20 @@ public class WordField extends ItemType{
 		if(displayValue.length() > 0){
 			text.setTag(displayValue);
 			text.setText("点击查看Word正文");
+			text.setTextSize(20);
 			text.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
-					System.err.println("111");
 					File file = new File(android.os.Environment.getExternalStorageDirectory()
-				.toString()+"/ece/word"+text.getTag().toString());
+				.toString()+"/ece/word"+text.getTag().toString()+".doc");
 					if(file.exists())
 						context.startActivity(FileUtil.openFile(file));
 					else{
 						try {
 							Toast.makeText(context, "正在下载，请稍候", Toast.LENGTH_SHORT).show();
 							URL formatUrl = new URL(DataStorage.properties.get("url").toString());
-							Downloader downloader = new Downloader(context, formatUrl+"/uploads/doc/"+text.getTag().toString(), text.getTag().toString(), "word");
+							Downloader downloader = new Downloader(context, formatUrl+"/uploads/doc/"+text.getTag().toString(), text.getTag().toString()+".doc", "word");
 							new Thread(downloader).start();
 						} catch (MalformedURLException e) {
 							e.printStackTrace();
