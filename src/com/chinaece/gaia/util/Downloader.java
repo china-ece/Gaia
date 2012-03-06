@@ -18,7 +18,7 @@ import com.chinaece.gaia.gui.FilesActivity;
 public class Downloader implements Runnable{
 	private String urlStr;
 	
-	private final String path = "ece";
+	private String path = "ece";
 	
 	private String fileName;
 	
@@ -28,10 +28,12 @@ public class Downloader implements Runnable{
 	private Downloader() {
 	}
 	
-	public Downloader(Context context, String urlStr, String fileName) {
+	public Downloader(Context context, String urlStr, String fileName ,String extPath) {
 		this.context = context;
 		this.urlStr = urlStr;
 		this.fileName = fileName;
+		if(extPath != null)
+			this.path += "/"+extPath;
 	}
 	
 	@Override
@@ -45,8 +47,8 @@ public class Downloader implements Runnable{
             File file=new File(pathName);   
             InputStream input=conn.getInputStream();   
            if(file.exists()){   
-                Intent mintent = new Intent(context,FilesActivity.class);
-      		   	NotificationCenter.sendNormalNotification(mintent, context, fileName+ "已存在请点击查看","附件下载",fileName+ "已存在请点击查看");
+                Intent mintent = FileUtil.openFile(file);
+      		   	NotificationCenter.sendNormalNotification(mintent, context, "文件已存在请点击查看","文件下载", "文件已存在请点击查看");
                 return;
            }else{   
                File dir = new File(SDCard+"/"+path);
@@ -59,9 +61,9 @@ public class Downloader implements Runnable{
                while((length = input.read(buffer))!=-1){
                    output.write(buffer, 0 ,length); 
                 }
-                output.flush(); 
-               Intent mintent = new Intent(context,FilesActivity.class);
-     		   NotificationCenter.sendNormalNotification(mintent, context, fileName+ "下载完成点击附件管理查看详细内容","附件下载",fileName+ "下载完成点击附件管理查看详细内容");
+               output.flush(); 
+               Intent mintent = FileUtil.openFile(file);
+     		   NotificationCenter.sendNormalNotification(mintent, context,  "下载完成点击附件管理查看详细内容","文件下载", "下载完成点击附件管理查看详细内容");
             }   
        } catch (MalformedURLException e) {   
            e.printStackTrace();   

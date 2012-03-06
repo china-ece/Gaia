@@ -5,15 +5,14 @@ import java.io.File;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.chinaece.gaia.R;
 import com.chinaece.gaia.util.FileBrowser;
+import com.chinaece.gaia.util.FileUtil;
 import com.chinaece.gaia.util.OnFileBrowserListener;
 
 public class FilesActivity extends Activity implements OnFileBrowserListener {
@@ -21,7 +20,14 @@ public class FilesActivity extends Activity implements OnFileBrowserListener {
 
 	@Override
 	public void onFileItemClick(String filename) {
-		openFile(new File(filename));
+		try{
+			startActivity(FileUtil.openFile(new File(filename)));
+		}
+		 catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "没有相关软件打开此文件", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+
+	        }
 	}
 
 	@Override
@@ -30,7 +36,25 @@ public class FilesActivity extends Activity implements OnFileBrowserListener {
 	}
 
 	@Override
-	public void onDirItemClick(String path) {
+	public void onDirItemClick(final String path) {
+		CharSequence[] items = {  "清空文件夹", "取消操作" };
+		AlertDialog.Builder builder = new AlertDialog.Builder(FilesActivity.this);
+		builder.setItems(items, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int item) {
+				switch (item) {
+				case 0:
+					FileUtil.delAllFile(path);
+					break;
+				case 1:
+					dialog.dismiss();
+				default:
+					break;
+				}
+			}
+		});
+		builder.show();
 	}
 
 	@Override
@@ -39,20 +63,6 @@ public class FilesActivity extends Activity implements OnFileBrowserListener {
 		setContentView(R.layout.files);
 		FileBrowser fileBrowser = (FileBrowser) findViewById(R.id.filebrowser);
 		fileBrowser.setOnFileBrowserListener(this);
-	}
-
-	private void openFile(final File f) {
-		Intent intent = new Intent();
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.setAction(android.content.Intent.ACTION_VIEW);
-		String type = getMIMEType(f);
-		try {
-			intent.setDataAndType(Uri.fromFile(f), type);
-			startActivity(intent);
-		} catch (Exception e) {
-			intent.setDataAndType(Uri.fromFile(f), "*/*");
-			startActivity(intent);
-		}
 	}
 
 	private void modifyFile(final File f) {
@@ -115,14 +125,5 @@ public class FilesActivity extends Activity implements OnFileBrowserListener {
 		builder.show();
 	}
 
-	private String getMIMEType(File f) {
-		String fName = f.getName();
-		String end = fName
-				.substring(fName.lastIndexOf(".") + 1, fName.length())
-				.toLowerCase();
-		String mime = MimeTypeMap.getSingleton().getMimeTypeFromExtension(end);
-		if (mime == null)
-			return "*/*";
-		return mime;
-	}
+	
 }

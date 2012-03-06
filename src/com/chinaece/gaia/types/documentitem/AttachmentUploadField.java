@@ -29,7 +29,7 @@ public class AttachmentUploadField extends ItemType{
 		if(obj.getString("type").equals("AttachmentUploadField"))
 			type = "AttachmentUploadField";
 		else
-			throw new IllegalStateException("bad init RadioField");
+			throw new IllegalStateException("bad init AttachmentUploadField");
 	}
 	
 
@@ -62,7 +62,7 @@ public class AttachmentUploadField extends ItemType{
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							Downloader down = new Downloader(context, (formatUrl+textview.getTag().toString()).toString(), textview.getText().toString());
+							Downloader down = new Downloader(context, (formatUrl+textview.getTag().toString()).toString(), textview.getText().toString(),null);
 							new Thread(down).start();
 						}
 					});

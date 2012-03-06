@@ -18,6 +18,7 @@ import com.chinaece.gaia.types.documentitem.SelectField;
 import com.chinaece.gaia.types.documentitem.StringField;
 import com.chinaece.gaia.types.documentitem.TextareaField;
 import com.chinaece.gaia.types.documentitem.UserField;
+import com.chinaece.gaia.types.documentitem.WordField;
 
 public class ItemParser extends AbstractJSONParser<ItemType> {
 
@@ -64,6 +65,9 @@ public class ItemParser extends AbstractJSONParser<ItemType> {
 					}
 				else if(jsonitem.getString("type").equals("AttachmentUploadField")){
 					itemlist.add(new AttachmentUploadField(jsonitem));
+					}
+				else if(jsonitem.getString("type").equals("WordField")){
+					itemlist.add(new WordField(jsonitem));
 					}
 				}
 			return itemlist;

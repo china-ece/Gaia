@@ -108,8 +108,6 @@ public class FileBrowser extends ListView implements
 		if (fileList.get(position) == null)
 		{
 			dirStack.pop();
-			refreshFiles();
-			fileListAdapter.notifyDataSetChanged();
 			if (onFileBrowserListener != null)
 			{
 				onFileBrowserListener.onDirItemClick(getCurrentPath());
@@ -118,8 +116,6 @@ public class FileBrowser extends ListView implements
 		else if (fileList.get(position).isDirectory())
 		{
 			dirStack.push(fileList.get(position).getName());
-			refreshFiles();
-			fileListAdapter.notifyDataSetChanged();
 			if (onFileBrowserListener != null)
 			{
 				onFileBrowserListener.onDirItemClick(getCurrentPath());
@@ -129,7 +125,7 @@ public class FileBrowser extends ListView implements
 		{
 			if (onFileBrowserListener != null)
 			{
-				String filename = getCurrentPath() + "/"
+				String filename = sdcardDirectory + "/"
 						+ fileList.get(position).getName();
 				onFileBrowserListener.onFileItemClick(filename);
 			}
@@ -143,8 +139,6 @@ public class FileBrowser extends ListView implements
 		if (fileList.get(position) == null)
 		{
 			dirStack.pop();
-			refreshFiles();
-			fileListAdapter.notifyDataSetChanged();
 			if (onFileBrowserListener != null)
 			{
 				onFileBrowserListener.onDirItemClick(getCurrentPath());
@@ -153,8 +147,6 @@ public class FileBrowser extends ListView implements
 		else if (fileList.get(position).isDirectory())
 		{
 			dirStack.push(fileList.get(position).getName());
-			refreshFiles();
-			fileListAdapter.notifyDataSetChanged();
 			if (onFileBrowserListener != null)
 			{
 				onFileBrowserListener.onDirItemClick(getCurrentPath());
@@ -164,9 +156,9 @@ public class FileBrowser extends ListView implements
 		{
 			if (onFileBrowserListener != null)
 			{
-				String filename = getCurrentPath() + "/"
+				String filename = sdcardDirectory + "/"
 						+ fileList.get(position).getName();
-			onFileBrowserListener.onFlieLongItemClick(filename);
+				onFileBrowserListener.onFlieLongItemClick(filename);
 			}
 		}
 		return true;
