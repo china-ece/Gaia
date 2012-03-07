@@ -33,8 +33,6 @@ import com.chinaece.gaia.http.OAHttpApi;
 import com.chinaece.gaia.types.ContactType;
 
 public class ContactsActivity extends Activity {
-	private URL formatUrl;
-	private String token;
 	private Collection<ContactType> contactlist;
 	protected List<Map<String, String>> list;
 	
@@ -48,8 +46,8 @@ public class ContactsActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				try {
-					token = DataStorage.properties.getProperty("token");
-					formatUrl = new URL(DataStorage.properties.getProperty("url"));
+					String token = DataStorage.properties.getProperty("token");
+					URL formatUrl = new URL(DataStorage.properties.getProperty("url"));
 					JSONObject search = new JSONObject();
 					try {
 						search.put("search", URLEncoder.encode(edittext.getText().toString(),"UTF-8"));
@@ -119,5 +117,5 @@ public class ContactsActivity extends Activity {
 				Toast.makeText(ContactsActivity.this, "数据错误请稍候再试...", Toast.LENGTH_LONG).show();  
 			}
 		    }
-	}		
+	}	
 }

@@ -20,7 +20,6 @@ import android.widget.Toast;
 import com.chinaece.gaia.R;
 
 public class ContactActivity extends Activity{
-	protected static final Uri Uri = null;
 	private TextView txtname;
 	private EditText edtphone;
 	private EditText edtemail;

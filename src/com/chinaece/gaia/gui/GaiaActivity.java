@@ -25,6 +25,7 @@ import com.chinaece.gaia.constant.Gaia;
 import com.chinaece.gaia.db.DataStorage;
 import com.chinaece.gaia.http.OAHttpApi;
 import com.chinaece.gaia.types.UserType;
+import com.chinaece.gaia.util.UpdateVersionInfo;
 
 public class GaiaActivity extends Activity {
 	private final HashMap<String, String> map  = new HashMap<String, String>();
@@ -101,6 +102,7 @@ public class GaiaActivity extends Activity {
 				dialog.show();
 			}
 		});
+		UpdateVersionInfo.CheckVersionTask(GaiaActivity.this);
 	}
 	
 	class ApiTask extends AsyncTask<String, Integer, UserType> {
@@ -140,5 +142,11 @@ public class GaiaActivity extends Activity {
 			}
 		}
 		
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		map.clear();
 	}
 }

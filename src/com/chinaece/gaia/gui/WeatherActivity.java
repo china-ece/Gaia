@@ -19,15 +19,12 @@ import com.chinaece.gaia.http.OAHttpApi;
 import com.chinaece.gaia.types.WeatherType;
 
 public class WeatherActivity extends Activity{
-	private URL formatUrl;
-	
-	/** Called when the activity is first created. */
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		try {
-			formatUrl = new URL(DataStorage.properties.getProperty("url"));
+			URL formatUrl = new URL(DataStorage.properties.getProperty("url"));
 			ApiTask task = new ApiTask();
 			task.execute(formatUrl.toString());
 		} catch (MalformedURLException e) {
