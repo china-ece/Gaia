@@ -16,7 +16,6 @@ import com.chinaece.gaia.util.FileUtil;
 import com.chinaece.gaia.util.OnFileBrowserListener;
 
 public class FilesActivity extends Activity implements OnFileBrowserListener {
-	private String value;
 
 	@Override
 	public void onFileItemClick(String filename) {
@@ -85,7 +84,7 @@ public class FilesActivity extends Activity implements OnFileBrowserListener {
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int which) {
-									value = input.getText().toString();
+									String value = input.getText().toString();
 									File newFile = new File("/mnt/sdcard/ece/"
 											+ value);
 									f.renameTo(newFile);

@@ -114,7 +114,7 @@ public class ContactsActivity extends Activity {
 			}	            
 			else{
 				dialog.dismiss();
-				Toast.makeText(ContactsActivity.this, "数据错误请稍候再试...", Toast.LENGTH_LONG).show();  
+				Toast.makeText(getApplicationContext(), "数据错误请稍候再试...", Toast.LENGTH_LONG).show();  
 			}
 		    }
 	}	

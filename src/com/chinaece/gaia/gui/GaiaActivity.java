@@ -70,7 +70,7 @@ public class GaiaActivity extends Activity {
 							.toString().trim(), password.getText().toString().trim(), domain
 							.getText().toString().trim());
 				} catch (MalformedURLException e) {
-				  Toast.makeText(GaiaActivity.this, "请输入正确的网址", Toast.LENGTH_LONG).show();
+				  Toast.makeText(getApplicationContext(), "请输入正确的网址", Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -134,10 +134,10 @@ public class GaiaActivity extends Activity {
 					finish();
 				}
 				else{
-					Toast.makeText(GaiaActivity.this, "请登陆OA系统生成鉴证码", Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), "请登陆OA系统生成鉴证码", Toast.LENGTH_LONG).show();
 				}
 			} else {
-				Toast.makeText(GaiaActivity.this, "请输入合法的用户名和密码",
+				Toast.makeText(getApplicationContext(), "请输入合法的用户名和密码",
 						Toast.LENGTH_LONG).show();
 			}
 		}

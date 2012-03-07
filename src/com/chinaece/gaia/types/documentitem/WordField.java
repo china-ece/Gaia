@@ -31,7 +31,6 @@ public class WordField extends ItemType{
 
 	@Override
 	public View getMappingInstance(final Context context) throws JSONException {
-		
 		if(text != null)
 			return text;
 		text = new TextView(context);

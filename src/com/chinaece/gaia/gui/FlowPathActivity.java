@@ -35,8 +35,7 @@ public class FlowPathActivity extends Activity {
 	private String checkName = "",checkFlowtype = "";
 	private int mode = 0;
 	private ArrayList<String> checkIds = new ArrayList<String>();
-	private URL formatUrl;
-	private String token;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -116,8 +115,8 @@ public class FlowPathActivity extends Activity {
 							submit.put("nextids", checks);
 							submit.put("flowtype", checkFlowtype);
 							submit.put("submitto", submitTo.toString());
-							token = DataStorage.properties.getProperty("token");
-							formatUrl = new URL(DataStorage.properties.getProperty("url"));
+							String token = DataStorage.properties.getProperty("token");
+							URL formatUrl = new URL(DataStorage.properties.getProperty("url"));
 							SubmitTask submittask = new SubmitTask();
 							submittask.execute(formatUrl.toString(), token.toString(),
 						submit.toString());
@@ -127,7 +126,7 @@ public class FlowPathActivity extends Activity {
 						}
 					}
 					else{
-						Toast.makeText(FlowPathActivity.this, "请选择提交路径", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(), "请选择提交路径", Toast.LENGTH_SHORT).show();
 					}
 				}
 				else {
@@ -149,8 +148,8 @@ public class FlowPathActivity extends Activity {
 							submit.put("nextids", checks);
 							submit.put("flowtype", checkFlowtype);
 							submit.put("submitto", "");
-							token = DataStorage.properties.getProperty("token");
-							formatUrl = new URL(DataStorage.properties.getProperty("url"));
+							String token = DataStorage.properties.getProperty("token");
+							URL formatUrl = new URL(DataStorage.properties.getProperty("url"));
 							SubmitTask submittask = new SubmitTask();
 							submittask.execute(formatUrl.toString(), token.toString(),
 						submit.toString());
@@ -160,7 +159,7 @@ public class FlowPathActivity extends Activity {
 						}
 					}
 					else{
-						Toast.makeText(FlowPathActivity.this, "请选择提交路径", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(), "请选择提交路径", Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
@@ -249,17 +248,23 @@ public class FlowPathActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(Boolean flag) {
+			dialog.dismiss();
 			if(flag){
-				Toast.makeText(FlowPathActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "提交成功", Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(FlowPathActivity.this,MainActivity.class);
 				startActivity(intent);
 				FlowPathActivity.this.finish();
 			}
 			else{
-				Toast.makeText(FlowPathActivity.this, "提交失败", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "提交失败", Toast.LENGTH_LONG).show();
 			}
-			dialog.dismiss();
 		}
+	}
+	
+	@Override
+	protected void onDestroy() {
+		checkIds.clear();
+		super.onDestroy();
 	}
 }
 				

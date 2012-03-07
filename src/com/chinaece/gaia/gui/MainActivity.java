@@ -29,7 +29,6 @@ import com.chinaece.gaia.R;
 import com.chinaece.gaia.db.DataStorage;
 import com.chinaece.gaia.http.OAHttpApi;
 import com.chinaece.gaia.service.PendingService;
-import com.chinaece.gaia.util.NotificationCenter;
 import com.chinaece.gaia.util.UpdateVersionInfo;
 
 public class MainActivity extends Activity {
@@ -162,7 +161,6 @@ public class MainActivity extends Activity {
 			DataStorage.save(getApplicationContext());
 			Intent intent = new Intent(MainActivity.this, GaiaActivity.class);
 			startActivity(intent);
-			NotificationCenter.clearNotification(NotificationCenter.ONGOING_NOTIFICATION_ID);
 			this.finish();
 			break;
 		case Menu.FIRST +2:
@@ -195,7 +193,7 @@ public class MainActivity extends Activity {
 		protected void onPostExecute(Boolean flag) {
 			dialog.dismiss();
 			if(flag == null){
-				Toast.makeText(MainActivity.this, "请检查网络", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "请检查网络", Toast.LENGTH_LONG).show();
 				Intent intent = new Intent(MainActivity.this, GaiaActivity.class);
 				intent.putExtra("network", false);
 				startActivity(intent);
@@ -209,7 +207,7 @@ public class MainActivity extends Activity {
 				getApplicationContext().startService(new Intent(MainActivity.this, PendingService.class));
 			}
 			else{
-				Toast.makeText(MainActivity.this, "请先登陆网页生成验证码", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "请先登陆网页生成验证码", Toast.LENGTH_LONG).show();
 			}
 		}
 	}

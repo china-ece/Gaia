@@ -37,7 +37,6 @@ import com.chinaece.gaia.types.documentitem.ItemType;
 public class DocumentActivity extends Activity {
 	private URL formatUrl;
 	private String docid, formid, appid, token;
-	private ScrollView scrollView;
 	private LinearLayout linearLayout;
 	private DocumentType document;
 	private boolean isNormal = true, isOpinion = false;
@@ -143,8 +142,8 @@ public class DocumentActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		scrollView = new ScrollView(this);
-		linearLayout = new LinearLayout(this);
+		ScrollView scrollView = new ScrollView(getApplicationContext());
+		linearLayout = new LinearLayout(getApplicationContext());
 		linearLayout.setOrientation(LinearLayout.VERTICAL);
 		linearLayout.setBackgroundResource(R.drawable.login);
 		scrollView.addView(linearLayout);
@@ -280,7 +279,7 @@ public class DocumentActivity extends Activity {
 				document.setVersion(document.getVersion()+1);
 				if(isJump){
 					if(document.getFlowPath() == null){ 
-						Toast.makeText(DocumentActivity.this, "没有提交路径，请联系管理员", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(), "没有提交路径，请联系管理员", Toast.LENGTH_SHORT).show();
 					}
 					else{
 						Bundle bundle = new Bundle();
@@ -296,13 +295,20 @@ public class DocumentActivity extends Activity {
 					}
 				}
 				else{
-					Toast.makeText(DocumentActivity.this, "保存成功", Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), "保存成功", Toast.LENGTH_LONG).show();
 				}
 			}
 			else {
-				Toast.makeText(DocumentActivity.this, "保存失败", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "保存失败", Toast.LENGTH_LONG).show();
 			}
 			dialog.dismiss();
 		}
+	}
+	
+	@Override
+	protected void onDestroy() {
+		//infoMap.clear();
+		document.getItems().clear();
+		super.onDestroy();
 	}
 }

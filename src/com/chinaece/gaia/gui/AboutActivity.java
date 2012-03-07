@@ -15,7 +15,7 @@ import android.widget.TextView;
 public class AboutActivity extends TabActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		DataStorage.load(this);
+		DataStorage.load(getApplicationContext());
 		super.onCreate(savedInstanceState);
 		TabHost tabHost = this.getTabHost();
 		LayoutInflater.from(this).inflate(R.layout.about, tabHost.getTabContentView(), true); 

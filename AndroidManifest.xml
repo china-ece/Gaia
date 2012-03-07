@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".gui.MainActivity"></activity>
+        <activity android:name=".gui.MainActivity" android:launchMode="singleTop"></activity>
         <activity android:name=".gui.PendingsActivity" android:launchMode="singleTop"></activity>
         <activity android:name=".gui.DocumentActivity"></activity>
         <activity android:name=".gui.WeatherActivity"></activity>

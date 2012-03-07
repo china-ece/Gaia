@@ -40,12 +40,12 @@ public class ContactActivity extends Activity{
 				if (edtphone.getText()!= null && !edtphone.getText().toString().equals(""))
 				{
 					savecontacts();			
-					Toast.makeText(ContactActivity.this, "该用户电话号码保存成功", 
+					Toast.makeText(getApplicationContext(), "该用户电话号码保存成功", 
 							Toast.LENGTH_SHORT).show();
 				}
 				else 
 				{	
-					Toast.makeText(ContactActivity.this, "该用户没有相应的电话号码", 
+					Toast.makeText(getApplicationContext(), "该用户没有相应的电话号码", 
 							Toast.LENGTH_SHORT).show();
 				}
 			}

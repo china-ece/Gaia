@@ -21,7 +21,9 @@ import com.chinaece.gaia.db.DataStorage;
 import com.chinaece.gaia.util.Downloader;
 
 public class AttachmentUploadField extends ItemType{
+	private LinearLayout linearLayout;
 	private URL formatUrl;
+	
 	
 
 	public AttachmentUploadField(JSONObject obj) throws JSONException {
@@ -35,8 +37,10 @@ public class AttachmentUploadField extends ItemType{
 
 	@Override
 	public View getMappingInstance(final Context context) throws JSONException {
+		if(linearLayout != null)
+			return linearLayout;
 		try {
-			formatUrl= new URL(DataStorage.properties.get("url").toString());
+			 formatUrl= new URL(DataStorage.properties.get("url").toString());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}

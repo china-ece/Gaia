@@ -20,7 +20,6 @@ public class InputField extends ItemType{
 
 	@Override
 	public View getMappingInstance(Context context) throws JSONException {
-		
 		if(edittext != null)
 			return edittext;
 		edittext = new EditText(context);

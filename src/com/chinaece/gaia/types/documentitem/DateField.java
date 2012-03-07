@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class DateField extends ItemType{
-	private TextView text;
+	private TextView text = null;
 	private LinearLayout linearLayout;
 
 	public DateField(JSONObject obj) throws JSONException {
@@ -28,13 +28,13 @@ public class DateField extends ItemType{
 
 	@Override
 	public View getMappingInstance(final Context context) {
-		linearLayout = new LinearLayout(context);
+		if(text != null)
+			return text;
 		final Calendar c = Calendar.getInstance();
 		text = new TextView(context);
 		text.setText(displayValue);
 		text.setTextSize(18);
 		text.setTextColor(Color.RED);
-		linearLayout.addView(text);
 		if(display == 1 || display == 3 || display == 4){
 			text.setClickable(false);
 			text.setFocusable(false);
@@ -55,7 +55,7 @@ public class DateField extends ItemType{
 				}
 			});
 		}
-		return linearLayout;
+		return text;
 	}
 
 	@Override
