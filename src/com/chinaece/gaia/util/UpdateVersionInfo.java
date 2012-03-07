@@ -8,14 +8,10 @@ import java.net.URL;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import android.R;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.chinaece.gaia.db.DataStorage;
 
