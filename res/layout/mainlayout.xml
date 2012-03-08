@@ -9,9 +9,10 @@
         android:id="@+id/textView2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textColor="#A28057"
         android:layout_marginBottom="20dip"
-        android:layout_marginTop="20dip"
-        android:layout_marginLeft="20dip"
+        android:layout_marginTop="30dip"
+        android:layout_marginLeft="100dip"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -25,17 +26,9 @@
         android:horizontalSpacing="10dp"
         android:numColumns="auto_fit"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="10dp" >
+        android:verticalSpacing="10dp" 
+        >
     </GridView>
     
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="200dip"
-        android:layout_marginBottom="20dip"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium" />    
 
 </LinearLayout>

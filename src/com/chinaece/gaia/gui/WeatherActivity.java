@@ -82,7 +82,7 @@ public class WeatherActivity extends Activity{
 		        LinearLayout.LayoutParams param2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT,  
 		                LinearLayout.LayoutParams.WRAP_CONTENT); 
 		        param2.setMargins(20, 0, 20, 10);
-		        weatherlayout.setBackgroundResource(R.drawable.login);
+		        weatherlayout.setBackgroundResource(R.drawable.documentblack);
 		        weatherlayout.addView(tv1,param1);
 		        weatherlayout.addView(et1,param1);
 		        weatherlayout.addView(et2,param1);

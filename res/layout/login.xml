@@ -26,10 +26,9 @@
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="5dip" >
+            android:padding="2dip" >
 
             <TextView
                 android:layout_width="fill_parent"
@@ -43,7 +42,7 @@
             <Spinner
                 android:id="@+id/edtOAUrl"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginRight="5dip"
                 android:layout_weight="1"
                 android:singleLine="true" />
@@ -53,10 +52,9 @@
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="5dip" >
+            android:padding="2dip" >
 
             <TextView
                 android:layout_width="fill_parent"
@@ -70,7 +68,7 @@
             <EditText
                 android:id="@+id/edtDomain"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginRight="5dip"
                 android:layout_weight="1"
                 android:hint="@string/hint_domain"
@@ -82,10 +80,9 @@
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="5dip" >
+            android:padding="2dip" >
 
             <TextView
                 android:layout_width="fill_parent"
@@ -99,7 +96,7 @@
             <EditText
                 android:id="@+id/edtUserId"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginRight="5dip"
                 android:layout_weight="1"
                 android:hint="@string/hint_account"
@@ -114,7 +111,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:padding="5dip" >
+            android:padding="2dip" >
 
             <TextView
                 android:layout_width="fill_parent"
@@ -128,7 +125,7 @@
             <EditText
                 android:id="@+id/edtPassWord"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginRight="6dip"
                 android:layout_weight="1"
                 android:hint="@string/hint_password"
@@ -140,8 +137,7 @@
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
+            android:layout_height="113dp"
             android:gravity="center"
             android:orientation="horizontal" >
 
@@ -158,6 +154,7 @@
                 android:layout_marginLeft="30dip"
                 android:text="@string/exit" />
         </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

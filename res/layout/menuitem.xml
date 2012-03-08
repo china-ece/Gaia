@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ItemImage"
         android:layout_centerHorizontal="true"
+        android:textColor="#8B4513"
         android:textSize="17dip" />
 
 </RelativeLayout>

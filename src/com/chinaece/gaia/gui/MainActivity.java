@@ -202,8 +202,6 @@ public class MainActivity extends Activity {
 			if(flag){
 				TextView txtview = (TextView) findViewById(R.id.textView2);
 				txtview.setText(name +"您好");
-				TextView txtview3 = (TextView) findViewById(R.id.textView3);
-				txtview3.setText("有色金属华东地质勘查局OA系统");
 				getApplicationContext().startService(new Intent(MainActivity.this, PendingService.class));
 			}
 			else{
