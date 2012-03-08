@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dip"
         android:layout_marginTop="20dip"
-        android:gravity="center"
+        android:layout_marginLeft="20dip"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -19,7 +19,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/gridview"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:columnWidth="90dp"
         android:gravity="center"
         android:horizontalSpacing="10dp"
@@ -27,5 +27,15 @@
         android:stretchMode="columnWidth"
         android:verticalSpacing="10dp" >
     </GridView>
+    
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="200dip"
+        android:layout_marginBottom="20dip"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />    
 
 </LinearLayout>

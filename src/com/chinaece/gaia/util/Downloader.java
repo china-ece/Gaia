@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 
+import com.chinaece.gaia.gui.DocumentActivity;
 import com.chinaece.gaia.gui.FilesActivity;
 
 public class Downloader implements Runnable{
@@ -68,8 +69,7 @@ public class Downloader implements Runnable{
        } catch (MalformedURLException e) {   
            e.printStackTrace();   
         } catch (IOException e) { 
-        	Intent mintent = new Intent(context,FilesActivity.class);
- 		   NotificationCenter.sendNormalNotification(mintent, context, fileName+"下载失败","附件下载", fileName+"下载失败");
+ 		   NotificationCenter.sendNormalNotification(null, context, fileName+"下载失败","下载失败", fileName+"下载失败");
             e.printStackTrace();   
        }
 	}

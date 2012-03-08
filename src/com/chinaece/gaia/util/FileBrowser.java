@@ -202,6 +202,7 @@ public class FileBrowser extends ListView implements
 			ImageView ivFile = new ImageView(context);
 			ivFile.setLayoutParams(new LayoutParams(48, 48));
 			TextView tvFile = new TextView(context);
+			tvFile.setTextSize(25);
 			tvFile.setTextColor(android.graphics.Color.WHITE);
 			tvFile.setTextAppearance(context,
 					android.R.style.TextAppearance_Large);

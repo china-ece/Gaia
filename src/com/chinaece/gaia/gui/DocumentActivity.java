@@ -145,7 +145,7 @@ public class DocumentActivity extends Activity {
 		ScrollView scrollView = new ScrollView(getApplicationContext());
 		linearLayout = new LinearLayout(getApplicationContext());
 		linearLayout.setOrientation(LinearLayout.VERTICAL);
-		linearLayout.setBackgroundResource(R.drawable.login);
+		linearLayout.setBackgroundResource(R.drawable.documentblack);
 		scrollView.addView(linearLayout);
 		setContentView(scrollView);
 		try {

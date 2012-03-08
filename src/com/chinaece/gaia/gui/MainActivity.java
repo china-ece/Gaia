@@ -34,7 +34,6 @@ import com.chinaece.gaia.util.UpdateVersionInfo;
 public class MainActivity extends Activity {
 	String token, name;
 	private URL formatUrl;
-	private Boolean reflag;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -201,9 +200,10 @@ public class MainActivity extends Activity {
 				return;
 			}
 			if(flag){
-				reflag = flag;
 				TextView txtview = (TextView) findViewById(R.id.textView2);
-				txtview.setText("欢迎" + name + "进入华东有色地勘局OA系统");
+				txtview.setText(name +"您好");
+				TextView txtview3 = (TextView) findViewById(R.id.textView3);
+				txtview3.setText("有色金属华东地质勘查局OA系统");
 				getApplicationContext().startService(new Intent(MainActivity.this, PendingService.class));
 			}
 			else{
