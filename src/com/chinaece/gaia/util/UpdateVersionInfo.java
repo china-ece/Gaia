@@ -1,5 +1,6 @@
 package com.chinaece.gaia.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -10,6 +11,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
 
@@ -72,14 +74,24 @@ public class UpdateVersionInfo {
 			public void run() {
 				try {
 					int versionCode = UpdateVersionInfo.getCurrentVersionCode(context);
+					File apk = new File("/sdcard/ece/ECEOA.apk");
+					if(apk.exists()){
+						PackageManager pm = context.getPackageManager();  
+			            PackageInfo packageInfo = pm.getPackageArchiveInfo(apk.getAbsolutePath(), PackageManager.GET_ACTIVITIES);
+			            if (packageInfo != null && versionCode >= packageInfo.versionCode) {  
+			                apk.delete();
+			                if(versionCode == packageInfo.versionCode)
+			                	return;
+			            }  
+					}
 					String latestverCode = UpdateVersionInfo.getServerVerCode(context);
-					DataStorage.properties.put("changelog", versionInfo.getChangelog());
-					DataStorage.save(context);
 					int verCode = Integer.parseInt(latestverCode);
-					if (versionCode == verCode) {
+					if (versionCode >= verCode) {
 						Log.i(TAG, "版本号相同无需升级");
 					} else {
 						Log.i(TAG, "版本号不同 ,提示用户升级 ");
+						DataStorage.properties.put("changelog", versionInfo.getChangelog());
+						DataStorage.save(context);
 						Downloader downLoader = new Downloader(context, versionInfo.getUrl(),
 								"ECEOA.apk", null);
 						new Thread(downLoader).start();
