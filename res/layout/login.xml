@@ -73,7 +73,7 @@
                 android:layout_weight="1"
                 android:hint="@string/hint_domain"
                 android:singleLine="true"
-                android:text="" />
+                android:text="@string/default_business_domain" />
         </LinearLayout>
         <!-- 帐号 -->
 

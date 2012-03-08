@@ -48,7 +48,7 @@ public class PendingService extends Service {
 		while (true) {
 			doRequestService();
 			try {
-				Thread.sleep(60000 * 5);
+				Thread.sleep(60000 * 20);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

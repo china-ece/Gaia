@@ -48,6 +48,7 @@ public class AttachmentUploadField extends ItemType{
 		linearLayout.setOrientation(LinearLayout.VERTICAL);
 		TextView textView1 = new TextView(context);
 		textView1.setText("点击下列文件名下载文件");
+		textView1.setTextColor(Color.BLACK);
 		linearLayout.addView(textView1);
 		if(list_value!=null){
 		for(int i = 0;i<list_value.length();i++){

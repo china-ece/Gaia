@@ -20,6 +20,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -58,6 +59,8 @@ public class ContactsActivity extends Activity {
 					}
 					ApiTask task = new ApiTask();
 					task.execute(formatUrl.toString(),token.toString(),search.toString());
+					InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+				    imm.hideSoftInputFromWindow(edittext.getWindowToken(), 0);
 				} catch (MalformedURLException e) {
 					e.printStackTrace();
 				}

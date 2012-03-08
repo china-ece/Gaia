@@ -45,11 +45,10 @@ public class GaiaActivity extends Activity {
 		}
 		setContentView(R.layout.login);
 		final Spinner url = (Spinner) findViewById(R.id.edtOAUrl);
-		map.put("华东有色电子政务平台", "http://oa.china-ece.com:18081");
 		if(Gaia.DEBUG){
 			map.put("开发测试", "http://10.4.3.1:8080/obpm/");
-			map.put("82测试", "http://10.0.0.82:18081");
 		}
+		map.put("华东有色电子政务平台", "http://oa.china-ece.com:18081");
 		String[] keys = {};
 		keys = map.keySet().toArray(keys);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item,keys);

@@ -15,10 +15,11 @@
     <string name="contact_username">姓名</string>
     <string name="contact_phone">电话号码</string>
     <string name="contact_mail">E-Mail</string>
-    <string name="contact_save">保存联系人</string>
+    <string name="contact_save">导入通讯录</string>
     <string name="banner">办公新方式</string>
     <string name="call">拨打电话</string>
     <string name="copyright">© 2011\n有色金属华东地质勘查局地质信息中心\n保留所有权利.</string>
+    <string name="default_business_domain">ece</string>
     
 
 </resources>

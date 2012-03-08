@@ -56,7 +56,7 @@ public class UpdateVersionInfo {
 	public static String getServerVerCode(Context context) {
 		URL Url;
 		try {
-			Url = new URL("http://10.0.0.82:18081/client/android.xml");
+			Url = new URL("http://oa.china-ece.com:18081/client/android.xml");
 			versionInfo = UpdateVersionInfo.getUpdateInfo(Url.openStream());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
