@@ -27,7 +27,7 @@ public class AboutActivity extends TabActivity{
 			
 			@Override
 			public void onClick(View v) {
-				copyright.setText("开发人员:\t设计人员:\n王艳妮\n张凌波\n周超");
+				copyright.setText("开发人员:\t\t设计人员:\n王艳妮\t\t\t朱婉菱\n张凌波\n周超");
 			}
 		});
 		//
