@@ -64,13 +64,13 @@ public class MainActivity extends Activity {
 		}		
 		setContentView(R.layout.mainlayout);
 		GridView gridview = (GridView) findViewById(R.id.gridview);
-		Integer[] images = { R.drawable.weatherforecast,
-        		R.drawable.pendings,
-        		R.drawable.contact,
+		Integer[] images = { R.drawable.pendings,
+				R.drawable.contact,
+				R.drawable.weatherforecast,
         		R.drawable.document
 		};
 		ArrayList<HashMap<String, Object>> meumList = new ArrayList<HashMap<String, Object>>();
-		String[] mainmenu = {"天气预报", "待办提醒" , "通信录","文件管理"};
+		String[] mainmenu = { "待办提醒",  "通讯录","天气预报","文件管理"};
 		for (int i = 0; i < mainmenu.length; i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("ItemImage", images[i]);
@@ -86,19 +86,20 @@ public class MainActivity extends Activity {
 					long arg3) {
 				switch (arg2) {
 				case 0:
-					Intent weatherIntent = new Intent(MainActivity.this,
-							WeatherActivity.class);
-					startActivity(weatherIntent);
-					break;
-				case 1:
 					Intent pendingIntent = new Intent(MainActivity.this,
 							PendingsActivity.class);
 					startActivity(pendingIntent);
+					
 					break;
-				case 2:
+				case 1:
 					Intent contactsIntent = new Intent(MainActivity.this,
 							ContactsActivity.class);
 					startActivity(contactsIntent);
+					break;
+				case 2:
+					Intent weatherIntent = new Intent(MainActivity.this,
+							WeatherActivity.class);
+					startActivity(weatherIntent);
 					break;
 				case 3:
 					Intent adjuctIntent = new Intent(MainActivity.this,
@@ -201,7 +202,7 @@ public class MainActivity extends Activity {
 			}
 			if(flag){
 				TextView txtview = (TextView) findViewById(R.id.textView2);
-				txtview.setText(name +"您好");
+				txtview.setText(name +"，您好！");
 				getApplicationContext().startService(new Intent(MainActivity.this, PendingService.class));
 			}
 			else{
