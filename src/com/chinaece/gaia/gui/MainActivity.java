@@ -72,12 +72,23 @@ public class MainActivity extends Activity {
 		};
 		ArrayList<HashMap<String, Object>> meumList = new ArrayList<HashMap<String, Object>>();
 		String[] mainmenu = { "待办提醒",  "通讯录","天气预报","文件管理","待办追踪"};
-		for (int i = 0; i < mainmenu.length; i++) {
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("ItemImage", images[i]);
-			map.put("ItemText", mainmenu[i]);
-			meumList.add(map);
+		if((token.toString()).indexOf("11df-dcc6-64fcf96a-8a70-5b9af8e9e0ca") == -1){
+			for (int i = 0; i < mainmenu.length-1; i++) {
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("ItemImage", images[i]);
+				map.put("ItemText", mainmenu[i]);
+				meumList.add(map);
+			}
 		}
+		else{
+			for (int i = 0; i < mainmenu.length; i++) {
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("ItemImage", images[i]);
+				map.put("ItemText", mainmenu[i]);
+				meumList.add(map);
+			}
+		}
+		
 		SimpleAdapter saMenuItem = new SimpleAdapter(this, meumList,
 				R.layout.menuitem, new String[] { "ItemImage", "ItemText" },
 				new int[] { R.id.ItemImage, R.id.ItemText });
