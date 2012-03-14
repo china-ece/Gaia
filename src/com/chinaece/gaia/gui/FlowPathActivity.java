@@ -102,7 +102,7 @@ public class FlowPathActivity extends Activity {
 						try {
 							sub.put("nodeid",checkIds.get(0));
 							sub.put("isToPerson", checkboxsdataValue!=null?"true":"false");
-							sub.put("userids",  checkboxsdataValue!=null?checkboxsdataValue.toString():"");
+							sub.put("userids",  checkboxsdataValue!=null?checkboxsdataValue.toString():"[]");
 							submitTo.put(sub);
 							submit.put("version", version);
 							submit.put("docid", docId);

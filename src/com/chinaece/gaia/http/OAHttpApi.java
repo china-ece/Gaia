@@ -94,9 +94,11 @@ public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
 		HttpPost post = createHttpPost(url+"/client/saveDocument.action",new BasicNameValuePair("token", token),new BasicNameValuePair("params",save ));
 		String rst = doRequest(post);
 		try {
+			if(rst == null)
+				return false;
 			JSONObject flag = new JSONObject(rst);
 			return flag.getBoolean("result");
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -106,9 +108,11 @@ public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
 		HttpPost post = createHttpPost(url+"/client/submitDocument.action",new BasicNameValuePair("token", token),new BasicNameValuePair("params",submit));
 		String rst = doRequest(post);
 		try {
+			if(rst == null)
+				return false;
 			JSONObject flag = new JSONObject(rst);
 			return flag.getBoolean("result");
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
