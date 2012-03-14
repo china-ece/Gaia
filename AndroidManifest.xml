@@ -50,6 +50,8 @@
             </intent-filter>
         </receiver>
         <activity android:name=".gui.AboutActivity"></activity>
+        <activity android:name=".gui.BossTrackingsActivity"></activity>
+        <activity android:name=".gui.TrackActivity"></activity>
     </application>
 
 </manifest>

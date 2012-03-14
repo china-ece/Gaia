@@ -307,8 +307,10 @@ public class DocumentActivity extends Activity {
 	
 	@Override
 	protected void onDestroy() {
-		//infoMap.clear();
-		document.getItems().clear();
+		if(infoMap!=null)
+			infoMap.clear();
+		if(document!=null)
+			document.getItems().clear();
 		super.onDestroy();
 	}
 }

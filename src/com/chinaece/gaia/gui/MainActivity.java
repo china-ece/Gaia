@@ -67,10 +67,11 @@ public class MainActivity extends Activity {
 		Integer[] images = { R.drawable.pendings,
 				R.drawable.contact,
 				R.drawable.weatherforecast,
-        		R.drawable.document
+        		R.drawable.document,
+        		R.drawable.pendingzz
 		};
 		ArrayList<HashMap<String, Object>> meumList = new ArrayList<HashMap<String, Object>>();
-		String[] mainmenu = { "待办提醒",  "通讯录","天气预报","文件管理"};
+		String[] mainmenu = { "待办提醒",  "通讯录","天气预报","文件管理","待办追踪"};
 		for (int i = 0; i < mainmenu.length; i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("ItemImage", images[i]);
@@ -105,6 +106,9 @@ public class MainActivity extends Activity {
 					Intent adjuctIntent = new Intent(MainActivity.this,
 							FilesActivity.class);
 					startActivity(adjuctIntent);
+				case 4:
+					Intent trackIntent = new Intent(MainActivity.this,BossTrackingsActivity.class);
+					startActivity(trackIntent);
 				default:
 					break;
 				}

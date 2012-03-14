@@ -10,12 +10,14 @@ import org.json.JSONObject;
 
 import com.chinaece.gaia.constant.Gaia;
 import com.chinaece.gaia.parsers.AppParser;
+import com.chinaece.gaia.parsers.BossTrackParser;
 import com.chinaece.gaia.parsers.ContactParser;
 import com.chinaece.gaia.parsers.DocumentParser;
 import com.chinaece.gaia.parsers.PendingParser;
 import com.chinaece.gaia.parsers.UserParser;
 import com.chinaece.gaia.parsers.WeatherParser;
 import com.chinaece.gaia.types.AppType;
+import com.chinaece.gaia.types.BossTrackingType;
 import com.chinaece.gaia.types.ContactType;
 import com.chinaece.gaia.types.DocumentType;
 import com.chinaece.gaia.types.GaiaType;
@@ -110,6 +112,14 @@ public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
 			e.printStackTrace();
 			return false;
 		}
-		
+	}
+	
+	public Collection<BossTrackingType> getBossTrack(){
+		HttpPost post = createHttpPost(url+"/client/getBossTracking.action");
+		Collection<? extends GaiaType> rst = doRequest(post,new BossTrackParser());
+		if(rst != null){
+			return(Collection<BossTrackingType>)rst;
+		}
+		return null;
 	}
 }

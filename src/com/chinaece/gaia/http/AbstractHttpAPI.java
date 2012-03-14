@@ -26,6 +26,7 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -87,9 +88,16 @@ abstract public class AbstractHttpAPI implements HttpAPI{
 					}
 					return null;
 				}catch (JSONException e) {
-					Log.e(Gaia.TAG_JSON, "json error");
-					return null;
+					try{
+						JSONArray arr = new JSONArray(content);
+						Object rst = parser.parser(arr);
+						return (Collection<? extends GaiaType>) rst;
+					}catch (Exception exception) {
+						Log.e(Gaia.TAG_HTTP, "json error");
+					}
+					
 				}
+				break;
 			case 404:
 				Log.e(Gaia.TAG_HTTP, "wrong http request, wrong address?");
 				return null;
