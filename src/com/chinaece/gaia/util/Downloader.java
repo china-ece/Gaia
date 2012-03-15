@@ -13,9 +13,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 
-import com.chinaece.gaia.gui.DocumentActivity;
-import com.chinaece.gaia.gui.FilesActivity;
-
 public class Downloader implements Runnable{
 	private String urlStr;
 	

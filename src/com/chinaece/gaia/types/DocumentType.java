@@ -3,7 +3,6 @@ package com.chinaece.gaia.types;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
 import com.chinaece.gaia.types.documentitem.BranchType;
 import com.chinaece.gaia.types.documentitem.ItemType;
 

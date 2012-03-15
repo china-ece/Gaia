@@ -3,10 +3,6 @@ package com.chinaece.gaia.types;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import org.json.JSONArray;
-
-import com.chinaece.gaia.types.documentitem.BranchType.User;
-
 public class BossTrackingType  implements GaiaType,Serializable{
 	
 	private static final long serialVersionUID = -5772724268794155583L;

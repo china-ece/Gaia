@@ -4,7 +4,6 @@ package com.chinaece.gaia.types.documentitem;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 import android.content.Context;
 import android.graphics.Color;
 import android.text.InputType;
