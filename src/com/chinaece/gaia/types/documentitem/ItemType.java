@@ -4,10 +4,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.chinaece.gaia.types.GaiaType;
-
 import android.content.Context;
 import android.view.View;
+
+import com.chinaece.gaia.types.GaiaType;
 
 abstract public class ItemType implements GaiaType{
 	protected String type;

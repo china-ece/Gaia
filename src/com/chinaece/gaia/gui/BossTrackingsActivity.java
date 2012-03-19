@@ -8,19 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.chinaece.gaia.R;
-import com.chinaece.gaia.constant.Gaia;
-import com.chinaece.gaia.db.DataStorage;
-import com.chinaece.gaia.gui.PendingsActivity.ApiTask;
-import com.chinaece.gaia.http.OAHttpApi;
-import com.chinaece.gaia.types.AppType;
-import com.chinaece.gaia.types.BossTrackingType;
-import com.chinaece.gaia.types.PendingType;
-
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -30,10 +17,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.chinaece.gaia.R;
+import com.chinaece.gaia.db.DataStorage;
+import com.chinaece.gaia.http.OAHttpApi;
+import com.chinaece.gaia.types.BossTrackingType;
 
 public class BossTrackingsActivity extends ListActivity {
 	@Override

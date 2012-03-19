@@ -7,16 +7,16 @@ import java.net.URL;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.chinaece.gaia.db.DataStorage;
-import com.chinaece.gaia.util.Downloader;
-import com.chinaece.gaia.util.FileUtil;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.chinaece.gaia.db.DataStorage;
+import com.chinaece.gaia.util.Downloader;
+import com.chinaece.gaia.util.FileUtil;
 
 public class WordField extends ItemType{
 	private TextView text ;

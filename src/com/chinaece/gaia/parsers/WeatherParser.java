@@ -1,8 +1,10 @@
 package com.chinaece.gaia.parsers;
 import java.util.Collection;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import com.chinaece.gaia.types.WeatherType;
 
 public class WeatherParser extends AbstractJSONParser<WeatherType>{

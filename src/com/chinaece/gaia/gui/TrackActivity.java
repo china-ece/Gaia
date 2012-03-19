@@ -5,16 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.chinaece.gaia.R;
-import com.chinaece.gaia.types.BossTrackingType;
-import com.chinaece.gaia.types.BossTrackingType.Child;
-
-import android.R.integer;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
+import com.chinaece.gaia.R;
+import com.chinaece.gaia.types.BossTrackingType;
+import com.chinaece.gaia.types.BossTrackingType.Child;
 
 public class TrackActivity extends Activity{
 	@Override

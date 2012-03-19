@@ -1,8 +1,5 @@
 package com.chinaece.gaia.gui;
 
-import com.chinaece.gaia.R;
-import com.chinaece.gaia.db.DataStorage;
-
 import android.app.TabActivity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +8,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TabHost;
 import android.widget.TextView;
+
+import com.chinaece.gaia.R;
+import com.chinaece.gaia.db.DataStorage;
 
 public class AboutActivity extends TabActivity{
 	@Override

@@ -1,10 +1,10 @@
 package com.chinaece.gaia.util;
 
-import com.chinaece.gaia.service.PendingService;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
+import com.chinaece.gaia.service.PendingService;
 
 public class ServiceBroadcastReceiver extends BroadcastReceiver {
 	private static final String ACTION = "android.intent.action.BOOT_COMPLETED";
