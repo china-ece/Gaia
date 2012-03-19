@@ -117,6 +117,7 @@ public class MainActivity extends Activity {
 					Intent adjuctIntent = new Intent(MainActivity.this,
 							FilesActivity.class);
 					startActivity(adjuctIntent);
+					break;
 				case 4:
 					Intent trackIntent = new Intent(MainActivity.this,BossTrackingsActivity.class);
 					startActivity(trackIntent);
