@@ -45,9 +45,9 @@ public class GaiaActivity extends Activity {
 		}
 		setContentView(R.layout.login);
 		final Spinner url = (Spinner) findViewById(R.id.edtOAUrl);
-		if(Gaia.DEBUG){
-			map.put("开发测试", "http://10.4.3.1:8080/obpm/");
-		}
+//		if(Gaia.DEBUG){
+//			map.put("开发测试", "http://10.4.3.1:8080/obpm/");
+//		}
 		map.put("华东有色电子政务平台", "http://oa.china-ece.com:18081");
 		String[] keys = {};
 		keys = map.keySet().toArray(keys);

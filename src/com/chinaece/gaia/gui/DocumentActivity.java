@@ -300,6 +300,7 @@ public class DocumentActivity extends Activity {
 				View v = linearLayout.getChildAt(i);
 				if(v instanceof EditText && ((EditText) v).getInputType()== (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE) ){
 					getDialog((EditText) v);
+					v.setOnClickListener(null);
 					v.setOnLongClickListener(new OnLongClickListener() {
 						
 						@Override

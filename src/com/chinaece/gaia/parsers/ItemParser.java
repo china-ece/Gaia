@@ -48,9 +48,9 @@ public class ItemParser extends AbstractJSONParser<ItemType> {
 				else if(jsonitem.getString("type").equals("InputField")){
 					itemlist.add(new InputField(jsonitem));
 					}
-//				else if(jsonitem.getString("type").equals("RadioField")){
-//					itemlist.add(new RadioField(jsonitem));
-//					}
+				else if(jsonitem.getString("type").equals("RadioField")){
+					itemlist.add(new RadioField(jsonitem));
+					}
 				else if(jsonitem.getString("type").equals("String")){
 					itemlist.add(new StringField(jsonitem));
 					}

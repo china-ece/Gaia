@@ -22,9 +22,11 @@ public class StringField extends ItemType{
 	@Override
 	public View getMappingInstance(Context context) throws JSONException {
 		TextView text = new TextView(context);
-		text.setText(displayValue);
-		text.setTextColor(Color.argb(255,255,0,255));
-		text.setTextSize(16);
+		if(displayValue.indexOf("请输入处理意见") == -1){
+			text.setText(displayValue);
+			text.setTextColor(Color.argb(255,255,0,255));
+			text.setTextSize(16);
+		}
 		return text;
 	}
 

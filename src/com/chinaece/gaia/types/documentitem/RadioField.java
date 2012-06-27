@@ -32,6 +32,7 @@ public class RadioField extends ItemType {
 			radio.setTag(dataValue);
 			radio.setClickable(false);
 			radio.setFocusable(false);
+			radio.setChecked(true);
 			linearlayout.addView(radio);
 			if (display == 3) {
 				radio.setVisibility(View.INVISIBLE);
@@ -40,10 +41,16 @@ public class RadioField extends ItemType {
 			RadioGroup radioGroup = new RadioGroup(context);
 			for (int i = 0; i < list_value.length(); i++) {
 				radio = new RadioButton(context);
-				radio.setText(list_value.getJSONObject(i).getString(
-						"displayValue"));
-				radio.setTag(list_value.getJSONObject(i).getString("dataValue"));
-				radioGroup.addView(radio);
+				if(!list_value.getJSONObject(i).getString("displayValue").equals("同意")&&!list_value.getJSONObject(i).getString("displayValue").equals("不同意")&&!list_value.getJSONObject(i).getString("displayValue").equals("已阅")){
+					radio.setText(list_value.getJSONObject(i).getString(
+							"displayValue"));
+					radio.setTag(list_value.getJSONObject(i).getString("dataValue"));
+					radioGroup.addView(radio);
+					if(list_value.getJSONObject(i).getString("displayValue").equals(dataValue)){
+						radio.setChecked(true);
+					}
+
+				}
 			}
 			linearlayout.addView(radioGroup);
 		}
@@ -52,7 +59,13 @@ public class RadioField extends ItemType {
 
 	@Override
 	public String getInstanceValue() {
-		return radio.getTag().toString();
+		if(radio.getTag()!=null){
+			return radio.getTag().toString();
+		}
+		else{
+			return "";
+		}
+		
 	}
 
 }

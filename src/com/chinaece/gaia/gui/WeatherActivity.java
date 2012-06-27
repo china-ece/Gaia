@@ -54,7 +54,7 @@ public class WeatherActivity extends Activity{
 			    TextView tv1=new TextView(WeatherActivity.this);
 			    tv1.setText(weather.iterator().next().getCity());
 			    tv1.setTextSize(25);	
-			    tv1.setTextColor(Color.YELLOW);
+			    tv1.setTextColor(Color.BLUE);
 			    EditText et1= new EditText(WeatherActivity.this);
 			    et1.setTextColor(Color.rgb(25, 25, 112));
 			    et1.setBackgroundColor(Color.rgb(64, 224, 208));

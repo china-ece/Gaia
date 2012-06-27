@@ -23,6 +23,7 @@ public class NotificationCenter {
 		if(mNotificationManager == null)
 			mNotificationManager =  (NotificationManager)context.getSystemService(Activity.NOTIFICATION_SERVICE);
 		Notification mNotification = new Notification(R.drawable.appicon, tip, System.currentTimeMillis());
+		mNotification.vibrate = new long[]{0,200,200,600,600};
 		mNotification.flags = flags;
 		if(intent != null){
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

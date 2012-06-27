@@ -44,9 +44,21 @@ public class Downloader implements Runnable{
             String pathName=SDCard+"/"+path+"/"+fileName;   
             File file=new File(pathName);   
             InputStream input=conn.getInputStream();   
-           if(file.exists()){   
+           if(file.exists()){ 
+        	   	file.delete();
+        	   	File dir = new File(SDCard+"/"+path);
+                if(!dir.exists())
+             	   dir.mkdirs();  
+                file.createNewFile(); 
+                output=new FileOutputStream(file);  
+                byte[] buffer=new byte[1024];
+                int length;
+                while((length = input.read(buffer))!=-1){
+                    output.write(buffer, 0 ,length); 
+                 }
+                output.flush(); 
                 Intent mintent = FileUtil.openFile(file);
-      		   	NotificationCenter.sendNormalNotification(mintent, context, "文件已存在请点击查看","文件下载", "文件已存在请点击查看");
+      		   NotificationCenter.sendNormalNotification(mintent, context,  "下载完成点击附件管理查看详细内容","文件下载", "下载完成点击附件管理查看详细内容");
                 return;
            }else{   
                File dir = new File(SDCard+"/"+path);

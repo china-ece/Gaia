@@ -1,6 +1,9 @@
 package com.chinaece.gaia.gui;
 
 import android.app.TabActivity;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -37,6 +40,15 @@ public class AboutActivity extends TabActivity{
 		tabHost.setBackgroundColor(Color.CYAN);
 		tabHost.setCurrentTab(0);
 		setContentView(tabHost);
+		PackageManager manager = this.getPackageManager();
+        try {	
+        	PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
+        		String appVersion = info.versionName;  
+        		TextView textview1 = (TextView)findViewById(R.id.tex1);
+        		textview1.append(appVersion);
+        		} catch (NameNotFoundException e) {
+        			e.printStackTrace();
+        		}
 	}
 
 }

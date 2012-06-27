@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.os.Vibrator;
 
 import com.chinaece.gaia.constant.Gaia;
 import com.chinaece.gaia.db.DataStorage;
@@ -23,9 +26,9 @@ public class PendingService extends Service {
 	public static final String EXTRA_UPDATE_RATE = "update-rate";
 	private String tip = "待办事项提醒";
 	private String title = "通知";
+	private String token;
+	private URL formatUrl;
 	private String content = "有新待办事项";
-	private static URL formatUrl;
-	private static String token;
 	private Collection<PendingType> Lastpendinglist;
 	private String strAppids;
 
@@ -48,7 +51,7 @@ public class PendingService extends Service {
 		while (true) {
 			doRequestService();
 			try {
-				Thread.sleep(60000 * 20);
+				Thread.sleep(6000 * 20);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -58,51 +61,71 @@ public class PendingService extends Service {
 	private void doRequestService() {
 		try {
 			DataStorage.load(getApplicationContext());
-			if (DataStorage.properties.size() == 0) {
+			if (DataStorage.properties.size() <= 1) {
 				stopService(new Intent(PendingService.this,
 						PendingService.class));
 				return;
-			} else if (token == null || formatUrl == null) {
-				token = DataStorage.properties.getProperty("token");
-				formatUrl = new URL(DataStorage.properties.getProperty("url"));
+			} else {
+				 token = DataStorage.properties.getProperty("token");
+				 formatUrl = new URL(DataStorage.properties.getProperty("url"));
 			}
-			//
-			OAHttpApi OaApi = new OAHttpApi(formatUrl.toString());
-			if (strAppids == null && Gaia.APPLIST == null
-					&& !OaApi.getApps(token)) {
-				stopService(new Intent(PendingService.this,
-						PendingService.class));
-				return;
-			} else if (strAppids == null) {
-				JSONArray appids = new JSONArray();
-				for (AppType app : Gaia.APPLIST) {
-					appids.put(app.getAppid());
-				}
-				strAppids = appids.toString();
-			}
-			//
-			Collection<PendingType> pendinglist = OaApi.getPending(
-					token.toString(), strAppids);
-			if (pendinglist != null
-					&& PendingService.this.Lastpendinglist != null) {
-				StringBuffer strbuffer = new StringBuffer();
-				for (int i = 0; i < PendingService.this.Lastpendinglist.size(); i++) {
-					strbuffer
-							.append(((ArrayList<PendingType>) PendingService.this.Lastpendinglist)
-									.get(i).getDocid());
-				}
-				for (int j = 0; j < pendinglist.size(); j++) {
-					String str2 = ((ArrayList<PendingType>) pendinglist).get(j)
-							.getDocid();
-					if (strbuffer.indexOf(str2) == -1) {
-						Intent mintent = new Intent(getApplicationContext(),
-								PendingsActivity.class);
-						NotificationCenter.sendPendingsNotification(mintent,
-								getApplicationContext(), tip, title, content);
+				OAHttpApi OaApi = new OAHttpApi(formatUrl.toString());
+				if (strAppids == null && Gaia.APPLIST == null
+						&& !OaApi.getApps(token)) {
+					stopService(new Intent(PendingService.this,
+							PendingService.class));
+					return;
+				} else if (strAppids == null) {
+					JSONArray appids = new JSONArray();
+					for (AppType app : Gaia.APPLIST) {
+						appids.put(app.getAppid());
 					}
+					strAppids = appids.toString();
 				}
+				//
+//				Collection<PendingType> pendinglist = OaApi.getPending(
+//						token.toString(), strAppids);
+				Collection<PendingType> pendinglists = new ArrayList<PendingType>();
+				try {
+					JSONArray jsa = new JSONArray(strAppids);
+					for(int i = 0;i<jsa.length();i++){
+						JSONArray appids = new JSONArray();
+						appids.put(jsa.get(i));
+						OAHttpApi OaApi1 = new OAHttpApi(formatUrl.toString());
+						Collection<PendingType> pendinglist = OaApi1.getPending(token,
+								appids.toString());
+						if(pendinglist != null){
+							pendinglists.addAll(pendinglist);
+						}
+//						else{
+//							Toast.makeText(getApplicationContext(), jsa.get(i).toString()+"数据错误请稍候再试...", Toast.LENGTH_LONG).show();
+//						}
+						
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				if (pendinglists != null
+						&& PendingService.this.Lastpendinglist != null) {
+					StringBuffer strbuffer = new StringBuffer();
+					for (int i = 0; i < PendingService.this.Lastpendinglist.size(); i++) {
+						strbuffer
+								.append(((ArrayList<PendingType>) PendingService.this.Lastpendinglist)
+										.get(i).getDocid());
+					}
+					for (int j = 0; j < pendinglists.size(); j++) {
+						String str2 = ((ArrayList<PendingType>) pendinglists).get(j)
+								.getDocid();
+						if (strbuffer.indexOf(str2) == -1) {
+							Intent mintent = new Intent(getApplicationContext(),
+									PendingsActivity.class);
+							NotificationCenter.sendPendingsNotification(mintent,
+									getApplicationContext(), tip, title, content);
+						}
+					}
 			}
-			PendingService.this.Lastpendinglist = pendinglist;
+				PendingService.this.Lastpendinglist = pendinglists;
+			
 		} catch (MalformedURLException e) {
 		}
 	}

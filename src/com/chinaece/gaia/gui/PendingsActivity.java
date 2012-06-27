@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -32,6 +33,9 @@ import com.chinaece.gaia.types.AppType;
 import com.chinaece.gaia.types.PendingType;
 
 public class PendingsActivity extends ListActivity {
+	HashMap<String, String> maps = new HashMap<String, String>();
+	private boolean flag = true;
+	private ArrayList<String> wrong = new ArrayList<String>();
 
 	/** Called when the activity is first created. */
 
@@ -55,9 +59,11 @@ public class PendingsActivity extends ListActivity {
 			JSONArray appids = new JSONArray();
 			for (AppType app : Gaia.APPLIST) {
 				appids.put(app.getAppid());
+				maps.put(app.getAppid(), app.getName());
 			}
 			task.execute(formatUrl.toString(), token.toString(),
-					appids.toString());
+					appids.toString(),maps.toString());
+			
 		} catch (MalformedURLException e) {
 		}
 	}
@@ -73,26 +79,53 @@ public class PendingsActivity extends ListActivity {
 
 		@Override
 		protected Collection<PendingType> doInBackground(String... params) {
-			OAHttpApi OaApi = new OAHttpApi(params[0]);
-			Collection<PendingType> pendinglist = OaApi.getPending(params[1],
-					params[2]);
-			return pendinglist;
+			Collection<PendingType> pendinglists = new ArrayList<PendingType>();
+			try {
+				JSONArray jsa = new JSONArray(params[2]);
+				for(int i = 0;i<jsa.length();i++){
+					JSONArray appids = new JSONArray();
+					appids.put(jsa.get(i));
+					OAHttpApi OaApi = new OAHttpApi(params[0]);
+					Collection<PendingType> pendinglist = OaApi.getPending(params[1],
+							appids.toString());
+					if(pendinglist != null){
+						for(PendingType pet : pendinglist){
+							pet.setName(maps.get(jsa.get(i).toString()));
+						}
+						pendinglists.addAll(pendinglist);
+					}
+					else{
+						flag = false;
+						wrong.add(maps.get(jsa.get(i).toString()));
+					}
+					
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			return pendinglists;
 		}
 
 		@Override
 		protected void onPostExecute(final Collection<PendingType> pendinglist) {
+			if(flag == false){
+				Toast.makeText(getApplicationContext(), wrong.toString()+"数据错误请稍候再试", Toast.LENGTH_LONG).show();
+				flag =true;
+				wrong.clear();
+			}
 			if(pendinglist!=null){
 				if(pendinglist!=null && pendinglist.size()>0) {
 					final List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 					for (PendingType pet : pendinglist) {
 						Map<String, String> map = new HashMap<String, String>();
 						map.put("title", pet.getSummary());
+						map.put("appname", pet.getName());
 						map.put("info", pet.getDate());
 						list.add(map);
 					}
 					SimpleAdapter adapter = new SimpleAdapter(PendingsActivity.this,
-							list, R.layout.pendings, new String[] { "title", "info", },
-							new int[] { R.id.title, R.id.info });
+							list, R.layout.pendings, new String[] { "title","appname" ,"info"},
+							new int[] { R.id.title ,R.id.appname, R.id.info});
 					ListView listview = (ListView) findViewById(android.R.id.list);
 					listview.setAdapter(adapter);
 					dialog.dismiss();
