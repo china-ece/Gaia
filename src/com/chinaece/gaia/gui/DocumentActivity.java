@@ -21,6 +21,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.Layout;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +44,7 @@ import com.chinaece.gaia.types.documentitem.ItemType;
 
 public class DocumentActivity extends Activity {
 	private URL formatUrl;
-	private String docid, formid, appid, token, str="";
+	private String docid, formid, appid, token, str="",appname;
 	private LinearLayout linearLayout;
 	private DocumentType document;
 	private boolean isNormal = true, isOpinion = false;
@@ -164,6 +165,7 @@ public class DocumentActivity extends Activity {
 			docid = getIntent().getExtras().getString("docid");
 			formid = getIntent().getExtras().getString("formid");
 			appid = getIntent().getExtras().getString("appid");
+			appname = getIntent().getExtras().getString("summary");
 			try {
 				document.put("docid", docid);
 				document.put("formid", formid);
@@ -414,6 +416,7 @@ public class DocumentActivity extends Activity {
 							bundle.putString("currnodeid", document.getCurrNodeid());
 							bundle.putString("docid", docid);
 							bundle.putString("appid", appid);
+							bundle.putString("appname", appname);
 							bundle.putInt("version", document.getVersion());
 							Intent intent = new Intent(DocumentActivity.this, FlowPathActivity.class);
 							intent.putExtras(bundle);
@@ -455,7 +458,11 @@ public class DocumentActivity extends Activity {
 			dialog.dismiss();
 			if(flag){
 				Toast.makeText(getApplicationContext(), "提交成功", Toast.LENGTH_SHORT).show();
-				Intent intent = new Intent(DocumentActivity.this,MainActivity.class);
+				Intent intent = new Intent(DocumentActivity.this,PendingsActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putBoolean("flag", true);
+				bundle.putString("appname", appname);
+				intent.putExtras(bundle);
 				startActivity(intent);
 				DocumentActivity.this.finish();
 			}
@@ -471,5 +478,15 @@ public class DocumentActivity extends Activity {
 		if(document!=null)
 			document.getItems().clear();
 		super.onDestroy();
+	}
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			DocumentActivity.this.finish();
+//			Intent intent = new Intent(DocumentActivity.this,PendingsActivity.class);
+//			startActivity(intent);
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

@@ -32,7 +32,7 @@ import com.chinaece.gaia.types.documentitem.BranchType.User;
 
 public class FlowPathActivity extends Activity {
 	private JSONArray checkboxsdataValue;
-	private String checkName = "",checkFlowtype = "";
+	private String checkName = "",checkFlowtype = "",appname;
 	private int mode = 0;
 	private ArrayList<String> checkIds = new ArrayList<String>();
 	
@@ -40,6 +40,7 @@ public class FlowPathActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		final Bundle bundle = getIntent().getExtras();
+		appname = getIntent().getExtras().getString("appname");
 		ArrayList<BranchType> branches = (ArrayList<BranchType>) bundle.get("branches");
 		LinearLayout linearlayout = new LinearLayout(FlowPathActivity.this);
 		linearlayout.setOrientation(LinearLayout.VERTICAL);
@@ -251,7 +252,11 @@ public class FlowPathActivity extends Activity {
 			dialog.dismiss();
 			if(flag){
 				Toast.makeText(getApplicationContext(), "提交成功", Toast.LENGTH_SHORT).show();
-				Intent intent = new Intent(FlowPathActivity.this,MainActivity.class);
+				Intent intent = new Intent(FlowPathActivity.this,PendingsActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putBoolean("flag", true);
+				bundle.putString("appname", appname);
+				intent.putExtras(bundle);
 				startActivity(intent);
 				FlowPathActivity.this.finish();
 			}

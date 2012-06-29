@@ -97,6 +97,12 @@ public class PendingService extends Service {
 						if(pendinglist != null){
 							pendinglists.addAll(pendinglist);
 						}
+						else{
+							try{
+								NotificationCenter.clearNotification(65536);
+							}catch (Exception e) {
+							}
+						}
 //						else{
 //							Toast.makeText(getApplicationContext(), jsa.get(i).toString()+"数据错误请稍候再试...", Toast.LENGTH_LONG).show();
 //						}
