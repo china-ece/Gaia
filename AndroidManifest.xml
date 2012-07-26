@@ -53,8 +53,11 @@
         <activity android:name=".gui.AboutActivity"></activity>
         <activity android:name=".gui.BossTrackingsActivity"></activity>
         <activity android:name=".gui.TrackActivity"></activity>
-        <activity android:name=".gui.CalendarActivity"></activity>
-        <activity android:name=".gui.LogItemActivity"></activity>
+        <activity android:name=".gui.CalendarActivity"></activity><activity android:name=".gui.LogItemActivity">
+        </activity>
+        <activity android:name=".gui.newDataActivity"></activity><activity android:name=".gui.endNewDataActivity"></activity><activity android:name=".gui.QuickmissionActivity"></activity><activity android:name=".gui.newLogItemActivity"></activity>
+
+                
     </application>
 
 </manifest>

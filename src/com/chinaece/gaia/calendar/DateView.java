@@ -31,14 +31,14 @@ public class DateView extends ViewGroup {
 		addView(bt);
 		
 	}
-	
+	//新建日程的按钮
 	public DateView(final Context context,AttributeSet attrs) {
 		super(context,attrs);
 		CalendarView cv = new CalendarView(context);
 		cv.setId(1000000);
 		addView(cv);
 		Button bt = new Button(context);
-		bt.setText("刷新日志");
+		bt.setText("新日程安排");
 		bt.setId(235648);
 		addView(bt);
 	}
@@ -60,7 +60,7 @@ public class DateView extends ViewGroup {
 				child.layout(0,0, child.getMeasuredWidth(), child.getMeasuredHeight());
 			}
 			if(a == 1){
-				child.setVisibility(View.INVISIBLE);
+				child.setVisibility(View.VISIBLE);
 				child.layout(0,0, child.getMeasuredWidth(), child.getMeasuredHeight());
 			}
 			else{

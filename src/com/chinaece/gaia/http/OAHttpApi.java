@@ -137,6 +137,18 @@ public class OAHttpApi extends AbstractHttpAPI implements HttpAPI{
 		return null;
 	}
 	
-	
-
+	//日程新建
+	public boolean newBbuild(String token,String document){
+		HttpGet post = createHttpGet(url+"/client/newDocument.action",new BasicNameValuePair("token", token),new BasicNameValuePair("params",document));
+		String rst = doRequest(post);
+		try {
+			if(rst == null)
+				return false;
+			JSONObject flag = new JSONObject(rst);
+			return flag.getBoolean("result");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
