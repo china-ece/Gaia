@@ -22,6 +22,7 @@ import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ public class CalendarActivity extends Activity implements com.chinaece.gaia.cale
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	
     	DataStorage.load(this);
         super.onCreate(savedInstanceState);
         refresh();
@@ -60,6 +62,20 @@ public class CalendarActivity extends Activity implements com.chinaece.gaia.cale
 				Looper.loop();	
 			}
 		}, 500);
+// 日历的新建        
+        Button button =(Button)findViewById(235648);
+        button.setWidth(150);
+        button.setHeight(50);
+        button.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(CalendarActivity.this,newLogItemActivity.class);
+
+				startActivity(intent);
+			}
+		});
+        
    }
     
 	public void refresh(){
@@ -282,4 +298,7 @@ public class CalendarActivity extends Activity implements com.chinaece.gaia.cale
 				e.printStackTrace();
 			}
 	}
+	
+	
+	
 }
