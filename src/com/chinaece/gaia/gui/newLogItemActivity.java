@@ -26,21 +26,17 @@ public class newLogItemActivity extends Activity{
     private int mMonth;  
     private int mDay; 
     private int h;
-    private int m;
-    
-	private String formatUrl,appid, token, formid,url;
-    
+    private int m;   
+	private String formatUrl,appid, token, formid,url;    
     private TextView editText3=null;
     private TextView endeditText=null;
     private EditText nameeditText=null;
-    private EditText editText=null;
-    
+    private EditText editText=null;    
     private static final int STEP1 = 1000;   
     private static final int STEP2 = 1001;    
     
 @Override
 protected void onCreate(Bundle savedInstanceState) {
-	final Button button3;
 	super.onCreate(savedInstanceState);  
 	
 	DataStorage.load(newLogItemActivity.this);
@@ -51,17 +47,32 @@ protected void onCreate(Bundle savedInstanceState) {
 	final int mMonth = cal.get(Calendar.MONTH);
 	final int mDay = cal.get(Calendar.DATE);
 	int dayofweek = cal.get(Calendar.DAY_OF_WEEK)-1;
+
 	TextView tvdate = (TextView)findViewById(R.id.txt_date);
 	tvdate.setText(mYear + "年" + (mMonth+1) + "月" + mDay + "日");
 	TextView tvweek = (TextView)findViewById(R.id.txt_week);
-	tvweek.setText("星期" + dayofweek);
+    if(dayofweek==4){
+    	tvweek.setText("星期四");
+    }else if(dayofweek==1){
+    	tvweek.setText("星期一");
+	}else if(dayofweek==2){
+    	tvweek.setText("星期二");
+	}else if(dayofweek==3){
+    	tvweek.setText("星期三");
+	}else if(dayofweek==5){
+    	tvweek.setText("星期五");
+	}else if(dayofweek==6){
+    	tvweek.setText("星期六");
+	}else if(dayofweek==7){
+    	tvweek.setText("星期日");
+	}
 	
 	editText3=(TextView)findViewById(R.id.TextView3);
 	nameeditText=(EditText)findViewById(R.id.editText1);
 	editText=(EditText)findViewById(R.id.editText2);
 	
 	//开始日程时间设置
-	button3=(Button)findViewById(R.id.button3); 
+	Button button3=(Button)findViewById(R.id.button3); 
 	button3.setOnClickListener(new OnClickListener() {
 		@Override
 		public void onClick(View v) {

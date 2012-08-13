@@ -2,10 +2,30 @@ package com.chinaece.gaia.types;
 
 import java.io.Serializable;
 
+import android.R.integer;
+
 public class CalendarType implements GaiaType,Serializable{
 	
 	private static final long serialVersionUID = -5772724268794155583L;
-	
+	private String id;
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	private int version;
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int i) {
+		this.version = i;
+	}
+
 	private String affair;
 	
 	public String getAffair() {

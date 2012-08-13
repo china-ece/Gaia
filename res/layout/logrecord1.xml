@@ -52,7 +52,8 @@
         android:id="@+id/editText1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-        <requestFocus />    </EditText>
+        <requestFocus />
+    </EditText>
 
     <TextView
         android:id="@+id/textView6"
@@ -62,11 +63,12 @@
          android:textColor="#A52A2A"
         android:text="内容" />
 
+
     <EditText
         android:id="@+id/editText2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:minLines="5"/>
+        android:layout_height="109dp"
+        android:minLines="5" />
 
 	<TextView
         android:id="@+id/txt_setdate"
@@ -82,7 +84,33 @@
         android:textSize="18dp"
         android:textColor="#A52A2A"
         android:layout_marginTop="10dp"
-        android:text="设置开始时间" />
+        android:text="开始时间" />
+
+	<TableLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="34dp" >
+
+	    <TableRow
+	        android:id="@+id/tableRow4"
+	        android:layout_width="wrap_content"
+	        android:layout_height="34dp" >
+
+	        <TextView
+	            android:id="@+id/TextView8"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="5dp"
+	            android:textColor="#000000"
+	            android:textSize="16dp" />
+
+	        <Button
+	            android:id="@+id/button3"
+	            android:layout_width="match_parent"
+	            android:layout_height="34dp"
+	            android:text="开始日期选择" />
+	    </TableRow>
+	</TableLayout>
+
 	<TextView
         android:id="@+id/txt_endTime"
         android:layout_width="wrap_content"
@@ -90,6 +118,61 @@
          android:layout_marginTop="10dp"
          android:textColor="#A52A2A"
          android:textSize="18dp"
-        android:text="设置结束时间" />
+        android:text="结束时间" />
+
+	<TableRow
+	    android:id="@+id/tableRow5"
+	    android:layout_width="wrap_content"
+	    android:layout_height="34dp" >
+
+	    <TextView
+	        android:id="@+id/TextView9"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="5dp"
+	        android:textColor="#000000"
+	        android:textSize="16dp" />
+
+	    <Button
+	        android:id="@+id/button4"
+	        android:layout_width="match_parent"
+	        android:layout_height="34dp"
+	        android:text="结束日期选择" />
+	</TableRow>
+
+	<TableLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+
+	    <TableRow
+	        android:id="@+id/tableRow2"
+	        android:layout_width="300dp"
+	        android:layout_height="34dp"
+	        android:layout_marginTop="2dp"
+	        android:gravity="left" >
+
+	        <TableRow
+	            android:id="@+id/tableRow3"
+	            android:layout_width="200dp"
+	            android:layout_height="wrap_content"
+	            android:gravity="left" >
+
+	            <Button
+	                android:id="@+id/button2"
+	                android:layout_width="100dp"
+	                android:layout_height="wrap_content"
+	                android:layout_marginLeft="15dp"
+	                android:text="修改"
+	                android:textSize="18sp" />
+	        </TableRow>
+
+	        <Button
+	            android:id="@+id/button1"
+	            android:layout_width="100dp"
+	            android:layout_height="wrap_content"
+	            android:text="返回"
+	            android:textSize="18sp" />
+	    </TableRow>
+	</TableLayout>
 
 </LinearLayout>

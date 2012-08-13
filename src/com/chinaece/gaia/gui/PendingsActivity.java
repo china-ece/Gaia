@@ -36,6 +36,8 @@ public class PendingsActivity extends ListActivity {
 	HashMap<String, String> maps = new HashMap<String, String>();
 	private boolean flag = true;
 	private ArrayList<String> wrong = new ArrayList<String>();
+	private Collection<PendingType> pendings = new ArrayList<PendingType>();
+	ArrayList<String> names = new ArrayList<String>();
 
 	/** Called when the activity is first created. */
 
@@ -43,12 +45,117 @@ public class PendingsActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pendinglist);
-		refreshData();
+		boolean isflow = false;
+		try{
+			isflow = getIntent().getExtras().getBoolean("flag");
+			String name = getIntent().getExtras().getString("appname");
+			names.add(name);
+		}catch (Exception e) {
+		}
+		if(isflow == true){
+			final List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+			Collection<PendingType> pending = new ArrayList<PendingType>();
+			for (PendingType pet : pendings) {
+				pending.add(pet);
+			}
+			for (PendingType pet : pending) {
+				if(names.toString().indexOf(pet.getSummary()) != -1){
+					pendings.remove(pet);
+				}
+			}
+			pending = null;
+			for (PendingType pet : pendings) {
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("title", pet.getSummary());
+				map.put("appname", pet.getName());
+				map.put("info", pet.getDate());
+				list.add(map);
+			}
+			SimpleAdapter adapter = new SimpleAdapter(PendingsActivity.this,
+					list, R.layout.pendings, new String[] { "title","appname" ,"info"},
+					new int[] { R.id.title ,R.id.appname, R.id.info});
+			ListView listview = (ListView) findViewById(android.R.id.list);
+			listview.setAdapter(adapter);
+			listview.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					PendingType aPending = ((ArrayList<PendingType>) pendings)
+							.get(arg2);
+					Bundle bundle = new Bundle();
+					bundle.putString("appname", aPending.getName());
+					bundle.putString("docid", aPending.getDocid());
+					bundle.putString("formid", aPending.getFormid());
+					bundle.putString("appid", aPending.getAppid());
+					bundle.putString("summary", aPending.getSummary());
+					Intent intent = new Intent(PendingsActivity.this,
+							DocumentActivity.class);
+					intent.putExtras(bundle);
+					startActivity(intent);
+				}
+			});
+		}
+			else{
+				refreshData();
+			}
 	}
 
 	@Override
 	protected void onNewIntent(Intent intent) {
-		refreshData();
+		boolean isflow = false;
+		try{
+			isflow = intent.getExtras().getBoolean("flag");
+			String name = intent.getExtras().getString("appname");
+			names.add(name);
+		}catch (Exception e) {
+		}
+		System.err.println(isflow);
+		if(isflow == true){
+			final List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+			Collection<PendingType> pending = new ArrayList<PendingType>();
+			for (PendingType pet : pendings) {
+				pending.add(pet);
+			}
+			for (PendingType pet : pending) {
+				if(names.toString().indexOf(pet.getSummary()) != -1){
+					pendings.remove(pet);
+				}
+			}
+			pending = null;
+					for (PendingType pet : pendings) {
+						Map<String, String> map = new HashMap<String, String>();
+						map.put("title", pet.getSummary());
+						map.put("appname", pet.getName());
+						map.put("info", pet.getDate());
+						list.add(map);
+					}
+					SimpleAdapter adapter = new SimpleAdapter(PendingsActivity.this,
+							list, R.layout.pendings, new String[] { "title","appname" ,"info"},
+							new int[] { R.id.title ,R.id.appname, R.id.info});
+					ListView listview = (ListView) findViewById(android.R.id.list);
+					listview.setAdapter(adapter);
+					listview.setOnItemClickListener(new OnItemClickListener() {
+						@Override
+						public void onItemClick(AdapterView<?> arg0, View arg1,
+								int arg2, long arg3) {
+							PendingType aPending = ((ArrayList<PendingType>) pendings)
+									.get(arg2);
+							Bundle bundle = new Bundle();
+							bundle.putString("appname", aPending.getName());
+							bundle.putString("docid", aPending.getDocid());
+							bundle.putString("formid", aPending.getFormid());
+							bundle.putString("appid", aPending.getAppid());
+							bundle.putString("summary", aPending.getSummary());
+							Intent intent = new Intent(PendingsActivity.this,
+									DocumentActivity.class);
+							intent.putExtras(bundle);
+							startActivity(intent);
+						}
+					});
+		}
+		else{
+			refreshData();
+		}
 	}
 	
 	private void refreshData(){
@@ -115,6 +222,8 @@ public class PendingsActivity extends ListActivity {
 			}
 			if(pendinglist!=null){
 				if(pendinglist!=null && pendinglist.size()>0) {
+					names.clear();
+					pendings = pendinglist;
 					final List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 					for (PendingType pet : pendinglist) {
 						Map<String, String> map = new HashMap<String, String>();

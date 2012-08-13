@@ -55,6 +55,7 @@ public class CalendarActivity extends Activity implements com.chinaece.gaia.cale
 					try {
 						formatUrl = new URL(DataStorage.properties.getProperty("url"));
 						ApiTask api = new ApiTask();
+						String aString=cv.getStartTime().toString()+"aa"+cv.getEndTime().toString();
 						api.execute(formatUrl.toString(),token.toString(),cv.getStartTime().toString(),cv.getEndTime().toString());
 					} catch (MalformedURLException e) {
 						e.printStackTrace();
@@ -63,9 +64,9 @@ public class CalendarActivity extends Activity implements com.chinaece.gaia.cale
 			}
 		}, 500);
 // 日历的新建        
-        Button button =(Button)findViewById(235648);
-        button.setWidth(150);
-        button.setHeight(50);
+        Button button =(Button)findViewById(235648); 
+        button.setWidth(75);
+        button.setHeight(30);
         button.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -99,7 +100,7 @@ public class CalendarActivity extends Activity implements com.chinaece.gaia.cale
 		@Override
 		protected Collection<CalendarType> doInBackground(final String... params) {
 			OAHttpApi api = new OAHttpApi(params[0]);
-			Collection<CalendarType>	calendartype = api.getBossCalendar(params[1],params[2],params[3]);
+			Collection<CalendarType> calendartype = api.getBossCalendar(params[1],params[2],params[3]);
 			return calendartype;
 		}
 		

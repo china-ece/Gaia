@@ -4,10 +4,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.R.array;
+import android.R.integer;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +20,7 @@ import android.os.Vibrator;
 import com.chinaece.gaia.constant.Gaia;
 import com.chinaece.gaia.db.DataStorage;
 import com.chinaece.gaia.gui.PendingsActivity;
+import com.chinaece.gaia.gui.newDataActivity;
 import com.chinaece.gaia.http.OAHttpApi;
 import com.chinaece.gaia.types.AppType;
 import com.chinaece.gaia.types.PendingType;
@@ -97,32 +101,52 @@ public class PendingService extends Service {
 						if(pendinglist != null){
 							pendinglists.addAll(pendinglist);
 						}
-//						else{
-//							Toast.makeText(getApplicationContext(), jsa.get(i).toString()+"数据错误请稍候再试...", Toast.LENGTH_LONG).show();
-//						}
-						
+						else{
+							try{
+								NotificationCenter.clearNotification(65536);
+							}catch (Exception e) {
+							}
+						}						
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-				if (pendinglists != null
-						&& PendingService.this.Lastpendinglist != null) {
-					StringBuffer strbuffer = new StringBuffer();
+				if (pendinglists != null&& PendingService.this.Lastpendinglist != null) {
+					ArrayList arrayList=new ArrayList();										
 					for (int i = 0; i < PendingService.this.Lastpendinglist.size(); i++) {
-						strbuffer
-								.append(((ArrayList<PendingType>) PendingService.this.Lastpendinglist)
-										.get(i).getDocid());
+						arrayList.add(((ArrayList<PendingType>) PendingService.this.Lastpendinglist).get(i).getDocid());
 					}
 					for (int j = 0; j < pendinglists.size(); j++) {
-						String str2 = ((ArrayList<PendingType>) pendinglists).get(j)
-								.getDocid();
-						if (strbuffer.indexOf(str2) == -1) {
-							Intent mintent = new Intent(getApplicationContext(),
-									PendingsActivity.class);
-							NotificationCenter.sendPendingsNotification(mintent,
-									getApplicationContext(), tip, title, content);
+						String str2 = ((ArrayList<PendingType>) pendinglists).get(j).getDocid();
+						int judge =0;
+						for (int k = 0; k < arrayList.size(); k++) {
+							if(str2.equals(arrayList.get(k))){
+								judge=1;
+							}
 						}
+						if(judge==0){
+						Intent mintent = new Intent(getApplicationContext(),PendingsActivity.class);
+						NotificationCenter.sendPendingsNotification(mintent,getApplicationContext(), tip, title, content);
+					    }
 					}
+
+					
+//					StringBuffer strbuffer = new StringBuffer();
+//					for (int i = 0; i < PendingService.this.Lastpendinglist.size(); i++) {
+//						strbuffer
+//								.append(((ArrayList<PendingType>) PendingService.this.Lastpendinglist)
+//										.get(i).getDocid());
+//					}
+//					for (int j = 0; j < pendinglists.size(); j++) {
+//						String str2 = ((ArrayList<PendingType>) pendinglists).get(j)
+//								.getDocid();
+//						if (strbuffer.indexOf(str2) == -1) {
+//							Intent mintent = new Intent(getApplicationContext(),
+//									PendingsActivity.class);
+//							NotificationCenter.sendPendingsNotification(mintent,
+//									getApplicationContext(), tip, title, content);
+//						}
+//					}
 			}
 				PendingService.this.Lastpendinglist = pendinglists;
 			
