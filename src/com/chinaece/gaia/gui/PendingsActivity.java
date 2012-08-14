@@ -40,8 +40,6 @@ public class PendingsActivity extends ListActivity {
 	private Collection<PendingType> pendings = new ArrayList<PendingType>();
 	ArrayList<String> names = new ArrayList<String>();
 
-	/** Called when the activity is first created. */
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -31,7 +31,7 @@ public class GaiaActivity extends Activity {
 	private final HashMap<String, String> map  = new HashMap<String, String>();
 	private URL formatUrl;
 	
-    boolean network = false;	
+    private boolean network = false;	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -33,7 +33,7 @@ import com.chinaece.gaia.util.Downloader;
 import com.chinaece.gaia.util.UpdateVersionInfo;
 
 public class MainActivity extends Activity {
-	String token, name;
+	private String token, name;
 	private URL formatUrl;
 
 	@Override
