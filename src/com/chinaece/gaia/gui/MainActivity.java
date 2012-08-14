@@ -29,6 +29,7 @@ import com.chinaece.gaia.R;
 import com.chinaece.gaia.db.DataStorage;
 import com.chinaece.gaia.http.OAHttpApi;
 import com.chinaece.gaia.service.PendingService;
+import com.chinaece.gaia.util.Downloader;
 import com.chinaece.gaia.util.UpdateVersionInfo;
 
 public class MainActivity extends Activity {
@@ -170,6 +171,8 @@ public class MainActivity extends Activity {
 				android.R.drawable.ic_menu_close_clear_cancel);
 		menu.add(Menu.NONE, Menu.FIRST + 2, 1, "关于").setIcon(
 				android.R.drawable.ic_menu_help);
+		menu.add(Menu.NONE, Menu.FIRST + 3, 1, "更新").setIcon(
+				android.R.drawable.ic_menu_more);
 		return true;
 	}
 
@@ -188,7 +191,11 @@ public class MainActivity extends Activity {
 		case Menu.FIRST +2:
 			Intent aintent = new Intent(MainActivity.this,AboutActivity.class);
 			startActivity(aintent);
-		}
+	    case Menu.FIRST +3:
+		Downloader downLoader = new Downloader(getApplicationContext(), "http://oa.china-ece.com:18081/client/Gaia.apk",
+				"ECEOA.apk", null);
+		new Thread(downLoader).start();
+	    }
 		return false;
 	}
 

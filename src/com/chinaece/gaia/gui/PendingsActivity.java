@@ -16,6 +16,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -283,5 +284,15 @@ public class PendingsActivity extends ListActivity {
 			break;
 		}
 		return false;
+	}
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			Intent intent = new Intent(PendingsActivity.this,MainActivity.class);
+			startActivity(intent);
+			PendingsActivity.this.finish();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

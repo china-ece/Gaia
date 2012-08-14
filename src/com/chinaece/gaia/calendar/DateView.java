@@ -38,7 +38,7 @@ public class DateView extends ViewGroup {
 		cv.setId(1000000);
 		addView(cv);
 		Button bt = new Button(context);
-		bt.setText("新日程安排");
+		bt.setText("新建");
 		bt.setId(235648);
 		addView(bt);
 	}

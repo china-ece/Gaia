@@ -31,17 +31,20 @@ public class GaiaActivity extends Activity {
 	private final HashMap<String, String> map  = new HashMap<String, String>();
 	private URL formatUrl;
 	
+    boolean network = false;	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		DataStorage.load(this);
-		boolean network = getIntent().getBooleanExtra("network", true);
+		try{
+			network = getIntent().getBooleanExtra("network", true);
+		}catch (Exception e) {
+			Toast.makeText(getApplicationContext(), "请检查网络", Toast.LENGTH_SHORT).show();
+		}
 		if(network && DataStorage.properties.get("token") != null && DataStorage.properties.get("url") != null){
-			System.err.println(DataStorage.properties.get("token"));
 			Intent intent = new Intent(GaiaActivity.this,MainActivity.class);
 			startActivity(intent);	
 			this.finish();
-			return;
 		}
 		setContentView(R.layout.login);
 		final Spinner url = (Spinner) findViewById(R.id.edtOAUrl);

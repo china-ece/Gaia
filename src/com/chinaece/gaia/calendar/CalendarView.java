@@ -249,6 +249,7 @@ public class CalendarView extends View {
 		int start = 0,end = 0;
 		int mmonth = month,myear = year;
 		int dayofweek = cal.get(Calendar.DAY_OF_WEEK); 
+				
 		start = day+1-dayofweek;
 		if(start > monthcount){
 			mmonth = mmonth+1;
@@ -275,7 +276,11 @@ public class CalendarView extends View {
 		}
 		
 		startTime  = myear+"-"+(mmonth+1)+"-"+start+" "+"00:00:00";
+		if(end<start){
+			endTime  = myear+"-"+(mmonth+2)+"-"+end+" "+"23:59:59";	
+		}else{
 		endTime  = myear+"-"+(mmonth+1)+"-"+end+" "+"23:59:59";
+		}
 		for(int i = 1; i<8;i++)
 		{
 			dateinfo = day + i - dayofweek;
