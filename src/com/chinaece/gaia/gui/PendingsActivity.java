@@ -16,6 +16,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,8 +39,6 @@ public class PendingsActivity extends ListActivity {
 	private ArrayList<String> wrong = new ArrayList<String>();
 	private Collection<PendingType> pendings = new ArrayList<PendingType>();
 	ArrayList<String> names = new ArrayList<String>();
-
-	/** Called when the activity is first created. */
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -283,5 +282,15 @@ public class PendingsActivity extends ListActivity {
 			break;
 		}
 		return false;
+	}
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			Intent intent = new Intent(PendingsActivity.this,MainActivity.class);
+			startActivity(intent);
+			PendingsActivity.this.finish();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }
