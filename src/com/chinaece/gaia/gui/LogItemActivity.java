@@ -249,10 +249,12 @@ class SubmitTask extends AsyncTask<String, Integer, Boolean> {
 	protected void onPostExecute(Boolean flag) {
 		dialog.dismiss();
 		if(flag){
-			Toast.makeText(getApplicationContext(), "提交成功", Toast.LENGTH_SHORT).show();
+			Intent intent1 = new Intent(LogItemActivity.this,MainActivity.class);
+			startActivity(intent1);
 			Intent intent = new Intent(LogItemActivity.this,CalendarActivity.class);
 			startActivity(intent);
 			LogItemActivity.this.finish();
+			Toast.makeText(getApplicationContext(), "提交成功", Toast.LENGTH_SHORT).show();
 		}
 		else{
 			Toast.makeText(getApplicationContext(), "提交失败", Toast.LENGTH_LONG).show();

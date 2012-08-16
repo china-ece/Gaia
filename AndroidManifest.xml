@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="com.chinaece.gaia"
-    android:versionCode="15"
-    android:versionName="1.9" 
+    android:versionCode="16"
+    android:versionName="1.9.1" 
     android:launchMode="singleInstance" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-sdk android:minSdkVersion="8" />
@@ -54,8 +54,7 @@
         <activity android:name=".gui.BossTrackingsActivity"></activity>
         <activity android:name=".gui.TrackActivity"></activity>
         <activity android:name=".gui.CalendarActivity"></activity><activity android:name=".gui.LogItemActivity"></activity>
-        <activity android:name=".gui.newDataActivity"></activity><activity android:name=".gui.endNewDataActivity"></activity><activity android:name=".gui.QuickmissionActivity"></activity><activity android:name=".gui.newLogItemActivity"></activity>
-
+        <activity android:name=".gui.newDataActivity"></activity><activity android:name=".gui.endNewDataActivity"></activity><activity android:name=".gui.QuickmissionActivity"></activity><activity android:name=".gui.newLogItemActivity"></activity>           
                 
     </application>
 

@@ -457,14 +457,17 @@ public class DocumentActivity extends Activity {
 		protected void onPostExecute(Boolean flag) {
 			dialog.dismiss();
 			if(flag){
-				Toast.makeText(getApplicationContext(), "提交成功", Toast.LENGTH_SHORT).show();
+				
 				Intent intent = new Intent(DocumentActivity.this,PendingsActivity.class);
 				Bundle bundle = new Bundle();
 				bundle.putBoolean("flag", true);
 				bundle.putString("appname", appname);
 				intent.putExtras(bundle);
 				startActivity(intent);
+				Intent intent1 = new Intent(DocumentActivity.this,MainActivity.class);
+				startActivity(intent1);
 				DocumentActivity.this.finish();
+				Toast.makeText(getApplicationContext(), "提交成功", Toast.LENGTH_SHORT).show();
 			}
 			else{
 				Toast.makeText(getApplicationContext(), "提交失败", Toast.LENGTH_LONG).show();
