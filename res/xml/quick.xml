@@ -2,13 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:minHeight="72dip"
-    android:minWidth="72dip"
+    android:minHeight="60dip"
+    android:minWidth="60dip"
     android:orientation="vertical" >
 <ImageView 
     android:id="@+id/quickcoin"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:minHeight="60dip"
+    android:minWidth="60dip"
     android:clickable="true"
     android:background="#00000000"
     />
@@ -16,6 +18,6 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="华东有色OA"
-        android:textSize="11dp" />
+        android:text="华东有色OA"/>
 </LinearLayout>
+    
