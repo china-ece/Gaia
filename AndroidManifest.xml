@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="com.chinaece.gaia"
-    android:versionCode="16"
-    android:versionName="1.9.1" 
+    android:versionCode="17"
+    android:versionName="1.9.2" 
     android:launchMode="singleInstance" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-sdk android:minSdkVersion="8" />
@@ -54,9 +54,25 @@
         <activity android:name=".gui.BossTrackingsActivity"></activity>
         <activity android:name=".gui.TrackActivity"></activity>
         <activity android:name=".gui.CalendarActivity"></activity><activity android:name=".gui.LogItemActivity"></activity>
-        <activity android:name=".gui.newDataActivity"></activity><activity android:name=".gui.endNewDataActivity"></activity><activity android:name=".gui.QuickmissionActivity"></activity><activity android:name=".gui.newLogItemActivity"></activity>
-
-                
+        <activity android:name=".gui.newDataActivity"></activity><activity android:name=".gui.endNewDataActivity"></activity><activity android:name=".gui.QuickmissionActivity"></activity><activity android:name=".gui.newLogItemActivity"></activity>                 
+        
+        <receiver android:name=".gui.quick.WidgetProvider"
+            android:label="quickly_mission"
+            android:icon="@drawable/mission">
+            <intent-filter>               
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data 
+                android:name="android.appwidget.provider"
+                android:resource="@xml/simpewidget"/>         
+        </receiver> 
+      <service android:name=".service.UpdateService"></service>
+        <activity android:name=".gui.quick.QuicklymissionActivity">
+			<intent-filter>
+				<action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+			</intent-filter>
+		</activity>
+		
     </application>
 
 </manifest>
