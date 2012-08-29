@@ -3,9 +3,7 @@ package com.chinaece.gaia.service;
 import com.chinaece.gaia.R;
 import com.chinaece.gaia.gui.MainActivity;
 import com.chinaece.gaia.gui.PendingsActivity;
-import com.chinaece.gaia.gui.quick.QuicklymissionActivity;
 import com.chinaece.gaia.gui.quick.WidgetProvider;
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
