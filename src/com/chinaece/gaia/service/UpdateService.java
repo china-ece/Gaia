@@ -3,9 +3,7 @@ package com.chinaece.gaia.service;
 import com.chinaece.gaia.R;
 import com.chinaece.gaia.gui.MainActivity;
 import com.chinaece.gaia.gui.PendingsActivity;
-import com.chinaece.gaia.gui.quick.QuicklymissionActivity;
 import com.chinaece.gaia.gui.quick.WidgetProvider;
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -146,10 +144,10 @@ private Bitmap generatorContactCountIcon(Bitmap icon){
  	}else{
  	 	Paint countPaint=new Paint(Paint.ANTI_ALIAS_FLAG|Paint.DEV_KERN_TEXT_FLAG);
  	 	countPaint.setColor(Color.WHITE);
- 	 	countPaint.setTextSize(14);
+ 	 	countPaint.setTextSize(15);
  	 	Typeface font = Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD);//黑体，加粗
  	 	countPaint.setTypeface(font); 
- 	    canvas.drawText(String.valueOf(contacyCount), 60, 16, countPaint);
+ 	    canvas.drawText(String.valueOf(contacyCount), 62, 17, countPaint);
  	}
  	return contactIcon;
 }

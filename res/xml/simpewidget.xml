@@ -2,10 +2,9 @@
 
 <appwidget-provider
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minWidth="156dp"
-    android:minHeight="78dp"
-    android:updatePeriodMillis="10000"
-    android:initialLayout="@xml/quick"
-    android:configure="com.chinaece.gaia.gui.quick.QuicklymissionActivity">>
+    android:minWidth="72dip"
+    android:minHeight="72dip" 
+    android:updatePeriodMillis="0"
+    android:initialLayout="@xml/quick">
     
   </appwidget-provider>
