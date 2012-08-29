@@ -142,14 +142,14 @@ private Bitmap generatorContactCountIcon(Bitmap icon){
  	    countPaint.setTextSize(15);
  	    Typeface font = Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD);//黑体，加粗
  	    countPaint.setTypeface(font); 	
- 	    canvas.drawText(String.valueOf(""), 60, 15, countPaint);	
+ 	    canvas.drawText(String.valueOf(""), 60, 16, countPaint);	
  	}else{
  	 	Paint countPaint=new Paint(Paint.ANTI_ALIAS_FLAG|Paint.DEV_KERN_TEXT_FLAG);
  	 	countPaint.setColor(Color.WHITE);
  	 	countPaint.setTextSize(14);
  	 	Typeface font = Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD);//黑体，加粗
  	 	countPaint.setTypeface(font); 
- 	    canvas.drawText(String.valueOf(contacyCount), 47, 16, countPaint);
+ 	    canvas.drawText(String.valueOf(contacyCount), 60, 16, countPaint);
  	}
  	return contactIcon;
 }

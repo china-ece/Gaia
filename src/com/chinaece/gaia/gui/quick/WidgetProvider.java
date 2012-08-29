@@ -1,5 +1,6 @@
 package com.chinaece.gaia.gui.quick;
 
+import com.chinaece.gaia.R;
 import com.chinaece.gaia.service.UpdateService;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -46,6 +47,7 @@ public class WidgetProvider extends AppWidgetProvider {
         // TODO Auto-generated method stub 
         System.out.println("OnEnable"); 
         super.onEnabled(context); 
+
     } 
   
     // 当最后一个该Widget删除是调用该方法，注意是最后一个 
