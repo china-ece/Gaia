@@ -464,7 +464,7 @@ public class DocumentActivity extends Activity {
 				bundle.putString("appname", appname);
 				intent.putExtras(bundle);
 				startActivity(intent);
-				Intent intent1 = new Intent(DocumentActivity.this,MainActivity.class);
+				Intent intent1 = new Intent(DocumentActivity.this,PendingsActivity.class);
 				startActivity(intent1);
 				DocumentActivity.this.finish();
 				Toast.makeText(getApplicationContext(), "提交成功", Toast.LENGTH_SHORT).show();

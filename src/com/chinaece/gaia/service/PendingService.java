@@ -4,23 +4,36 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
-
+import android.app.Service;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import android.R.array;
-import android.R.integer;
-import android.app.Service;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.IBinder;
-import android.os.Vibrator;
+import android.widget.RemoteViews;
 
+import com.chinaece.gaia.R;
 import com.chinaece.gaia.constant.Gaia;
 import com.chinaece.gaia.db.DataStorage;
 import com.chinaece.gaia.gui.PendingsActivity;
-import com.chinaece.gaia.gui.newDataActivity;
+import com.chinaece.gaia.gui.quick.WidgetProvider;
 import com.chinaece.gaia.http.OAHttpApi;
 import com.chinaece.gaia.types.AppType;
 import com.chinaece.gaia.types.PendingType;
@@ -35,6 +48,16 @@ public class PendingService extends Service {
 	private String content = "有新待办事项";
 	private Collection<PendingType> Lastpendinglist;
 	private String strAppids;
+	public static  int listsize;
+	private Bitmap icon;
+
+	public Bitmap getIcon() {
+		return icon;
+	}
+
+	public int getListsize() {
+		return listsize;
+	}
 
 	public int onStartCommand(final Intent intent, int flags, final int startId) {
 		new Thread(null, new Runnable() {
@@ -128,8 +151,7 @@ public class PendingService extends Service {
 						Intent mintent = new Intent(getApplicationContext(),PendingsActivity.class);
 						NotificationCenter.sendPendingsNotification(mintent,getApplicationContext(), tip, title, content);
 					    }
-					}
-
+					}					
 					
 //					StringBuffer strbuffer = new StringBuffer();
 //					for (int i = 0; i < PendingService.this.Lastpendinglist.size(); i++) {
@@ -149,7 +171,8 @@ public class PendingService extends Service {
 //					}
 			}
 				PendingService.this.Lastpendinglist = pendinglists;
-			
+				listsize=pendinglists.size();
+		        
 		} catch (MalformedURLException e) {
 		}
 	}
@@ -157,5 +180,6 @@ public class PendingService extends Service {
 	@Override
 	public IBinder onBind(Intent intent) {
 		return null;
-	}
+	}	
+    
 }
