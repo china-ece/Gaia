@@ -50,7 +50,6 @@ public class UpdateService extends Service {
 		RemoteViews updateView = new RemoteViews(context.getPackageName(),
 				R.xml.quick);
 		updateView.setImageViewBitmap(R.id.quickcoin,quickicon );
-		updateView.setTextViewText(R.id.textView, "华东有色OA");
 
 		if(contacyCount==0){
 			Intent intent = new Intent(UpdateService.this, MainActivity.class);			
@@ -140,14 +139,14 @@ private Bitmap generatorContactCountIcon(Bitmap icon){
  	    countPaint.setTextSize(15);
  	    Typeface font = Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD);//黑体，加粗
  	    countPaint.setTypeface(font); 	
- 	    canvas.drawText(String.valueOf(""), 60, 16, countPaint);	
+ 	    canvas.drawText(String.valueOf(""), 45, 16, countPaint);	
  	}else{
  	 	Paint countPaint=new Paint(Paint.ANTI_ALIAS_FLAG|Paint.DEV_KERN_TEXT_FLAG);
  	 	countPaint.setColor(Color.WHITE);
  	 	countPaint.setTextSize(15);
  	 	Typeface font = Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD);//黑体，加粗
  	 	countPaint.setTypeface(font); 
- 	    canvas.drawText(String.valueOf(contacyCount), 62, 17, countPaint);
+ 	    canvas.drawText(String.valueOf(contacyCount), 45, 16, countPaint);
  	}
  	return contactIcon;
 }

@@ -152,23 +152,6 @@ public class PendingService extends Service {
 						NotificationCenter.sendPendingsNotification(mintent,getApplicationContext(), tip, title, content);
 					    }
 					}					
-					
-//					StringBuffer strbuffer = new StringBuffer();
-//					for (int i = 0; i < PendingService.this.Lastpendinglist.size(); i++) {
-//						strbuffer
-//								.append(((ArrayList<PendingType>) PendingService.this.Lastpendinglist)
-//										.get(i).getDocid());
-//					}
-//					for (int j = 0; j < pendinglists.size(); j++) {
-//						String str2 = ((ArrayList<PendingType>) pendinglists).get(j)
-//								.getDocid();
-//						if (strbuffer.indexOf(str2) == -1) {
-//							Intent mintent = new Intent(getApplicationContext(),
-//									PendingsActivity.class);
-//							NotificationCenter.sendPendingsNotification(mintent,
-//									getApplicationContext(), tip, title, content);
-//						}
-//					}
 			}
 				PendingService.this.Lastpendinglist = pendinglists;
 				listsize=pendinglists.size();

@@ -258,6 +258,8 @@ public class FlowPathActivity extends Activity {
 				bundle.putString("appname", appname);
 				intent.putExtras(bundle);
 				startActivity(intent);
+				Intent intent1 = new Intent(FlowPathActivity.this,PendingsActivity.class);
+				startActivity(intent1);
 				FlowPathActivity.this.finish();
 			}
 			else{
