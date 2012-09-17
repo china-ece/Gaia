@@ -49,6 +49,7 @@ public class PendingService extends Service {
 	private Collection<PendingType> Lastpendinglist;
 	private String strAppids;
 	public static  int listsize;
+
 	private Bitmap icon;
 
 	public Bitmap getIcon() {
@@ -99,6 +100,7 @@ public class PendingService extends Service {
 				OAHttpApi OaApi = new OAHttpApi(formatUrl.toString());
 				if (strAppids == null && Gaia.APPLIST == null
 						&& !OaApi.getApps(token)) {
+
 					stopService(new Intent(PendingService.this,
 							PendingService.class));
 					return;
@@ -108,6 +110,7 @@ public class PendingService extends Service {
 						appids.put(app.getAppid());
 					}
 					strAppids = appids.toString();
+
 				}
 				//
 //				Collection<PendingType> pendinglist = OaApi.getPending(

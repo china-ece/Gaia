@@ -5,7 +5,8 @@
     android:minHeight="48dip"
     android:minWidth="48dip"
     android:orientation="vertical" >
-<ImageView 
+
+    <ImageView 
     android:id="@+id/quickcoin"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -15,19 +16,20 @@
     android:background="#00000000"
 
     />
+    
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"        
+        android:layout_height="wrap_content"       
         android:text="华东有色OA"
-        android:textSize="9dip"
+        android:textColor="#FFFAFA" 
+        android:paddingTop="7dip"        
+        android:ellipsize="marquee"
+        android:gravity="right"
+        android:textSize="10dip"
         android:layout_below="@+id/quickcoin"
-        android:textAppearance="?android:attr/textAppearanceLargeInverse"
-        
-        android:includeFontPadding="false" 
-        android:lineSpacingMultiplier="0.9" 
-        android:maxLines="4" 
-        android:fadingEdge="vertical" 
+        android:layout_marginBottom="10px"
+        android:textAppearance="?android:attr/textAppearanceInverse"
         
         />
 </RelativeLayout >

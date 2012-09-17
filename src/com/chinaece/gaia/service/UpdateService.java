@@ -1,6 +1,10 @@
 package com.chinaece.gaia.service;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import com.chinaece.gaia.R;
+import com.chinaece.gaia.db.DataStorage;
+import com.chinaece.gaia.gui.GaiaActivity;
 import com.chinaece.gaia.gui.MainActivity;
 import com.chinaece.gaia.gui.PendingsActivity;
 import com.chinaece.gaia.gui.quick.WidgetProvider;
@@ -9,11 +13,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -27,6 +29,7 @@ import android.graphics.drawable.Drawable;
 import android.os.IBinder;
 import android.text.format.Time;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 public class UpdateService extends Service {
 	
@@ -35,6 +38,11 @@ public class UpdateService extends Service {
 	private Bitmap icon;
 	private Bitmap quickicon;
 	int contacyCount;
+	int strorend;
+	
+	private String token;
+	private URL formatUrl;
+	
 	
 	@Override
 	public void onStart(Intent intent, int startId) {
@@ -45,27 +53,52 @@ public class UpdateService extends Service {
 
 	private void UpdateWidget(Context context) {
 		quickicon=quickmission();
+		
+		 try {
+			token = DataStorage.properties.getProperty("token");
+			formatUrl = new URL(DataStorage.properties.getProperty("url"));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Time time = new Time();
 		time.setToNow();
 		RemoteViews updateView = new RemoteViews(context.getPackageName(),
 				R.xml.quick);
-		updateView.setImageViewBitmap(R.id.quickcoin,quickicon );
-
+	    updateView.setImageViewBitmap(R.id.quickcoin,quickicon );
+		
+//		if(token==null){
+////			Intent intent = new Intent(Intent.ACTION_MAIN);
+////			intent.addCategory(Intent.CATEGORY_HOME);
+////			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//			
+//			Intent intent = new Intent(UpdateService.this, GaiaActivity.class);			
+//			PendingIntent pendingIntent = PendingIntent.getActivity(UpdateService.this, 0,intent, 0);
+//    		updateView.setOnClickPendingIntent(R.id.quickcoin, pendingIntent);	
+//			AppWidgetManager awg = AppWidgetManager.getInstance(context);
+//			awg.updateAppWidget(new ComponentName(context, WidgetProvider.class),
+//					updateView);
+//			Toast.makeText(getApplicationContext(), "请检查华东有色OA系统是否登陆", Toast.LENGTH_LONG).show();
+//			
+//		}else {
+							
 		if(contacyCount==0){
 			Intent intent = new Intent(UpdateService.this, MainActivity.class);			
 			PendingIntent pendingIntent = PendingIntent.getActivity(UpdateService.this, 0,intent, 0);
-			updateView.setOnClickPendingIntent(R.id.quickcoin, pendingIntent);
+    			updateView.setOnClickPendingIntent(R.id.quickcoin, pendingIntent);	
 			AppWidgetManager awg = AppWidgetManager.getInstance(context);
 			awg.updateAppWidget(new ComponentName(context, WidgetProvider.class),
 					updateView);			
 		}else{
 			Intent intent = new Intent(UpdateService.this, PendingsActivity.class);			
 			PendingIntent pendingIntent = PendingIntent.getActivity(UpdateService.this, 0,intent, 0);
-			updateView.setOnClickPendingIntent(R.id.quickcoin, pendingIntent);
+    		updateView.setOnClickPendingIntent(R.id.quickcoin, pendingIntent);	
 			AppWidgetManager awg = AppWidgetManager.getInstance(context);
 			awg.updateAppWidget(new ComponentName(context, WidgetProvider.class),
 					updateView);	
 		}
+		
+//		}
 	}
 
 	@Override
@@ -139,14 +172,14 @@ private Bitmap generatorContactCountIcon(Bitmap icon){
  	    countPaint.setTextSize(15);
  	    Typeface font = Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD);//黑体，加粗
  	    countPaint.setTypeface(font); 	
- 	    canvas.drawText(String.valueOf(""), 45, 16, countPaint);	
+ 	    canvas.drawText(String.valueOf(""), icon.getWidth()/2-10, 16, countPaint);	
  	}else{
  	 	Paint countPaint=new Paint(Paint.ANTI_ALIAS_FLAG|Paint.DEV_KERN_TEXT_FLAG);
  	 	countPaint.setColor(Color.WHITE);
  	 	countPaint.setTextSize(15);
  	 	Typeface font = Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD);//黑体，加粗
  	 	countPaint.setTypeface(font); 
- 	    canvas.drawText(String.valueOf(contacyCount), 45, 16, countPaint);
+ 	    canvas.drawText(String.valueOf(contacyCount), icon.getWidth()/2-10, 16, countPaint);
  	}
  	return contactIcon;
 }

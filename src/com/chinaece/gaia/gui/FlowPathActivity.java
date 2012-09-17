@@ -251,13 +251,15 @@ public class FlowPathActivity extends Activity {
 		protected void onPostExecute(Boolean flag) {
 			dialog.dismiss();
 			if(flag){
-				Toast.makeText(getApplicationContext(), "提交成功", Toast.LENGTH_SHORT).show();
-				Intent intent = new Intent(FlowPathActivity.this,PendingsActivity.class);
+
 				Bundle bundle = new Bundle();
 				bundle.putBoolean("flag", true);
 				bundle.putString("appname", appname);
+				
+				Intent intent = new Intent(FlowPathActivity.this,PendingsActivity.class);
 				intent.putExtras(bundle);
 				startActivity(intent);
+				Toast.makeText(getApplicationContext(), "提交成功", Toast.LENGTH_SHORT).show();
 				Intent intent1 = new Intent(FlowPathActivity.this,PendingsActivity.class);
 				startActivity(intent1);
 				FlowPathActivity.this.finish();

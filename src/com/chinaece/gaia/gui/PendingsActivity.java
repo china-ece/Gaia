@@ -39,11 +39,31 @@ public class PendingsActivity extends ListActivity {
 	private ArrayList<String> wrong = new ArrayList<String>();
 	private Collection<PendingType> pendings = new ArrayList<PendingType>();
 	ArrayList<String> names = new ArrayList<String>();
+	
+	private String token;
+	private URL formatUrl;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pendinglist);
+		
+		 try {
+			token = DataStorage.properties.getProperty("token");
+			formatUrl = new URL(DataStorage.properties.getProperty("url"));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		 if(token==null){
+
+			 Toast.makeText(getApplicationContext(), "请检查网络连接是否正常", Toast.LENGTH_LONG).show(); 
+			 Intent intent = new Intent(PendingsActivity.this, GaiaActivity.class);	
+			 startActivity(intent);			 
+			 
+		 }else {
+		 		 
 		boolean isflow = false;
 		try{
 			isflow = getIntent().getExtras().getBoolean("flag");
@@ -98,7 +118,7 @@ public class PendingsActivity extends ListActivity {
 				refreshData();
 			}
 	}
-
+	}
 	@Override
 	protected void onNewIntent(Intent intent) {
 		boolean isflow = false;

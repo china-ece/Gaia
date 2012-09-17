@@ -41,6 +41,16 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		token = DataStorage.properties.getProperty("token");
 		name = DataStorage.properties.getProperty("name");
+		
+		if(token==null){
+
+			 Toast.makeText(getApplicationContext(), "请检查华东有色OA系统是否登陆", Toast.LENGTH_LONG).show(); 	
+			 Intent intent = new Intent(MainActivity.this, GaiaActivity.class);	
+			 startActivity(intent);
+			 
+		}else {
+		
+		
 		if(token.indexOf("null") != -1){
 			AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
 			builder.setTitle("提示");
@@ -135,7 +145,7 @@ public class MainActivity extends Activity {
 		});
 		UpdateVersionInfo.CheckVersionTask(MainActivity.this);
 	}
-	
+}	
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 			ExitDialog(MainActivity.this).show();
